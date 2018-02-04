@@ -1,0 +1,16 @@
+author: MandelV
+name: AdminShop
+version: 1.0-SNAPSHOT
+main: com.github.MandelV.AdminShop.AdminShop
+depend: [Vault]
+
+
+commands:
+  adminshop:
+    description: main commands
+
+
+permission:
+  adminshop.player:
+    default: true
+    description: Permission adminshop player
