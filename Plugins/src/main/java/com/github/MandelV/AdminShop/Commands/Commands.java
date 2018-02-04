@@ -9,14 +9,14 @@ public abstract class Commands implements CommandExecutor {
 
 
 
-    protected AdminShop grade;
+    protected AdminShop adminShop;
     protected String prefix;
 
 
-    protected Commands(AdminShop grade){
+    protected Commands(AdminShop adminShop){
 
-        this.grade = grade;
-        this.prefix = ChatFormatting.formatText(this.grade.getMessage().getCustomConfig().getString("prefix"));
+        this.adminShop = adminShop;
+        this.prefix = ChatFormatting.formatText(this.adminShop.getMessage().getCustomConfig().getString("prefix"));
     }
 
 

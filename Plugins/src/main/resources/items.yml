@@ -1,8 +1,15 @@
 #NE PAS TOUCHER A CE FICHIER !
-items:
-  dirt:
-    buyable: true
-    saleable: true
-    buy_price: 1
-    sell_price: 0.5
+
+categorie:
+  minerai:
+    id_icon_block:
+    items:
+      diamond_ore:
+        buyable: true
+        sellable: true
+        price_buy: 15
+        price_sell: 5
+
+
+
 

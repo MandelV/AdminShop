@@ -2,14 +2,15 @@ package com.github.MandelV.AdminShop.Commands;
 
 
 import com.github.MandelV.AdminShop.AdminShop;
+import com.github.MandelV.AdminShop.GUI.Gui;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 public class PlayerCmds extends Commands {
 
     private boolean return_cmd = false;
-    public PlayerCmds(AdminShop grade){
-        super(grade);
+    public PlayerCmds(AdminShop adminShop){
+        super(adminShop);
     }
 
     @Override
@@ -20,9 +21,15 @@ public class PlayerCmds extends Commands {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
+        if (commandSender.hasPermission("adminshop.player")) {
+            if(command.getName().equalsIgnoreCase("adminshop")){
+                adminShop.getServer().getPlayer(commandSender.getName()).openInventory(Gui.getInstance().getInv());
+            }
 
+        }
         return true;
     }
+
 
 
 }
