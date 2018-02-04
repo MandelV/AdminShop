@@ -11,18 +11,18 @@ public class ConfigLoader {
     private FileConfiguration fc;
     private FileConfiguration fileConfiguration;
     private File f;
-    private AdminShop grade;
+    private AdminShop adminShop;
     private String filename;
 
-    public ConfigLoader(AdminShop grade, String filename){
-        this.grade = grade;
+    public ConfigLoader(AdminShop adminShop, String filename){
+        this.adminShop = adminShop;
         this.filename = filename;
-        this.f = new File(this.grade.getDataFolder(), this.filename + ".yml");
+        this.f = new File(this.adminShop.getDataFolder(), this.filename + ".yml");
     }
 
     public void reloadCustomConfig() {
         if(!f.exists()){
-            this.grade.saveResource(this.filename + ".yml", false);
+            this.adminShop.saveResource(this.filename + ".yml", false);
         }
         this.fc = YamlConfiguration.loadConfiguration(f);
     }

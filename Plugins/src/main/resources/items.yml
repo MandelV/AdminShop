@@ -1,0 +1,8 @@
+#NE PAS TOUCHER A CE FICHIER !
+items:
+  dirt:
+    buyable: true
+    saleable: true
+    buy_price: 1
+    sell_price: 0.5
+
