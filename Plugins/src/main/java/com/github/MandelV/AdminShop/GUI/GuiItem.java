@@ -12,6 +12,12 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * @author Akitoshi
+ * @version 0.1
+ * Représente un item dans le GUI
+ * L'item se voit ajouté une action.
+ */
 public class GuiItem extends ItemStack{
 
     private ItemMeta dataItem;
@@ -40,11 +46,18 @@ public class GuiItem extends ItemStack{
 
     }
 
-
+    /**
+     * Ajoute un nom à l'item
+     * @param displayName Nom a afficher
+     */
     public void setName(final String displayName){
         this.dataItem.setDisplayName(displayName);
     }
 
+    /**
+     * Ajoute une description à l'item
+     * @param description ligne de la description.
+     */
     public void addLineDescription(final String description){
         this.description.add(ChatFormatting.formatText(description));
         this.dataItem.setLore(this.description);

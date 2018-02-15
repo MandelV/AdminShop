@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author Akitoshi
+ * @version 0.1
+ * Class principale de gestion des GUIs
+ **/
 public  class Gui{
 
     private UUID uuid;
@@ -17,32 +22,54 @@ public  class Gui{
     private int currentPage;
 
 
+    /***
+     *
+     * @param nbrLine Enum definnissant le nombre de ligne dans le coffre de 1 à 6
+     * @param invName Nom de l'inventaire
+     * @see GuiInvLine
+     */
     public Gui(GuiInvLine nbrLine, String invName){
-
-
 
         this.itemPage = new ArrayList<>();
         this.itemPage.add(new GuiItemPage(nbrLine.getSize()));
         this.currentPage = 0;
-
         this.uuid = UUID.randomUUID();
 
         this.inv = Bukkit.createInventory(null, nbrLine.getSize(), ChatFormatting.formatText(invName));
+
     }
 
+    /****
+     *
+     * @return L'inventaire du GUI
+     */
     public Inventory getYourInventory() {
         return this.inv;
     }
 
+    /**
+     *
+     * @return Le nom du GUI
+     */
     public String getName(){
         return this.inv.getName();
     }
 
+    /**
+     *
+     * @return l'UUID du GUI (identifiant Unique)
+     */
     public UUID getUuid() {
         return this.uuid;
     }
 
 
+    /**
+     * Ajoute un item au GUI
+     * Si une page est plein cela en créera une nouvelle
+     * @param item Item à ajouté
+     * @see GuiItem
+     */
     public void addItem(GuiItem item) {
 
         //On regarde les emplacements disponnible dans les pages
@@ -68,6 +95,9 @@ public  class Gui{
         }
     }
 
+    /**
+     * Permet de remplir l'inventaire du GUI avec la page actuelle
+     */
     private void fillInventory(){
 
 
@@ -78,6 +108,10 @@ public  class Gui{
         }
 
     }
+
+    /**
+     * Permet d'aller à la page suivante
+     */
     public void pageUp(){
 
         if(this.currentPage < (this.itemPage.size()-1)){
@@ -85,6 +119,9 @@ public  class Gui{
         }
     }
 
+    /**
+     * Permet d'aller à la page précédente
+     */
     public void pageDown(){
 
         if(this.currentPage > 0){
@@ -92,16 +129,34 @@ public  class Gui{
         }
     }
 
+    /**
+     *
+     * @return Retourne le nombre de page
+     */
     public int getnbrPage(){
         return this.itemPage.size();
     }
+
+    /**
+     *
+     * @return Retourne la page actuellement affichée.
+     */
     public int getCurrentPage(){
         return this.currentPage;
     }
+
+    /**
+     * Permet de choisir la page voulu
+     * @param page Page souhaité.
+     */
     public void selectPage(final int page){
         this.currentPage = page;
     }
 
+    /**
+     * Permet à un joueur d'ouvrir le GUI
+     * @param player Joueur qui ouvre le GUI
+     */
     public void open(Player player){
 
 

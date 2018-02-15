@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @description: Gestion  de la pagination.
+ * @author Akitoshi
+ * @version 0.1
+ * Gestion  de la pagination.
  */
 public class GuiItemPage {
 

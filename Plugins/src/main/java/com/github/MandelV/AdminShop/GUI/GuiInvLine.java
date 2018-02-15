@@ -1,5 +1,10 @@
 package com.github.MandelV.AdminShop.GUI;
 
+/**
+ * @author Akitoshi
+ * @version 0.1
+ * Enumeration représentant chaque ligne possible d'un inventaire
+ */
 public enum GuiInvLine {
     LINE1( 9 ),
     LINE2( 18),
@@ -14,6 +19,10 @@ public enum GuiInvLine {
         this.size = size;
     }
 
+    /**
+     *
+     * @return le nombre de slot total du coffre.
+     */
     public int getSize(){
         return size;
     }

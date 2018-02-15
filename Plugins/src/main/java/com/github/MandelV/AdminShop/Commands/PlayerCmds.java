@@ -44,10 +44,6 @@ public class PlayerCmds extends Commands {
         if (commandSender.hasPermission("adminshop.player")) {
             if(command.getName().equalsIgnoreCase("adminshop") && args.length == 0){
 
-
-
-
-
                 gui.open(adminShop.getServer().getPlayer(commandSender.getName()));
 
             }
