@@ -17,17 +17,17 @@ public  class Gui{
     private int currentPage;
 
 
-    public Gui(int invSize, String invName){
+    public Gui(GuiInvLine nbrLine, String invName){
 
 
 
         this.itemPage = new ArrayList<>();
-        this.itemPage.add(new GuiItemPage(invSize));
+        this.itemPage.add(new GuiItemPage(nbrLine.getSize()));
         this.currentPage = 0;
 
         this.uuid = UUID.randomUUID();
 
-        this.inv = Bukkit.createInventory(null, invSize, ChatFormatting.formatText(invName));
+        this.inv = Bukkit.createInventory(null, nbrLine.getSize(), ChatFormatting.formatText(invName));
     }
 
     public Inventory getYourInventory() {

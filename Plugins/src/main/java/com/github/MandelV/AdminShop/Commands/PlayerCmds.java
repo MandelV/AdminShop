@@ -3,6 +3,7 @@ package com.github.MandelV.AdminShop.Commands;
 
 import com.github.MandelV.AdminShop.AdminShop;
 import com.github.MandelV.AdminShop.GUI.Gui;
+import com.github.MandelV.AdminShop.GUI.GuiInvLine;
 import com.github.MandelV.AdminShop.GUI.GuiItem;
 import com.github.MandelV.AdminShop.GUI.ItemStatut;
 import org.bukkit.Material;
@@ -11,7 +12,7 @@ import org.bukkit.command.CommandSender;
 
 public class PlayerCmds extends Commands {
 
-    Gui gui = new Gui(9, "test");
+    Gui gui = new Gui(GuiInvLine.LINE2, "test");
 
     private boolean return_cmd = false;
     public PlayerCmds(AdminShop adminShop){

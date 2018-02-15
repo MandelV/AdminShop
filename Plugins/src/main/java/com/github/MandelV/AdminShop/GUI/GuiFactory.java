@@ -2,9 +2,9 @@ package com.github.MandelV.AdminShop.GUI;
 
 public abstract class GuiFactory {
 
-    public Gui createGUI(final int invSize, final String name){
+    public Gui createGUI(final GuiInvLine nbrLine, final String name){
 
-        return new Gui(invSize, name);
+        return new Gui(nbrLine, name);
 
     }
 }
