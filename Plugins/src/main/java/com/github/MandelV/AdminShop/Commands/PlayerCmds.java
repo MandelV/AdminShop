@@ -23,7 +23,7 @@ public class PlayerCmds extends Commands {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if (commandSender.hasPermission("adminshop.player")) {
             if(command.getName().equalsIgnoreCase("adminshop")){
-                adminShop.getServer().getPlayer(commandSender.getName()).openInventory(Gui.getInstance().getInv());
+
             }
 
         }

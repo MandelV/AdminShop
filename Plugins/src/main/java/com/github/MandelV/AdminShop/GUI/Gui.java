@@ -9,44 +9,70 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import javax.swing.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class Gui{
+    private UUID uuid;
     private Inventory inv;
-    private String name;
+    private Map<Integer, GuiAction> actions;
+    private Map<UUID, Gui> GUIChildren;
 
+    public Gui(int invSize, String invName){
 
-    private Gui(final String name){
-
-        this.name = name;
-        this.inv = Bukkit.createInventory(null, 9, ChatFormatting.formatText(name));
-
-        this.inv.addItem(new ItemStack(1, 2));
-
-
+        this.uuid = UUID.randomUUID();
+        this.inv = Bukkit.createInventory(null, invSize, invName);
+        this.actions = new HashMap<>();
+        this.GUIChildren = new HashMap<>();
     }
 
-    public void setName(final String name){
-
+    public Inventory getYourInventory() {
+        return this.inv;
     }
 
-    public Inventory getInv() {
-        return inv;
-    }
-
-    public String getName() {
+    public String getName(){
         return this.inv.getName();
     }
 
-    private static Gui gui = new Gui("&4AdminShop");
-
-    public static Gui getInstance(){
-
-        return gui;
+    public UUID getUuid() {
+        return this.uuid;
     }
 
+    public void addChildren(Gui gui){
+        this.GUIChildren.put(gui.getUuid(), gui);
+    }
 
+    public void removeChildren(String name){
+        for(Map.Entry<UUID, Gui> element : this.GUIChildren.entrySet()) {
+            if (element.getValue().getName().equalsIgnoreCase(name)) {
+                this.GUIChildren.remove(element.getKey());
+            }
+        }
+    }
 
+    public void removeChildren(UUID uuid){
+        this.GUIChildren.remove(uuid);
+    }
 
+    public boolean setItem(final int slot, final ItemStack stack, GuiAction action){
+        if(slot >= this.inv.getSize()){
+            return false;
+        }
+
+        this.inv.setItem(slot, stack);
+        if(action != null){
+            this.actions.put(slot, action);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public void open(Player p){
+        p.openInventory(this.inv);
+    }
 }
 
 

@@ -4,6 +4,14 @@
 #
 #=========================================================
 
+Database:
+  address: localhost
+  port: 3306
+  useSSL: false
+  username: admin
+  password: admin
+  name: minecraft
+
 Economy:
   nameMonnaie: " Talys"
   symbole: "T"

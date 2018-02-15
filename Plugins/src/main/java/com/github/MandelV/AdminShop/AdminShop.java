@@ -1,16 +1,12 @@
 package com.github.MandelV.AdminShop;
 
-import com.github.MandelV.AdminShop.Commands.PlayerCmds;
+import Dao.Dao;
 import com.github.MandelV.AdminShop.GUI.Gui;
 import com.github.MandelV.AdminShop.GUI.GuiListener;
 import com.github.MandelV.AdminShop.config.ConfigFile;
-import com.github.MandelV.AdminShop.config.Items;
 import com.github.MandelV.AdminShop.config.Message;
 import com.github.MandelV.AdminShop.tools.ChatFormatting;
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,7 +15,6 @@ public class AdminShop extends JavaPlugin{
 
     private ConfigFile config;
     private Message message;
-    private Items items;
     private Gui shop;
     public static Economy econ = null;
     @Override
@@ -38,18 +33,23 @@ public class AdminShop extends JavaPlugin{
         this.message = new Message(this);
         message.reloadCustomConfig();
 
-        this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &aInitialisation : &ditems.yml"));
-        this.items = new Items(this);
-        items.reloadCustomConfig();
+        //INITIALIZATION DAO
+        this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &aInitialisation : &bBase de donnée"));
+        Dao.getInstance(
+                this.config.getCustomConfig().getString("Database.address"),
+                this.config.getCustomConfig().getInt("Database.port"),
+                this.config.getCustomConfig().getString("Database.name"),
+                this.config.getCustomConfig().getString("Database.username"),
+                this.config.getCustomConfig().getString("Database.password"),
+                this.config.getCustomConfig().getBoolean("Database.useSSL"));
 
-        Gui.getInstance();
-        this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("prefix test : " + message.getCustomConfig().getString("prefix")));
-        this.getCommand("adminshop").setExecutor(new PlayerCmds(this));
+        if(Dao.getInstance().getBdd_connection() == null){
+            this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &aInitialisation : &bBase de données &f: &4ERREUR !"));
+            getServer().getPluginManager().disablePlugin(this);
+        }
 
+        //Gui.getInstance();
         getServer().getPluginManager().registerEvents(new GuiListener(), this);
-
-
-
 
 
 
@@ -63,12 +63,14 @@ public class AdminShop extends JavaPlugin{
         }
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &aInitialisation : &2FINI"));
     }
+
+
     @Override
     public void onDisable() {
 
 
     }
-        private boolean setupEconomy() {//Initialization economy method
+    private boolean setupEconomy() {//Initialization economy method
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
         }

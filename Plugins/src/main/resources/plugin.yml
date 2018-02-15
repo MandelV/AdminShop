@@ -14,3 +14,15 @@ permission:
   adminshop.player:
     default: true
     description: Permission adminshop player
+
+  adminshop.moderateur:
+      default: false
+      description: Permission adminshop player
+      children:
+        adminshop.player: true
+
+  adminshop.admin:
+      default: false
+      description: Permission adminshop player
+      children:
+        adminshop.moderateur: true

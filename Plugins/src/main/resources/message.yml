@@ -1,1 +1,3 @@
 prefix: "&f[ &6AdminShop &f] "
+permission_deny: "&4Vous n'avez pas accès à cette commande."
+plugin_reload_success: "&areload fait."
