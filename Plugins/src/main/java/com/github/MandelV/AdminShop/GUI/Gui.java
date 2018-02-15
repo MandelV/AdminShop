@@ -12,8 +12,6 @@ public class Gui{
     private UUID uuid;
     private Inventory inv;
 
-
-
     public Gui(int invSize, String invName){
 
         this.uuid = UUID.randomUUID();
@@ -32,23 +30,31 @@ public class Gui{
         return this.uuid;
     }
 
-    public boolean setItem(final int slot, final ItemStack stack, GuiAction action){
-        if(slot >= this.inv.getSize()){
+    public boolean setItem(final int slot, GuiItem item) {
+        if (slot >= this.inv.getSize()) {
             return false;
         }
 
-        this.inv.setItem(slot, stack);
-        if(action != null){
+        this.inv.setItem(slot, item);
 
+        return true;
+    }
+    public boolean setItem(GuiItem item) {
 
-            return true;
+        int valideSlot = 0;
+
+        for(int i = 0; i < this.inv.getSize(); i++){
+            if(!(this.inv.getItem(i) instanceof GuiItem)){
+                return false;
+            }else{
+                valideSlot = i;
+
+            }
         }
 
-        return false;
-    }
+        this.inv.setItem(valideSlot, item);
 
-    public void open(Player p){
-        p.openInventory(this.inv);
+        return true;
     }
 }
 
