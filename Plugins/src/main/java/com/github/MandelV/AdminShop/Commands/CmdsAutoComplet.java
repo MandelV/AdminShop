@@ -13,8 +13,8 @@ public class CmdsAutoComplet implements TabCompleter {
 
     private AdminShop grade;
 
-    public CmdsAutoComplet(AdminShop grade){
-        this.grade = grade;
+    public CmdsAutoComplet(AdminShop adminShop){
+        this.grade = adminShop;
     }
 
     @Override

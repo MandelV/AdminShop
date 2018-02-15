@@ -1,6 +1,7 @@
 package com.github.MandelV.AdminShop;
 
 import Dao.Dao;
+import com.github.MandelV.AdminShop.Commands.PlayerCmds;
 import com.github.MandelV.AdminShop.GUI.Gui;
 import com.github.MandelV.AdminShop.GUI.GuiListener;
 import com.github.MandelV.AdminShop.config.ConfigFile;
@@ -50,6 +51,8 @@ public class AdminShop extends JavaPlugin{
 
         //Gui.getInstance();
         getServer().getPluginManager().registerEvents(new GuiListener(), this);
+
+        this.getCommand("adminshop").setExecutor(new PlayerCmds(this));
 
 
 
