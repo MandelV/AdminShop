@@ -3,6 +3,7 @@ package com.github.MandelV.AdminShop.GUI;
 import com.github.MandelV.AdminShop.tools.ChatFormatting;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -16,8 +17,8 @@ public class GuiItem extends ItemStack{
     private ItemMeta dataItem;
     private List<String> description;
 
-    private double prix_achat = 0.0;
-    private double prix_vente = 0.0;
+    private double prix_achat;
+    private double prix_vente;
     private ItemStatut statut;
 
     public GuiItem(Material type, int amount, short damage, double prix_achat, double prix_vente, ItemStatut statut){
@@ -32,6 +33,11 @@ public class GuiItem extends ItemStack{
         this.description = new ArrayList<>();
 
         this.setItemMeta(this.dataItem);
+    }
+
+    public void execAction(CommandSender commandSender){
+        commandSender.sendMessage("YOLO");
+
     }
 
 

@@ -11,9 +11,25 @@ import org.bukkit.command.CommandSender;
 
 public class PlayerCmds extends Commands {
 
+    Gui gui = new Gui(9, "test");
+
     private boolean return_cmd = false;
     public PlayerCmds(AdminShop adminShop){
         super(adminShop);
+
+        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        gui.addItem(new GuiItem(Material.DIAMOND_SWORD, 1, (short)0, 25, 30, ItemStatut.BOTH));
+        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+
+        gui.addItem(new GuiItem(Material.WOOD, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        gui.addItem(new GuiItem(Material.GLASS, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        gui.addItem(new GuiItem(Material.IRON_AXE, 64, (short)0, 25, 30, ItemStatut.BOTH));
     }
 
     @Override
@@ -25,13 +41,33 @@ public class PlayerCmds extends Commands {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if (commandSender.hasPermission("adminshop.player")) {
-            if(command.getName().equalsIgnoreCase("adminshop")){
+            if(command.getName().equalsIgnoreCase("adminshop") && args.length == 0){
 
-                Gui gui = new Gui(9, "test");
 
-                gui.setItem(0, new GuiItem(Material.DIAMOND, 10, (short)0, 25, 30, ItemStatut.BOTH));
+
+
 
                 gui.open(adminShop.getServer().getPlayer(commandSender.getName()));
+
+            }
+            else if(args[0].equalsIgnoreCase("up")){
+
+                gui.pageUp();
+
+            }
+            else if(args[0].equalsIgnoreCase("down")){
+
+                gui.pageDown();
+
+            }
+            else if(args[0].equalsIgnoreCase("size")){
+
+                commandSender.sendMessage("nombre de page : " + gui.getnbrPage());
+
+            }
+            else if(args[0].equalsIgnoreCase("actuel")){
+
+                commandSender.sendMessage("Page actuelle : " + gui.getCurrentPage());
 
             }
 
