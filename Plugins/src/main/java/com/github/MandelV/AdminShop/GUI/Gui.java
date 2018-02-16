@@ -171,8 +171,11 @@ public  class Gui {
 
         if(slotId < page.getPage().size()){
             GuiItem item = page.getGuiItem(slotId);
+            if(item != null){
+                item.triggerAction(player, event.getClick());
+            }
 
-            item.triggerAction(player, event.getClick());
+
         }else{
             System.err.println("ERROR slotID dispatchevent");
         }
