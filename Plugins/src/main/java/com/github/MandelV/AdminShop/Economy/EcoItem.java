@@ -13,9 +13,9 @@ public class EcoItem extends GuiItem {
     private ItemStatut statut;
 
 
-    public EcoItem(Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut){
+    public EcoItem(Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut, GuiAction action){
 
-        super(type, amount, damage);
+        super(type, amount, damage, action);
 
         EcoItem self = this;
 
@@ -32,6 +32,7 @@ public class EcoItem extends GuiItem {
                 System.out.println("++" + self.buy_price);
             }
         });
+
 
         this.buy_price = buy_price;
         this.sell_price = sell_price;

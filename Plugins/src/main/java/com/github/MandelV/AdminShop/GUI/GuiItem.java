@@ -1,6 +1,7 @@
 package com.github.MandelV.AdminShop.GUI;
 
 import com.github.MandelV.AdminShop.tools.ChatFormatting;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -23,15 +24,13 @@ public class GuiItem extends ItemStack{
 
     private GuiAction guiAction;
 
-    public GuiItem(Material type, int amount, short damage){
-
-        super(type, amount, damage);
-
-        this.description = new ArrayList<>();
-
-        this.setItemMeta(this.dataItem);
-    }
-
+    /**
+     *
+     * @param type type of item
+     * @param amount amount of this item in inventory
+     * @param damage damage value
+     * @param guiAction action when item is clicked
+     */
     public GuiItem(Material type, int amount, short damage, GuiAction guiAction){
 
 
@@ -39,8 +38,8 @@ public class GuiItem extends ItemStack{
 
         this.description = new ArrayList<>();
         this.guiAction = guiAction;
+        this.dataItem = this.getItemMeta();
 
-        this.setItemMeta(this.dataItem);
     }
 
     public void setGuiAction(GuiAction guiAction) {
@@ -63,8 +62,9 @@ public class GuiItem extends ItemStack{
      * Ajoute un nom à l'item
      * @param displayName Nom a afficher
      */
-    public void setName(final String displayName){
-        this.dataItem.setDisplayName(displayName);
+    public void setName(String displayName){
+        this.dataItem.setDisplayName(ChatFormatting.formatText(displayName));
+        this.setItemMeta(this.dataItem);
     }
 
     /**
@@ -72,7 +72,8 @@ public class GuiItem extends ItemStack{
      * @param description ligne de la description.
      */
     public void addLineDescription(final String description){
-        this.description.add(ChatFormatting.formatText(description));
+        this.description.add(description);
         this.dataItem.setLore(this.description);
+        this.setItemMeta(this.dataItem);
     }
 }
