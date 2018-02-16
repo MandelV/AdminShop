@@ -173,24 +173,21 @@ public  class Gui {
     }
 
     public void dispatchEvent(Player player, InventoryClickEvent event) {
+
         int slotId = event.getRawSlot();
+        if(slotId >= 0){
+            int pageId = this.currentPlayersPage.get(player);
 
-        int pageId = this.currentPlayersPage.get(player);
 
+            GuiItemPage page = this.itemPage.get(pageId);
 
-        GuiItemPage page = this.itemPage.get(pageId);
-
-        if(slotId < page.getPage().size()){
-            GuiItem item = page.getGuiItem(slotId);
-            if(item != null){
-                item.triggerAction(player, event.getClick());
+            if(slotId < page.getPage().size()){
+                GuiItem item = page.getGuiItem(slotId);
+                if(item != null){
+                    item.triggerAction(player, event.getClick());
+                }
             }
-
-
-        }else{
-            System.err.println("ERROR slotID dispatchevent");
         }
-
     }
 
     public void exit(Player player) {

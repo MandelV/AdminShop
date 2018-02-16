@@ -23,21 +23,20 @@ public class GuiManager implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        if(event != null){
 
-            Player player = (Player) event.getWhoClicked(); // The player that clicked the item
-            Inventory inventory = event.getInventory(); // The inventory that was clicked in
 
-            for (Gui gui: GuiManager.guiList) {
-                if (gui.hasPlayer(player)) {
-                    event.setCancelled(true);
-                    gui.dispatchEvent(player, event);
-                }
-            }
+        Player player = (Player) event.getWhoClicked(); // The player that clicked the item
+        Inventory inventory = event.getInventory(); // The inventory that was clicked in
 
-            if (inventory.getName().equals("test")) {
+        for (Gui gui: GuiManager.guiList) {
+            if (gui.hasPlayer(player)) {
                 event.setCancelled(true);
+                gui.dispatchEvent(player, event);
             }
+        }
+
+        if (inventory.getName().equals("test")) {
+                event.setCancelled(true);
         }
 
     }
