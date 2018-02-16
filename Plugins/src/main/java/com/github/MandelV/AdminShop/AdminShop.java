@@ -28,7 +28,7 @@ public class AdminShop extends JavaPlugin{
         this.shop = new Gui(GuiInvLine.LINE2, "test");
 
         shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
-        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        shop.addItem(null);
         shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
         shop.addItem(new EcoItem(Material.DIAMOND_SWORD, 1, (short)0, 25, 30, ItemStatut.BOTH));
         shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));

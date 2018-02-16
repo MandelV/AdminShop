@@ -1,5 +1,8 @@
 package com.github.MandelV.AdminShop.GUI;
 
+import javafx.scene.paint.Material;
+import org.bukkit.entity.Item;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +29,11 @@ public class GuiItemPage {
     public void addItem(GuiItem item){
 
         if(this.itemList.size() < this.sizemax){
+
+
             this.itemList.add(item);
+
+
         }
     }
 
