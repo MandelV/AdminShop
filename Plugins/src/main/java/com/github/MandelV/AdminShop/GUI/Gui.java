@@ -5,9 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author Akitoshi
@@ -19,11 +17,14 @@ public  class Gui{
     private UUID uuid;
     private Inventory inv;
     private List<GuiItemPage> itemPage;
-    
+
     private int currentPage;
+
+    Map<Player, Integer> currentPlayersPage;
 
     private GuiInvLine nbrLine;
     private String name;
+
 
 
     /***
@@ -40,6 +41,8 @@ public  class Gui{
 
 
         this.currentPage = 0;
+
+        this.currentPlayersPage = new HashMap<>();
 
         this.uuid = UUID.randomUUID();
         this.inv.hashCode();
