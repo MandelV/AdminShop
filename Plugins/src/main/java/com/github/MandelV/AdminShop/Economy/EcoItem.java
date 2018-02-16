@@ -19,4 +19,26 @@ public class EcoItem extends GuiItem {
         this.statut = statut;
 
     }
+
+
+    public double getBuy_price() {
+        return buy_price;
+    }
+    public double getSell_price() {
+        return sell_price;
+    }
+    public ItemStatut getStatut() {
+        return statut;
+    }
+
+
+    public void setBuy_price(double buy_price) {
+        this.buy_price = buy_price;
+    }
+    public void setSell_price(double sell_price) {
+        this.sell_price = sell_price;
+    }
+    public void setStatut(ItemStatut statut) {
+        this.statut = statut;
+    }
 }
