@@ -28,17 +28,18 @@ public class GuiManager implements Listener {
         Player player = (Player) event.getWhoClicked(); // The player that clicked the item
         Inventory inventory = event.getInventory(); // The inventory that was clicked in
 
-        for (Gui gui: GuiManager.guiList) {
-            if (gui.hasPlayer(player)) {
+        if(event.getRawSlot() >= 0){
+            for (Gui gui: GuiManager.guiList) {
+                if (gui.hasPlayer(player)) {
+                    event.setCancelled(true);
+                    gui.dispatchEvent(player, event);
+                }
+            }
+
+            if (inventory.getName().equals("test")) {
                 event.setCancelled(true);
-                gui.dispatchEvent(player, event);
             }
         }
-
-        if (inventory.getName().equals("test")) {
-                event.setCancelled(true);
-        }
-
     }
 
 
