@@ -29,6 +29,11 @@ public class GuiItemPage {
             this.itemList.add(item);
         }
     }
+
+    public GuiItem getGuiItem(int id) {
+        return this.itemList.get(id);
+    }
+
     public void removeItem(GuiItem item){
         this.itemList.remove(item);
     }

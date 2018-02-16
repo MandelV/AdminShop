@@ -6,7 +6,7 @@ import com.github.MandelV.AdminShop.Economy.EcoItem;
 import com.github.MandelV.AdminShop.Economy.ItemStatut;
 import com.github.MandelV.AdminShop.GUI.Gui;
 import com.github.MandelV.AdminShop.GUI.GuiInvLine;
-import com.github.MandelV.AdminShop.GUI.GuiListener;
+import com.github.MandelV.AdminShop.GUI.GuiManager;
 import com.github.MandelV.AdminShop.config.ConfigFile;
 import com.github.MandelV.AdminShop.config.Message;
 import com.github.MandelV.AdminShop.tools.ChatFormatting;
@@ -70,7 +70,7 @@ public class AdminShop extends JavaPlugin{
         }
 
         //Gui.getInstance();
-        getServer().getPluginManager().registerEvents(new GuiListener(), this);
+        getServer().getPluginManager().registerEvents(new GuiManager(), this);
 
         this.getCommand("adminshop").setExecutor(new PlayerCmds(this));
 

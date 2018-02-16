@@ -3,6 +3,7 @@ package com.github.MandelV.AdminShop.GUI;
 import com.github.MandelV.AdminShop.tools.ChatFormatting;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
 import java.util.*;
@@ -38,6 +39,8 @@ public  class Gui {
         this.uuid = UUID.randomUUID();
         this.nbrLine = nbrLine;
         this.name = invName;
+
+        GuiManager.addGui(this);
     }
 
     /**
@@ -149,6 +152,21 @@ public  class Gui {
 
         return inventory;
     }
+
+    public boolean hasPlayer(Player player) {
+        return this.currentPlayersPage.get(player) != null;
+    }
+
+    public void dispatchEvent(Player player, InventoryClickEvent event) {
+        int slotId = event.getRawSlot();
+        int pageId = this.currentPlayersPage.get(player);
+        GuiItemPage page = this.itemPage.get(pageId);
+
+        GuiItem item = page.getGuiItem(slotId);
+
+        item.triggerAction(player, event.getClick());
+    }
+
 }
 
 
