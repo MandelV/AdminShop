@@ -1,6 +1,5 @@
 package com.github.MandelV.AdminShop.GUI;
 
-import com.github.MandelV.AdminShop.Economy.EcoItem;
 import com.github.MandelV.AdminShop.tools.ChatFormatting;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -13,7 +12,7 @@ import java.util.*;
  * @version 0.1
  * Class principale de gestion des GUIs
  **/
-public  class Gui{
+public  class Gui {
 
     private UUID uuid;
     private Inventory inv;
@@ -26,8 +25,6 @@ public  class Gui{
     private GuiInvLine nbrLine;
     private String name;
 
-
-
     /***
      *
      * @param nbrLine Enum definnissant le nombre de ligne dans le coffre de 1 à 6
@@ -39,17 +36,12 @@ public  class Gui{
         this.itemPage = new ArrayList<>();
         this.itemPage.add(new GuiItemPage(nbrLine.getSize()));
 
-
-
         this.currentPage = 0;
         this.currentPlayersPage = new HashMap<>();
 
         this.uuid = UUID.randomUUID();
         this.nbrLine = nbrLine;
         this.name = invName;
-
-
-
     }
 
     /****

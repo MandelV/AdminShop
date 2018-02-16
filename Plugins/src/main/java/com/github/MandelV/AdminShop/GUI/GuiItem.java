@@ -2,10 +2,6 @@ package com.github.MandelV.AdminShop.GUI;
 
 import com.github.MandelV.AdminShop.tools.ChatFormatting;
 import org.bukkit.Material;
-import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftItem;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
