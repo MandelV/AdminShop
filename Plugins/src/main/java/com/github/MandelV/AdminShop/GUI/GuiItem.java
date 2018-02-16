@@ -34,6 +34,7 @@ public class GuiItem extends ItemStack{
 
     public GuiItem(Material type, int amount, short damage, GuiAction guiAction){
 
+
         super(type, amount, damage);
 
         this.description = new ArrayList<>();
@@ -47,10 +48,13 @@ public class GuiItem extends ItemStack{
     }
 
     public void triggerAction(Player player, ClickType clickType) {
-        if (clickType == ClickType.LEFT) {
-            this.guiAction.onLeftClick(player);
-        } else if (clickType == ClickType.RIGHT) {
-            this.guiAction.onRightClick(player);
+
+        if(this.guiAction != null){
+            if (clickType == ClickType.LEFT) {
+                this.guiAction.onLeftClick(player);
+            } else if (clickType == ClickType.RIGHT) {
+                this.guiAction.onRightClick(player);
+            }
         }
     }
 
