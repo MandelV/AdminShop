@@ -23,18 +23,13 @@ public class GuiItem extends ItemStack{
     private ItemMeta dataItem;
     private List<String> description;
 
-    private double prix_achat;
-    private double prix_vente;
-    private ItemStatut statut;
 
-    public GuiItem(Material type, int amount, short damage, double prix_achat, double prix_vente, ItemStatut statut){
+
+    public GuiItem(Material type, int amount, short damage){
 
         super(type, amount, damage);
 
 
-        this.prix_achat = prix_achat;
-        this.prix_vente = prix_vente;
-        this.statut = statut;
 
         this.description = new ArrayList<>();
 

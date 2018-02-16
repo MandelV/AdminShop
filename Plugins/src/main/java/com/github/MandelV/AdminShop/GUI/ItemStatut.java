@@ -1,4 +1,4 @@
-package com.github.MandelV.AdminShop.GUI;
+package com.github.MandelV.AdminShop.Economy;
 
 /**
  * @author Akitoshi
