@@ -35,6 +35,7 @@ public  class Gui {
         this.itemPage = new ArrayList<>();
         this.itemPage.add(new GuiItemPage(nbrLine.getSize()));
 
+        this.playerChangingPage = new HashMap<>();
         this.currentPlayersPage = new HashMap<>();
 
         this.uuid = UUID.randomUUID();
