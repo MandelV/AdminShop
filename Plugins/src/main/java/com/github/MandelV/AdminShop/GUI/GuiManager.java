@@ -46,5 +46,6 @@ public class GuiManager implements Listener {
         Player player = (Player) e.getPlayer();
         UUID playerUUID = player.getUniqueId();
 
+        System.out.println("Exit");
     }
 }

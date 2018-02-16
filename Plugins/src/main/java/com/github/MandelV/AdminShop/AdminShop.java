@@ -4,14 +4,13 @@ import Dao.Dao;
 import com.github.MandelV.AdminShop.Commands.PlayerCmds;
 import com.github.MandelV.AdminShop.Economy.EcoItem;
 import com.github.MandelV.AdminShop.Economy.ItemStatut;
-import com.github.MandelV.AdminShop.GUI.Gui;
-import com.github.MandelV.AdminShop.GUI.GuiInvRow;
-import com.github.MandelV.AdminShop.GUI.GuiManager;
+import com.github.MandelV.AdminShop.GUI.*;
 import com.github.MandelV.AdminShop.config.ConfigFile;
 import com.github.MandelV.AdminShop.config.Message;
 import com.github.MandelV.AdminShop.tools.ChatFormatting;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,10 +24,23 @@ public class AdminShop extends JavaPlugin{
     @Override
     public void onEnable() {
 
-        this.shop = new Gui(GuiInvRow.ROW2, "test");
+        this.shop = new Gui(GuiInvRow.ROW1, "test");
+
+        AdminShop self = this;
 
         shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
         shop.addItem(null);
+        shop.addItem(new GuiItem(Material.DIAMOND_SWORD, 64, (short) 0, new GuiAction() {
+            @Override
+            public void onRightClick(Player player) {
+                self.shop.pageUp(player);
+            }
+
+            @Override
+            public void onLeftClick(Player player) {
+
+            }
+        }));
         shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
         shop.addItem(new EcoItem(Material.DIAMOND_SWORD, 1, (short)0, 25, 30, ItemStatut.BOTH));
         shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
