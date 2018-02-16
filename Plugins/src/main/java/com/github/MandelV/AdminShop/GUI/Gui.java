@@ -15,11 +15,7 @@ import java.util.*;
 public  class Gui {
 
     private UUID uuid;
-    private Inventory inv;
     private List<GuiItemPage> itemPage;
-    private List<GuiInstance> guiInstances;
-
-    private int currentPage;
 
     Map<Player, Integer> currentPlayersPage;
 
@@ -37,28 +33,11 @@ public  class Gui {
         this.itemPage = new ArrayList<>();
         this.itemPage.add(new GuiItemPage(nbrLine.getSize()));
 
-        this.currentPage = 0;
         this.currentPlayersPage = new HashMap<>();
 
         this.uuid = UUID.randomUUID();
         this.nbrLine = nbrLine;
         this.name = invName;
-    }
-
-    /****
-     *
-     * @return L'inventaire du GUI
-     */
-    public Inventory getYourInventory() {
-        return this.inv;
-    }
-
-    /**
-     *
-     * @return Le nom du GUI
-     */
-    public String getName(){
-        return this.inv.getName();
     }
 
     /**
@@ -102,37 +81,31 @@ public  class Gui {
     }
 
     /**
-     * Permet de remplir l'inventaire du GUI avec la page actuelle
-     */
-    private void fillInventory(){
-
-
-        this.inv.clear();
-        for(int i = 0; i < this.itemPage.get(this.currentPage).getPage().size(); i++){
-
-            this.inv.addItem((GuiItem)this.itemPage.get(this.currentPage).getPage().get(i));
-        }
-
-    }
-
-    /**
      * Permet d'aller à la page suivante
      */
-    public void pageUp(){
+    public void pageUp(Player player){
 
-        if(this.currentPage < (this.itemPage.size()-1)){
-            this.currentPage++;
+        int pageId = this.currentPlayersPage.get(player);
+
+        if(pageId < (this.itemPage.size()-1)){
+            this.currentPlayersPage.put(player, pageId + 1);
+            this.render(player);
         }
+
     }
 
     /**
      * Permet d'aller à la page précédente
      */
-    public void pageDown(){
+    public void pageDown(Player player){
 
-        if(this.currentPage > 0){
-            this.currentPage--;
+        int pageId = this.currentPlayersPage.get(player);
+
+        if(pageId > 0){
+            this.currentPlayersPage.put(player, pageId - 1);
+            this.render(player);
         }
+
     }
 
     /**
@@ -147,16 +120,8 @@ public  class Gui {
      *
      * @return Retourne la page actuellement affichée.
      */
-    public int getCurrentPage(){
-        return this.currentPage;
-    }
-
-    /**
-     * Permet de choisir la page voulu
-     * @param page Page souhaité.
-     */
-    public void selectPage(final int page){
-        this.currentPage = page;
+    public int getCurrentPage(Player player){
+        return this.currentPlayersPage.get(player);
     }
 
     /**
@@ -165,30 +130,22 @@ public  class Gui {
      */
     public void open(Player player){
 
-        GuiInstance guiInstance = new GuiInstance(player);
-
-        this.guiInstances.add(guiInstance);
-        this.render(guiInstance);
-
-
-        /*
-        this.inv = Bukkit.createInventory(null, this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
-        this.fillInventory();
-        player.openInventory(this.inv);*/
+        this.currentPlayersPage.put(player,0);
+        this.render(player);
 
     }
 
-    public Inventory render(GuiInstance guiInstance) {
+    public Inventory render(Player player) {
 
-        Inventory inventory = Bukkit.createInventory(guiInstance.getPlayer(), this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
+        Inventory inventory = Bukkit.createInventory(player, this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
 
-        List<GuiItem> pageContent = this.itemPage.get(guiInstance.getPageId()).getPage();
+        List<GuiItem> pageContent = this.itemPage.get(this.currentPlayersPage.get(player)).getPage();
 
         for(int i = 0; i < pageContent.size(); i++){
             inventory.addItem(pageContent.get(i));
         }
 
-        guiInstance.getPlayer().openInventory(inventory);
+        player.openInventory(inventory);
 
         return inventory;
     }
