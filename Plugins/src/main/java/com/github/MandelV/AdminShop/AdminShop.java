@@ -27,13 +27,13 @@ public class AdminShop extends JavaPlugin{
     public static Economy econ = null;
     @Override
     public void onEnable() {
-<<<<<<< Updated upstream
+
 
         this.shop = new Gui(GuiInvRow.ROW2, "test");
-=======
+
         ChatFormatting.getInstance();
         this.shop = new Gui(GuiInvRow.ROW1, "test");
->>>>>>> Stashed changes
+
 
         AdminShop self = this;
 
@@ -70,7 +70,7 @@ public class AdminShop extends JavaPlugin{
         shop.addItem(new EcoItem(Material.WOOD, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
         shop.addItem(new EcoItem(Material.GLASS, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
         shop.addItem(new EcoItem(Material.IRON_AXE, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
-        
+
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &5By Akitoshi"));
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &5Version : 1.0-SNAPSHOT"));
         this.getServer().getConsoleSender().sendMessage("");
