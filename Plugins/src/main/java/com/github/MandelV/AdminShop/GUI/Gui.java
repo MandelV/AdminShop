@@ -149,7 +149,7 @@ public  class Gui {
         for(int i = 0; i < pageContent.size(); i++){
             GuiItem item = pageContent.get(i);
             if (item != null) {
-                inventory.setItem(0, pageContent.get(i));
+                inventory.setItem(i, pageContent.get(i));
             }
         }
 
