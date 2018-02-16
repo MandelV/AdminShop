@@ -70,8 +70,7 @@ public class AdminShop extends JavaPlugin{
         shop.addItem(new EcoItem(Material.WOOD, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
         shop.addItem(new EcoItem(Material.GLASS, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
         shop.addItem(new EcoItem(Material.IRON_AXE, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
-
->>>>>>> Stashed changes
+        
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &5By Akitoshi"));
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &5Version : 1.0-SNAPSHOT"));
         this.getServer().getConsoleSender().sendMessage("");
