@@ -5,7 +5,7 @@ import com.github.MandelV.AdminShop.Commands.PlayerCmds;
 import com.github.MandelV.AdminShop.Economy.EcoItem;
 import com.github.MandelV.AdminShop.Economy.ItemStatut;
 import com.github.MandelV.AdminShop.GUI.Gui;
-import com.github.MandelV.AdminShop.GUI.GuiInvLine;
+import com.github.MandelV.AdminShop.GUI.GuiInvRow;
 import com.github.MandelV.AdminShop.GUI.GuiManager;
 import com.github.MandelV.AdminShop.config.ConfigFile;
 import com.github.MandelV.AdminShop.config.Message;
@@ -25,7 +25,7 @@ public class AdminShop extends JavaPlugin{
     @Override
     public void onEnable() {
 
-        this.shop = new Gui(GuiInvLine.LINE2, "test");
+        this.shop = new Gui(GuiInvRow.ROW2, "test");
 
         shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
         shop.addItem(null);

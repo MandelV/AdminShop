@@ -20,16 +20,16 @@ public  class Gui {
 
     Map<Player, Integer> currentPlayersPage;
 
-    private GuiInvLine nbrLine;
+    private GuiInvRow nbrLine;
     private String name;
 
     /***
      *
      * @param nbrLine Enum definnissant le nombre de ligne dans le coffre de 1 à 6
      * @param invName Nom de l'inventaire
-     * @see GuiInvLine
+     * @see GuiInvRow
      */
-    public Gui(GuiInvLine nbrLine, String invName){
+    public Gui(GuiInvRow nbrLine, String invName){
 
         this.itemPage = new ArrayList<>();
         this.itemPage.add(new GuiItemPage(nbrLine.getSize()));

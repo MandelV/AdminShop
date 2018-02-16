@@ -5,17 +5,17 @@ package com.github.MandelV.AdminShop.GUI;
  * @version 0.1
  * Enumeration représentant chaque ligne possible d'un inventaire
  */
-public enum GuiInvLine {
-    LINE1( 9 ),
-    LINE2( 18),
-    LINE3( 27),
-    LINE4( 36),
-    LINE5( 45),
-    LINE6( 54),;
+public enum GuiInvRow {
+    ROW1( 9 ),
+    ROW2( 18),
+    ROW3( 27),
+    ROW4( 36),
+    ROW5( 45),
+    ROW6( 54),;
 
     private int size;
 
-    GuiInvLine(int size) {
+    GuiInvRow(int size) {
         this.size = size;
     }
 
