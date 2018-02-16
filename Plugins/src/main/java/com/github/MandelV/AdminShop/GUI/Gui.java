@@ -194,7 +194,9 @@ public  class Gui {
     }
 
     public void exit(Player player) {
-        if (!this.playerChangingPage.get(player)) {
+        if (this.playerChangingPage.get(player)) {
+            this.playerChangingPage.put(player, false);
+        } else {
             this.playerChangingPage.remove(player);
             this.currentPlayersPage.remove(player);
             System.out.println("Exit");
