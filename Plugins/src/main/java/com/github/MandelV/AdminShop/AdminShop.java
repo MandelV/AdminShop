@@ -47,8 +47,8 @@ public class AdminShop extends JavaPlugin{
         shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
         shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
         shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
-        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
 
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
         shop.addItem(new EcoItem(Material.WOOD, 64, (short)0, 25, 30, ItemStatut.BOTH));
         shop.addItem(new EcoItem(Material.GLASS, 64, (short)0, 25, 30, ItemStatut.BOTH));
         shop.addItem(new EcoItem(Material.IRON_AXE, 64, (short)0, 25, 30, ItemStatut.BOTH));

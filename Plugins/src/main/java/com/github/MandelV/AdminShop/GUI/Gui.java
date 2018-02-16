@@ -173,6 +173,7 @@ public  class Gui {
 
     public void dispatchEvent(Player player, InventoryClickEvent event) {
         int slotId = event.getRawSlot();
+
         int pageId = this.currentPlayersPage.get(player);
 
 

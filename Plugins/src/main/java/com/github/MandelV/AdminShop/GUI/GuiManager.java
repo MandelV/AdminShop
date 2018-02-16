@@ -3,6 +3,7 @@ package com.github.MandelV.AdminShop.GUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
@@ -22,22 +23,31 @@ public class GuiManager implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
+        if(event != null){
 
-        Player player = (Player) event.getWhoClicked(); // The player that clicked the item
-        Inventory inventory = event.getInventory(); // The inventory that was clicked in*
+            Player player = (Player) event.getWhoClicked(); // The player that clicked the item
+            Inventory inventory = event.getInventory(); // The inventory that was clicked in*
 
-        for (Gui gui: GuiManager.guiList) {
-            if (gui.hasPlayer(player)) {
+
+
+            System.err.println(event.getClick());
+
+
+
+            for (Gui gui: GuiManager.guiList) {
+                if (gui.hasPlayer(player)) {
+                    event.setCancelled(true);
+                    gui.dispatchEvent(player, event);
+                }
+            }
+
+            if (inventory.getName().equals("test")) {
                 event.setCancelled(true);
-                gui.dispatchEvent(player, event);
+
+
             }
         }
 
-        if (inventory.getName().equals("test")) {
-            event.setCancelled(true);
-
-
-        }
     }
 
 
