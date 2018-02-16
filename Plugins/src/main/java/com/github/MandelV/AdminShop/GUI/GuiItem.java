@@ -42,10 +42,6 @@ public class GuiItem extends ItemStack{
         }
     }
 
-    public void execAction(CommandSender commandSender){
-        commandSender.sendMessage("YOLO");
-
-    }
 
     /**
      * Ajoute un nom à l'item

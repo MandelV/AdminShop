@@ -19,7 +19,11 @@ public  class Gui{
     private UUID uuid;
     private Inventory inv;
     private List<GuiItemPage> itemPage;
+    
     private int currentPage;
+
+    private GuiInvLine nbrLine;
+    private String name;
 
 
     /***
@@ -32,10 +36,15 @@ public  class Gui{
 
         this.itemPage = new ArrayList<>();
         this.itemPage.add(new GuiItemPage(nbrLine.getSize()));
-        this.currentPage = 0;
-        this.uuid = UUID.randomUUID();
 
-        this.inv = Bukkit.createInventory(null, nbrLine.getSize(), ChatFormatting.formatText(invName));
+
+
+        this.currentPage = 0;
+
+        this.uuid = UUID.randomUUID();
+        this.inv.hashCode();
+        this.nbrLine = nbrLine;
+        this.name = invName;
 
     }
 
@@ -159,9 +168,11 @@ public  class Gui{
      */
     public void open(Player player){
 
+        this.inv = Bukkit.createInventory(null, this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
 
         this.fillInventory();
         player.openInventory(this.inv);
+
     }
 }
 
