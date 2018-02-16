@@ -21,12 +21,12 @@ public class EcoItem extends GuiItem {
 
         this.setGuiAction(new GuiAction() {
             @Override
-            public void onRightClick(HumanEntity player) {
+            public void onRightClick(Player player) {
                 self.buy_price--;
             }
 
             @Override
-            public void onLeftClick(HumanEntity player) {
+            public void onLeftClick(Player player) {
                 self.buy_price++;
             }
         });

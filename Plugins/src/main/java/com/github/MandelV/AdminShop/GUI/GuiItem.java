@@ -50,7 +50,7 @@ public class GuiItem extends ItemStack{
         this.guiAction = guiAction;
     }
 
-    public void triggerAction(HumanEntity player, ClickType clickType) {
+    public void triggerAction(Player player, ClickType clickType) {
         if (clickType == ClickType.LEFT) {
             this.guiAction.onLeftClick(player);
         } else if (clickType == ClickType.RIGHT) {
