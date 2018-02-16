@@ -24,7 +24,7 @@ public class GuiItem extends ItemStack{
 
     private GuiAction guiAction;
 
-    public GuiItem(Material type, int amount, short damage, GuiAction callback){
+    public GuiItem(Material type, int amount, short damage, GuiAction guiAction){
 
         super(type, amount, damage);
 
