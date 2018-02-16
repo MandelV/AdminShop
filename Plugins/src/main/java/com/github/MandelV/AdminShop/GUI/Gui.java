@@ -156,7 +156,9 @@ public  class Gui {
             }
         }
 
-        if (!start) {
+        if (start) {
+            this.playerChangingPage.put(player, false);
+        } else {
             this.playerChangingPage.put(player, true);
         }
 
