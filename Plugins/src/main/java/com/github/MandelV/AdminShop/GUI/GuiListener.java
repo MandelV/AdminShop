@@ -16,6 +16,9 @@ public class GuiListener implements Listener {
         ItemStack clicked = event.getCurrentItem(); // The item that was clicked
         Inventory inventory = event.getInventory(); // The inventory that was clicked in
 
+        if (clicked instanceof  GuiItem) {
+            player.sendMessage("GuiItem");
+        }
 
         if (inventory.getName().equals("test")) {
             event.setCancelled(true);

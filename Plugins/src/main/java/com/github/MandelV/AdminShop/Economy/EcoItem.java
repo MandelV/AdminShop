@@ -14,7 +14,6 @@ public class EcoItem extends GuiItem {
 
     public EcoItem(Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut){
 
-
         super(type, amount, damage, new GuiAction() {
             @Override
             public void onRightClick(HumanEntity player) {
