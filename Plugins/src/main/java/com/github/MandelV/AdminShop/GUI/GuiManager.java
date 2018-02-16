@@ -26,13 +26,7 @@ public class GuiManager implements Listener {
         if(event != null){
 
             Player player = (Player) event.getWhoClicked(); // The player that clicked the item
-            Inventory inventory = event.getInventory(); // The inventory that was clicked in*
-
-
-
-            System.err.println(event.getClick());
-
-
+            Inventory inventory = event.getInventory(); // The inventory that was clicked in
 
             for (Gui gui: GuiManager.guiList) {
                 if (gui.hasPlayer(player)) {
@@ -43,8 +37,6 @@ public class GuiManager implements Listener {
 
             if (inventory.getName().equals("test")) {
                 event.setCancelled(true);
-
-
             }
         }
 
