@@ -1,16 +1,15 @@
 package com.github.MandelV.AdminShop.GUI;
 
 import com.github.MandelV.AdminShop.tools.ChatFormatting;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * @author Akitoshi
@@ -23,17 +22,24 @@ public class GuiItem extends ItemStack{
     private ItemMeta dataItem;
     private List<String> description;
 
+    private GuiAction guiAction;
 
-
-    public GuiItem(Material type, int amount, short damage){
+    public GuiItem(Material type, int amount, short damage, GuiAction callback){
 
         super(type, amount, damage);
 
-
-
         this.description = new ArrayList<>();
+        this.guiAction = guiAction;
 
         this.setItemMeta(this.dataItem);
+    }
+
+    public void triggerAction(HumanEntity player, ClickType clickType) {
+        if (clickType == ClickType.LEFT) {
+            this.guiAction.onLeftClick(player);
+        } else if (clickType == ClickType.RIGHT) {
+            this.guiAction.onRightClick(player);
+        }
     }
 
     public void execAction(CommandSender commandSender){
