@@ -17,6 +17,7 @@ public  class Gui {
     private UUID uuid;
     private Inventory inv;
     private List<GuiItemPage> itemPage;
+    private List<GuiInstance> guiInstances;
 
     private int currentPage;
 
@@ -164,11 +165,32 @@ public  class Gui {
      */
     public void open(Player player){
 
+        GuiInstance guiInstance = new GuiInstance(player);
 
+        this.guiInstances.add(guiInstance);
+        this.render(guiInstance);
+
+
+        /*
         this.inv = Bukkit.createInventory(null, this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
         this.fillInventory();
-        player.openInventory(this.inv);
+        player.openInventory(this.inv);*/
 
+    }
+
+    public Inventory render(GuiInstance guiInstance) {
+
+        Inventory inventory = Bukkit.createInventory(guiInstance.getPlayer(), this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
+
+        List<GuiItem> pageContent = this.itemPage.get(guiInstance.getPageId()).getPage();
+
+        for(int i = 0; i < pageContent.size(); i++){
+            inventory.addItem(pageContent.get(i));
+        }
+
+        guiInstance.getPlayer().openInventory(inventory);
+
+        return inventory;
     }
 }
 
