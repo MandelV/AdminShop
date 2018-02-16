@@ -15,17 +15,19 @@ public class EcoItem extends GuiItem {
 
     public EcoItem(Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut){
 
-        super(type, amount, damage, new GuiAction() {
+        super(type, amount, damage);
+
+        EcoItem self = this;
+
+        this.setGuiAction(new GuiAction() {
             @Override
-            public void onRightClick(Player player) {
-
-                System.out.printf("LOL");
-
+            public void onRightClick(HumanEntity player) {
+                self.buy_price--;
             }
 
             @Override
-            public void onLeftClick(Player player) {
-
+            public void onLeftClick(HumanEntity player) {
+                self.buy_price++;
             }
         });
 
