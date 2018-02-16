@@ -147,7 +147,10 @@ public  class Gui {
         List<GuiItem> pageContent = this.itemPage.get(this.currentPlayersPage.get(player)).getPage();
 
         for(int i = 0; i < pageContent.size(); i++){
-            inventory.addItem(pageContent.get(i));
+            GuiItem item = pageContent.get(i);
+            if (item != null) {
+                inventory.setItem(0, pageContent.get(i));
+            }
         }
 
         player.openInventory(inventory);
