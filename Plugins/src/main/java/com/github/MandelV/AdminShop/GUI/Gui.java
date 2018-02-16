@@ -19,6 +19,7 @@ public  class Gui {
     private List<GuiItemPage> itemPage;
 
     Map<Player, Integer> currentPlayersPage;
+    Map<Player, Boolean> playerChangingPage;
 
     private GuiInvRow nbrLine;
     private String name;
@@ -134,13 +135,15 @@ public  class Gui {
     public void open(Player player){
 
         this.currentPlayersPage.put(player,0);
-        this.render(player);
+        this.render(player, true);
 
     }
 
-
-
     public Inventory render(Player player) {
+        return this.render(player, false);
+    }
+
+    public Inventory render(Player player, boolean start) {
 
         Inventory inventory = Bukkit.createInventory(player, this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
 
@@ -151,6 +154,10 @@ public  class Gui {
             if (item != null) {
                 inventory.setItem(i, pageContent.get(i));
             }
+        }
+
+        if (!start) {
+            this.playerChangingPage.put(player, true);
         }
 
         player.openInventory(inventory);
@@ -182,7 +189,13 @@ public  class Gui {
 
     }
 
-
+    public void exit(Player player) {
+        if (!this.playerChangingPage.get(player)) {
+            this.playerChangingPage.remove(player);
+            this.currentPlayersPage.remove(player);
+            System.out.println("Exit");
+        }
+    }
 
 }
 

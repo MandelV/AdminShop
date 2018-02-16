@@ -46,6 +46,10 @@ public class GuiManager implements Listener {
         Player player = (Player) e.getPlayer();
         UUID playerUUID = player.getUniqueId();
 
-        System.out.println("Exit");
+        for (Gui gui: GuiManager.guiList) {
+            if (gui.hasPlayer(player)) {
+                gui.exit(player);
+            }
+        }
     }
 }
