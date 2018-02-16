@@ -2,12 +2,16 @@ package com.github.MandelV.AdminShop;
 
 import Dao.Dao;
 import com.github.MandelV.AdminShop.Commands.PlayerCmds;
+import com.github.MandelV.AdminShop.Economy.EcoItem;
+import com.github.MandelV.AdminShop.Economy.ItemStatut;
 import com.github.MandelV.AdminShop.GUI.Gui;
+import com.github.MandelV.AdminShop.GUI.GuiInvLine;
 import com.github.MandelV.AdminShop.GUI.GuiListener;
 import com.github.MandelV.AdminShop.config.ConfigFile;
 import com.github.MandelV.AdminShop.config.Message;
 import com.github.MandelV.AdminShop.tools.ChatFormatting;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Material;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,10 +20,26 @@ public class AdminShop extends JavaPlugin{
 
     private ConfigFile config;
     private Message message;
-    private Gui shop;
+    public Gui shop;
     public static Economy econ = null;
     @Override
     public void onEnable() {
+
+        this.shop = new Gui(GuiInvLine.LINE2, "test");
+
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        shop.addItem(new EcoItem(Material.DIAMOND_SWORD, 1, (short)0, 25, 30, ItemStatut.BOTH));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
+
+        shop.addItem(new EcoItem(Material.WOOD, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        shop.addItem(new EcoItem(Material.GLASS, 64, (short)0, 25, 30, ItemStatut.BOTH));
+        shop.addItem(new EcoItem(Material.IRON_AXE, 64, (short)0, 25, 30, ItemStatut.BOTH));
         ChatFormatting.getInstance();
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &5By Akitoshi"));
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &5Version : 1.0-SNAPSHOT"));

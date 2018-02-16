@@ -4,6 +4,7 @@ import com.github.MandelV.AdminShop.GUI.GuiAction;
 import com.github.MandelV.AdminShop.GUI.GuiItem;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 
 public class EcoItem extends GuiItem {
 
@@ -16,12 +17,14 @@ public class EcoItem extends GuiItem {
 
         super(type, amount, damage, new GuiAction() {
             @Override
-            public void onRightClick(HumanEntity player) {
+            public void onRightClick(Player player) {
+
+                System.out.printf("LOL");
 
             }
 
             @Override
-            public void onLeftClick(HumanEntity player) {
+            public void onLeftClick(Player player) {
 
             }
         });

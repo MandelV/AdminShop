@@ -2,6 +2,7 @@ package com.github.MandelV.AdminShop.Commands;
 
 
 import com.github.MandelV.AdminShop.AdminShop;
+import com.github.MandelV.AdminShop.Economy.EcoItem;
 import com.github.MandelV.AdminShop.GUI.Gui;
 import com.github.MandelV.AdminShop.GUI.GuiInvLine;
 import com.github.MandelV.AdminShop.GUI.GuiItem;
@@ -12,25 +13,12 @@ import org.bukkit.command.CommandSender;
 
 public class PlayerCmds extends Commands {
 
-    Gui gui = new Gui(GuiInvLine.LINE2, "test");
 
     private boolean return_cmd = false;
     public PlayerCmds(AdminShop adminShop){
         super(adminShop);
 
-        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
-        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
-        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
-        gui.addItem(new GuiItem(Material.DIAMOND_SWORD, 1, (short)0, 25, 30, ItemStatut.BOTH));
-        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
-        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
-        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
-        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
-        gui.addItem(new GuiItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH));
 
-        gui.addItem(new GuiItem(Material.WOOD, 64, (short)0, 25, 30, ItemStatut.BOTH));
-        gui.addItem(new GuiItem(Material.GLASS, 64, (short)0, 25, 30, ItemStatut.BOTH));
-        gui.addItem(new GuiItem(Material.IRON_AXE, 64, (short)0, 25, 30, ItemStatut.BOTH));
     }
 
     @Override
@@ -44,27 +32,29 @@ public class PlayerCmds extends Commands {
         if (commandSender.hasPermission("adminshop.player")) {
             if(command.getName().equalsIgnoreCase("adminshop") && args.length == 0){
 
-                gui.open(adminShop.getServer().getPlayer(commandSender.getName()));
+
+                System.out.println("Open inventory");
+                adminShop.shop.open(adminShop.getServer().getPlayer(commandSender.getName()));
 
             }
             else if(args[0].equalsIgnoreCase("up")){
 
-                gui.pageUp();
+                adminShop.shop.pageUp();
 
             }
             else if(args[0].equalsIgnoreCase("down")){
 
-                gui.pageDown();
+                adminShop.shop.pageDown();
 
             }
             else if(args[0].equalsIgnoreCase("size")){
 
-                commandSender.sendMessage("nombre de page : " + gui.getnbrPage());
+                commandSender.sendMessage("nombre de page : " + adminShop.shop.getnbrPage());
 
             }
             else if(args[0].equalsIgnoreCase("actuel")){
 
-                commandSender.sendMessage("Page actuelle : " + gui.getCurrentPage());
+                commandSender.sendMessage("Page actuelle : " + adminShop.shop.getCurrentPage());
 
             }
 

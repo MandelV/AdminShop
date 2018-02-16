@@ -19,7 +19,6 @@ public class GuiItemPage {
         this.itemList = new ArrayList<>();
 
     }
-
     public List<GuiItem> getPage() {
         return itemList;
     }

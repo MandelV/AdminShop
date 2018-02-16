@@ -3,7 +3,10 @@ package com.github.MandelV.AdminShop.GUI;
 import com.github.MandelV.AdminShop.tools.ChatFormatting;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftItem;
+import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -34,7 +37,7 @@ public class GuiItem extends ItemStack{
         this.setItemMeta(this.dataItem);
     }
 
-    public void triggerAction(HumanEntity player, ClickType clickType) {
+    public void triggerAction(Player player, ClickType clickType) {
         if (clickType == ClickType.LEFT) {
             this.guiAction.onLeftClick(player);
         } else if (clickType == ClickType.RIGHT) {

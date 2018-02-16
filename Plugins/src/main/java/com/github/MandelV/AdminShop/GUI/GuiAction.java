@@ -1,10 +1,11 @@
 package com.github.MandelV.AdminShop.GUI;
 
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 
 public interface GuiAction {
 
-    void onRightClick(HumanEntity player);
+    void onRightClick(Player player);
 
-    void onLeftClick(HumanEntity player);
+    void onLeftClick(Player player);
 }

@@ -1,5 +1,6 @@
 package com.github.MandelV.AdminShop.GUI;
 
+import com.github.MandelV.AdminShop.Economy.EcoItem;
 import com.github.MandelV.AdminShop.tools.ChatFormatting;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -41,13 +42,13 @@ public  class Gui{
 
 
         this.currentPage = 0;
-
         this.currentPlayersPage = new HashMap<>();
 
         this.uuid = UUID.randomUUID();
-        this.inv.hashCode();
         this.nbrLine = nbrLine;
         this.name = invName;
+
+
 
     }
 
@@ -88,7 +89,7 @@ public  class Gui{
 
         int availablePage = -1;//Numéro de la page disponible.
         for(int i = 0; i < this.itemPage.size(); i++){
-            if(this.itemPage.get(i).getPage().size() < this.inv.getSize()){
+            if(this.itemPage.get(i).getPage().size() < this.nbrLine.getSize()){
                 availablePage = i;
                 break;
             }
@@ -97,7 +98,7 @@ public  class Gui{
         //Si aucune page n'est disponible
         if(availablePage == -1){
 
-            GuiItemPage newPage = new GuiItemPage(this.inv.getSize());
+            GuiItemPage newPage = new GuiItemPage(this.nbrLine.getSize());
             newPage.addItem(item);
             this.itemPage.add(newPage);
 
@@ -116,7 +117,7 @@ public  class Gui{
         this.inv.clear();
         for(int i = 0; i < this.itemPage.get(this.currentPage).getPage().size(); i++){
 
-            this.inv.addItem(this.itemPage.get(this.currentPage).getPage().get(i));
+            this.inv.addItem((GuiItem)this.itemPage.get(this.currentPage).getPage().get(i));
         }
 
     }
@@ -171,8 +172,8 @@ public  class Gui{
      */
     public void open(Player player){
 
-        this.inv = Bukkit.createInventory(null, this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
 
+        this.inv = Bukkit.createInventory(null, this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
         this.fillInventory();
         player.openInventory(this.inv);
 
