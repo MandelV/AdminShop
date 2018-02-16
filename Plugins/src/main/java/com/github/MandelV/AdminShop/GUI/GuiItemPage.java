@@ -29,16 +29,24 @@ public class GuiItemPage {
     public void addItem(GuiItem item){
 
         if(this.itemList.size() < this.sizemax){
-
-
             this.itemList.add(item);
-
-
         }
     }
 
     public GuiItem getGuiItem(int id) {
         return this.itemList.get(id);
+    }
+
+    public int availableSlots() {
+        int count = 0;
+        for (GuiItem item: this.itemList) {
+            if (item == null) {
+                break;
+            }
+            count++;
+        }
+
+        return this.sizemax - count;
     }
 
     public void removeItem(GuiItem item){

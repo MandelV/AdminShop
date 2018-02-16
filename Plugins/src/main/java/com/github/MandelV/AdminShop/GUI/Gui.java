@@ -2,6 +2,7 @@ package com.github.MandelV.AdminShop.GUI;
 
 import com.github.MandelV.AdminShop.tools.ChatFormatting;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -16,13 +17,14 @@ import java.util.*;
 public  class Gui {
 
     private UUID uuid;
-    private List<GuiItemPage> itemPage;
+    private List<GuiItemPage> itemPages;
 
     Map<Player, Integer> currentPlayersPage;
     Map<Player, Boolean> playerChangingPage;
 
     private GuiInvRow nbrLine;
     private String name;
+    private boolean navbar = true;
 
     /***
      *
@@ -32,8 +34,8 @@ public  class Gui {
      */
     public Gui(GuiInvRow nbrLine, String invName){
 
-        this.itemPage = new ArrayList<>();
-        this.itemPage.add(new GuiItemPage(nbrLine.getSize()));
+        this.itemPages = new ArrayList<>();
+        this.itemPages.add(new GuiItemPage(nbrLine.getSize()));
 
         this.playerChangingPage = new HashMap<>();
         this.currentPlayersPage = new HashMap<>();
@@ -43,6 +45,10 @@ public  class Gui {
         this.name = invName;
 
         GuiManager.addGui(this);
+    }
+
+    public void enableNavbar(boolean b) {
+        this.navbar = b;
     }
 
     /**
@@ -62,27 +68,88 @@ public  class Gui {
      */
     public void addItem(GuiItem item) {
 
-        //On regarde les emplacements disponnible dans les pages
+        GuiItemPage page;
 
-        int availablePage = -1;//Numéro de la page disponible.
-        for(int i = 0; i < this.itemPage.size(); i++){
-            if(this.itemPage.get(i).getPage().size() < this.nbrLine.getSize()){
-                availablePage = i;
+        if (this.hasAvailableSlot()) {
+            page = this.itemPages.get(this.itemPages.size()-1);
+        } else {
+            page = new GuiItemPage(this.nbrLine.getSize());
+            this.itemPages.add(page);
+        }
+
+        page.addItem(item);
+
+        if (this.navbar) {
+            this.addNavbar(page);
+        }
+    }
+
+    private void addNavbar(GuiItemPage page) {
+        if (nbrLine.getSize() <= 9) {
+            throw new Error("Cannot add navbar on small inventory");
+        }
+
+        int pageIndex = this.itemPages.indexOf(page);
+
+        // Fill of null until the navbar
+        for (int i = page.getPage().size(); i < this.nbrLine.getSize()-10; i++) {
+            page.getPage().add(null);
+        }
+
+        Gui self = this;
+
+        if (pageIndex > 0) {
+            // Set previous button
+            page.getPage().add(new GuiItem(Material.PAPER, 1, (short) 1, new GuiAction() {
+                @Override
+                public void onRightClick(Player player) {
+
+                }
+
+                @Override
+                public void onLeftClick(Player player) {
+                    self.pageDown(player);
+                }
+            }));
+
+            // Set next button on previous page
+            this.itemPages.get(pageIndex-1).getPage().add(new GuiItem(Material.PAPER, 1, (short) 1, new GuiAction() {
+                @Override
+                public void onRightClick(Player player) {
+
+                }
+
+                @Override
+                public void onLeftClick(Player player) {
+                    self.pageUp(player);
+                }
+            }));
+        } else {
+            page.getPage().add(null);
+        }
+
+        // Fill the remaining slots except the last
+        for (int i = 0; i < 7; i++) {
+            page.getPage().add(null);
+        }
+    }
+
+    private boolean hasAvailableSlot() {
+        boolean result = false;
+        int minSlots = 0;
+
+        if (this.navbar) {
+            minSlots = 9;
+        }
+
+        for (GuiItemPage itemPage: this.itemPages) {
+            if (itemPage.availableSlots() > minSlots) {
+                result = true;
                 break;
             }
         }
 
-        //Si aucune page n'est disponible
-        if(availablePage == -1){
-
-            GuiItemPage newPage = new GuiItemPage(this.nbrLine.getSize());
-            newPage.addItem(item);
-            this.itemPage.add(newPage);
-
-
-        }else {//Si une page dispose d'un emplacement.
-            this.itemPage.get(availablePage).addItem(item);
-        }
+        return result;
     }
 
     /**
@@ -92,7 +159,7 @@ public  class Gui {
 
         int pageId = this.currentPlayersPage.get(player);
 
-        if(pageId < (this.itemPage.size()-1)){
+        if(pageId < (this.itemPages.size()-1)){
             this.currentPlayersPage.put(player, pageId + 1);
             this.render(player);
         }
@@ -118,7 +185,7 @@ public  class Gui {
      * @return Retourne le nombre de page
      */
     public int getnbrPage(){
-        return this.itemPage.size();
+        return this.itemPages.size();
     }
 
     /**
@@ -148,7 +215,7 @@ public  class Gui {
 
         Inventory inventory = Bukkit.createInventory(player, this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
 
-        List<GuiItem> pageContent = this.itemPage.get(this.currentPlayersPage.get(player)).getPage();
+        List<GuiItem> pageContent = this.itemPages.get(this.currentPlayersPage.get(player)).getPage();
 
         for(int i = 0; i < pageContent.size(); i++){
             GuiItem item = pageContent.get(i);
@@ -179,7 +246,7 @@ public  class Gui {
         int pageId = this.currentPlayersPage.get(player);
 
 
-        GuiItemPage page = this.itemPage.get(pageId);
+        GuiItemPage page = this.itemPages.get(pageId);
 
         if(slotId < page.getPage().size()){
             GuiItem item = page.getGuiItem(slotId);
