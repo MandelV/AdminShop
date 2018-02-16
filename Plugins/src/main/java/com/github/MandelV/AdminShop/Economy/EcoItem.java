@@ -23,11 +23,13 @@ public class EcoItem extends GuiItem {
             @Override
             public void onRightClick(Player player) {
                 self.buy_price--;
+                System.out.println("Prix item : " + self.buy_price);
             }
 
             @Override
             public void onLeftClick(Player player) {
                 self.buy_price++;
+                System.out.println("++" + self.buy_price);
             }
         });
 

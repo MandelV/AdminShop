@@ -138,6 +138,8 @@ public  class Gui {
 
     }
 
+
+
     public Inventory render(Player player) {
 
         Inventory inventory = Bukkit.createInventory(player, this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
@@ -160,12 +162,21 @@ public  class Gui {
     public void dispatchEvent(Player player, InventoryClickEvent event) {
         int slotId = event.getRawSlot();
         int pageId = this.currentPlayersPage.get(player);
+
+
         GuiItemPage page = this.itemPage.get(pageId);
 
-        GuiItem item = page.getGuiItem(slotId);
+        if(slotId < page.getPage().size()){
+            GuiItem item = page.getGuiItem(slotId);
 
-        item.triggerAction(player, event.getClick());
+            item.triggerAction(player, event.getClick());
+        }else{
+            System.err.println("ERROR slotID dispatchevent");
+        }
+
     }
+
+
 
 }
 

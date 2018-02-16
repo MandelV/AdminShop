@@ -39,12 +39,12 @@ public class PlayerCmds extends Commands {
             }
             else if(args[0].equalsIgnoreCase("up")){
 
-                adminShop.shop.pageUp();
+                adminShop.shop.pageUp(adminShop.getServer().getPlayer(commandSender.getName()));
 
             }
             else if(args[0].equalsIgnoreCase("down")){
 
-                adminShop.shop.pageDown();
+                adminShop.shop.pageDown(adminShop.getServer().getPlayer(commandSender.getName()));
 
             }
             else if(args[0].equalsIgnoreCase("size")){
@@ -54,7 +54,7 @@ public class PlayerCmds extends Commands {
             }
             else if(args[0].equalsIgnoreCase("actuel")){
 
-                commandSender.sendMessage("Page actuelle : " + adminShop.shop.getCurrentPage());
+                commandSender.sendMessage("Page actuelle : " + adminShop.shop.getCurrentPage(adminShop.getServer().getPlayer(commandSender.getName())));
 
             }
 
