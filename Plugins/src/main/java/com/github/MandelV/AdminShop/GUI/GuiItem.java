@@ -24,6 +24,15 @@ public class GuiItem extends ItemStack{
 
     private GuiAction guiAction;
 
+    public GuiItem(Material type, int amount, short damage){
+
+        super(type, amount, damage);
+
+        this.description = new ArrayList<>();
+
+        this.setItemMeta(this.dataItem);
+    }
+
     public GuiItem(Material type, int amount, short damage, GuiAction guiAction){
 
         super(type, amount, damage);
@@ -32,6 +41,10 @@ public class GuiItem extends ItemStack{
         this.guiAction = guiAction;
 
         this.setItemMeta(this.dataItem);
+    }
+
+    public void setGuiAction(GuiAction guiAction) {
+        this.guiAction = guiAction;
     }
 
     public void triggerAction(HumanEntity player, ClickType clickType) {
