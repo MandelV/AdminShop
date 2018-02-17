@@ -35,7 +35,6 @@ public  class Gui {
     public Gui(GuiInvRow nbrLine, String invName){
 
         this.itemPages = new ArrayList<>();
-        this.itemPages.add(new GuiItemPage(nbrLine.getSize()));
 
         this.playerChangingPage = new HashMap<>();
         this.currentPlayersPage = new HashMap<>();
@@ -72,17 +71,17 @@ public  class Gui {
 
         if (this.hasAvailableSlot()) {
             page = this.itemPages.get(this.itemPages.size()-1);
+            page.addItem(item);
             System.out.println("Use last page");
         } else {
             page = new GuiItemPage(this.nbrLine.getSize());
             this.itemPages.add(page);
+            page.addItem(item);
             System.out.println("Create new Page");
-        }
 
-        page.addItem(item);
-
-        if (this.navbar) {
-            this.addNavbar(page);
+            if (this.navbar) {
+                this.addNavbar(page);
+            }
         }
     }
 
@@ -94,7 +93,7 @@ public  class Gui {
         int pageIndex = this.itemPages.indexOf(page);
 
         // Fill of null until the navbar
-        for (int i = page.getPage().size(); i < this.nbrLine.getSize()-10; i++) {
+        for (int i = page.getPage().size(); i < this.nbrLine.getSize()-9; i++) {
             page.getPage().add(null);
         }
 
