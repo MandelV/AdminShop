@@ -72,7 +72,7 @@ public class GuiItem extends ItemStack{
      * @param description ligne de la description.
      */
     public void addLineDescription(final String description){
-        this.description.add(description);
+        this.description.add(ChatFormatting.formatText(description));
         this.dataItem.setLore(this.description);
         this.setItemMeta(this.dataItem);
     }
