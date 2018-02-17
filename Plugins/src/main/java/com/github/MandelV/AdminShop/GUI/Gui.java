@@ -206,10 +206,12 @@ public  class Gui {
      * @param player Joueur qui ouvre le GUI
      */
     public void open(Player player){
+        this.open(player, true);
+    }
 
+    public void open(Player player, boolean isStart){
         this.currentPlayersPage.put(player,0);
-        this.render(player, true);
-
+        this.render(player, isStart);
     }
 
     public Inventory render(Player player) {

@@ -48,7 +48,7 @@ public abstract class EcoGuiFactory {
             public void onRightClick(Player player) {}
             @Override
             public void onLeftClick(Player player) {
-                childGui.open(player);
+                childGui.open(player, false);
             }
         });
 
