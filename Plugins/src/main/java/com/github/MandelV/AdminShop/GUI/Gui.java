@@ -18,6 +18,7 @@ public  class Gui {
 
     private UUID uuid;
     private List<GuiItemPage> itemPages;
+    private List<GuiItem> customNavbar;
 
     Map<Player, Integer> currentPlayersPage;
     Map<Player, Boolean> playerChangingPage;
@@ -35,6 +36,10 @@ public  class Gui {
     public Gui(GuiInvRow nbrLine, String invName){
 
         this.itemPages = new ArrayList<>();
+        this.customNavbar = new ArrayList<>();
+        for (int i=0; i < 7; i++) {
+            this.customNavbar.add(null);
+        }
 
         this.playerChangingPage = new HashMap<>();
         this.currentPlayersPage = new HashMap<>();
@@ -58,6 +63,9 @@ public  class Gui {
         return this.uuid;
     }
 
+    public void setCustomNavbar(List<GuiItem> customNavbar) {
+        this.customNavbar = customNavbar;
+    }
 
     /**
      * Ajoute un item au GUI
@@ -128,11 +136,7 @@ public  class Gui {
             page.getPage().add(null);
         }
 
-        //Fill the remaining slots except the last
-        for (int i = 0; i < 7; i++) {
-            page.getPage().add(null);
-        }
-
+        page.getPage().addAll(this.customNavbar);
     }
 
     private boolean hasAvailableSlot() {
