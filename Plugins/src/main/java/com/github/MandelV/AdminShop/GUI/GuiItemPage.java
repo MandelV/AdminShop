@@ -27,10 +27,24 @@ public class GuiItemPage {
     }
 
     public void addItem(GuiItem item){
-
         if(this.itemList.size() < this.sizemax){
-            this.itemList.add(item);
+            int nextAvailableIndex = this.getNextAvailableIndex();
+            if (nextAvailableIndex > -1) {
+                this.itemList.set(nextAvailableIndex, item);
+
+            } else  {
+                this.itemList.add(item);
+            }
         }
+    }
+
+    private int getNextAvailableIndex() {
+        for (int i=0; i < this.itemList.size(); i++) {
+            if (this.itemList.get(i) == null) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public GuiItem getGuiItem(int id) {
