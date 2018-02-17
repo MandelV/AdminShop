@@ -11,7 +11,7 @@ public enum GuiInvRow {
     ROW3( 27),
     ROW4( 36),
     ROW5( 45),
-    ROW6( 54),;
+    ROW6( 54);
 
     private int size;
 

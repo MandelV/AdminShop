@@ -72,13 +72,10 @@ public  class Gui {
         if (this.hasAvailableSlot()) {
             page = this.itemPages.get(this.itemPages.size()-1);
             page.addItem(item);
-            System.out.println("Use last page");
         } else {
             page = new GuiItemPage(this.nbrLine.getSize());
             this.itemPages.add(page);
             page.addItem(item);
-            System.out.println("Create new Page");
-
             if (this.navbar) {
                 this.addNavbar(page);
             }
@@ -95,13 +92,15 @@ public  class Gui {
         // Fill of null until the navbar
         for (int i = page.getPage().size(); i < this.nbrLine.getSize()-9; i++) {
             page.getPage().add(null);
+
         }
+
 
         Gui self = this;
 
         if (pageIndex > 0) {
             // Set previous button
-            page.getPage().add(new GuiItem(Material.PAPER, 1, (short) 1, new GuiAction() {
+            page.getPage().add(new GuiItem(Material.PAPER, 1, (short) 0, new GuiAction() {
                 @Override
                 public void onRightClick(Player player) {
 
@@ -114,7 +113,7 @@ public  class Gui {
             }));
 
             // Set next button on previous page
-            this.itemPages.get(pageIndex-1).getPage().add(new GuiItem(Material.PAPER, 1, (short) 1, new GuiAction() {
+            this.itemPages.get(pageIndex-1).getPage().add(new GuiItem(Material.PAPER, 1, (short) 0, new GuiAction() {
                 @Override
                 public void onRightClick(Player player) {
 
@@ -129,10 +128,11 @@ public  class Gui {
             page.getPage().add(null);
         }
 
-        // Fill the remaining slots except the last
+        //Fill the remaining slots except the last
         for (int i = 0; i < 7; i++) {
             page.getPage().add(null);
         }
+
     }
 
     private boolean hasAvailableSlot() {

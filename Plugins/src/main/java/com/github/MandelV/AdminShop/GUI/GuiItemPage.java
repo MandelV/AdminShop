@@ -31,7 +31,6 @@ public class GuiItemPage {
             int nextAvailableIndex = this.getNextAvailableIndex();
             if (nextAvailableIndex > -1) {
                 this.itemList.set(nextAvailableIndex, item);
-                System.out.println("Replace null:"+nextAvailableIndex);
             } else  {
                 this.itemList.add(item);
             }
