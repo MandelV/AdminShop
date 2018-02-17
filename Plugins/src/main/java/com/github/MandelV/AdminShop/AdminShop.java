@@ -32,8 +32,6 @@ public class AdminShop extends JavaPlugin{
         this.shop = new Gui(GuiInvRow.ROW2, "test");
 
         ChatFormatting.getInstance();
-        this.shop = new Gui(GuiInvRow.ROW1, "test");
-
 
         AdminShop self = this;
 
@@ -56,11 +54,24 @@ public class AdminShop extends JavaPlugin{
 
         desc.add("&aCatégorie minerai");
         desc.add("&aYOLO test");
-       Gui Minerai = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, "Minerais", this.shop,desc,Material.DIAMOND_ORE, "&bMinerai");
+        Gui Minerai = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, "Minerais", this.shop,desc,Material.DIAMOND_ORE, "&bMinerai");
         Minerai.addItem(new  EcoItem(Material.DIAMOND_ORE, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
         Minerai.addItem(new  EcoItem(Material.IRON_ORE, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
 
 
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
+        shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
         shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
         shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
         shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
