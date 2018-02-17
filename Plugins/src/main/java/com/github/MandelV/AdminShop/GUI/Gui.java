@@ -72,9 +72,11 @@ public  class Gui {
 
         if (this.hasAvailableSlot()) {
             page = this.itemPages.get(this.itemPages.size()-1);
+            System.out.println("Use last page");
         } else {
             page = new GuiItemPage(this.nbrLine.getSize());
             this.itemPages.add(page);
+            System.out.println("Create new Page");
         }
 
         page.addItem(item);
