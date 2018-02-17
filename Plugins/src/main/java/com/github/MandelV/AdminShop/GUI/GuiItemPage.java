@@ -27,7 +27,7 @@ public class GuiItemPage {
     }
 
     public void addItem(GuiItem item){
-        if(this.itemList.size() < this.sizemax){
+        if(this.availableSlots() > 0){
             int nextAvailableIndex = this.getNextAvailableIndex();
             if (nextAvailableIndex > -1) {
                 this.itemList.set(nextAvailableIndex, item);
