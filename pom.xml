@@ -11,6 +11,7 @@
     <modules>
         <module>Plugins</module>
         <module>Dao</module>
+        <module>ChatFormatting</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

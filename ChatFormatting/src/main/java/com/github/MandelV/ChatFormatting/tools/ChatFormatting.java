@@ -1,4 +1,4 @@
-package com.github.MandelV.AdminShop.tools;
+package com.github.MandelV.ChatFormatting.tools;
 
 import org.bukkit.ChatColor;
 

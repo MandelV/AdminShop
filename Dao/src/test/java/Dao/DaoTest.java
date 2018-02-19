@@ -2,6 +2,8 @@ package Dao;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.io.File;
 import java.sql.Connection;
 import static org.junit.Assert.fail;
 

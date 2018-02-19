@@ -1,7 +1,7 @@
 package com.github.MandelV.AdminShop.Commands;
 
 import com.github.MandelV.AdminShop.AdminShop;
-import com.github.MandelV.AdminShop.tools.ChatFormatting;
+import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 

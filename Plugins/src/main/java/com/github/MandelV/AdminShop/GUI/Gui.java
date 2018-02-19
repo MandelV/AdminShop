@@ -1,6 +1,8 @@
 package com.github.MandelV.AdminShop.GUI;
 
-import com.github.MandelV.AdminShop.tools.ChatFormatting;
+
+import com.github.MandelV.AdminShop.AdminShop;
+import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -26,6 +28,8 @@ public  class Gui {
     private GuiInvRow nbrLine;
     private String name;
     private boolean navbar = true;
+
+
 
     /***
      *
@@ -222,7 +226,12 @@ public  class Gui {
 
         Inventory inventory = Bukkit.createInventory(player, this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
 
+        if(this.itemPages.isEmpty()){
+            player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("no_categories")));
+            return inventory;
+        }
         List<GuiItem> pageContent = this.itemPages.get(this.currentPlayersPage.get(player)).getPage();
+
 
         for(int i = 0; i < pageContent.size(); i++){
             GuiItem item = pageContent.get(i);

@@ -1,9 +1,12 @@
 package com.github.MandelV.AdminShop.Commands;
 
 
+import Dao.Request;
 import com.github.MandelV.AdminShop.AdminShop;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class PlayerCmds extends Commands {
 
@@ -29,6 +32,7 @@ public class PlayerCmds extends Commands {
 
                 System.out.println("Open inventory");
                 adminShop.shop.open(adminShop.getServer().getPlayer(commandSender.getName()));
+
 
             }
             else if(args[0].equalsIgnoreCase("up")){

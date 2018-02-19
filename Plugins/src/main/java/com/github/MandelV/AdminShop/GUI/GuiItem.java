@@ -1,7 +1,6 @@
 package com.github.MandelV.AdminShop.GUI;
 
-import com.github.MandelV.AdminShop.tools.ChatFormatting;
-import org.bukkit.Bukkit;
+import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;

@@ -6,7 +6,6 @@ import com.github.MandelV.AdminShop.GUI.GuiInvRow;
 import com.github.MandelV.AdminShop.GUI.GuiItem;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 

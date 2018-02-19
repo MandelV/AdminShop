@@ -2,7 +2,7 @@ package com.github.MandelV.AdminShop.Commands;
 
 import Dao.Dao;
 import com.github.MandelV.AdminShop.AdminShop;
-import com.github.MandelV.AdminShop.tools.ChatFormatting;
+import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 

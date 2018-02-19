@@ -15,3 +15,6 @@ Database:
 Economy:
   nameMonnaie: " Talys"
   symbole: "T"
+
+forbidden_world:
+  - creatif
