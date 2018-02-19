@@ -60,6 +60,8 @@ public abstract class EcoGuiFactory {
         parentGui.addItem(iconItem);
 
         //Return du nouveau Gui
+
+        //childGui.addItem(new GuiItem(Material.GLASS, 52, (short)0, null));
         return childGui;
     }
 }

@@ -4,6 +4,7 @@ import Dao.Dao;
 import Dao.Dao_Categorie;
 import Dao.Request;
 import com.github.MandelV.AdminShop.Commands.PlayerCmds;
+import com.github.MandelV.AdminShop.Economy.EcoGuiFactory;
 import com.github.MandelV.AdminShop.Economy.EcoItem;
 import com.github.MandelV.AdminShop.Economy.ItemStatut;
 import com.github.MandelV.AdminShop.GUI.*;
@@ -141,17 +142,18 @@ public class AdminShop extends JavaPlugin{
 
         DAOcategories.forEach(cat -> {
             Material item = Material.getMaterial(cat.getId_item());
-            System.out.println(item.toString());
+           // GuiItem tempItem = new GuiItem(item, 1, (short)0, null);
 
 
-            GuiItem tempItem = new GuiItem(item, 1, (short)0, null);
+            EcoGuiFactory.createSubGui(GuiInvRow.ROW6, cat.getName(), self.shop, cat.getDescriptions(), item, cat.getName());
 
-            ItemMeta dataItem = tempItem.getItemMeta();
+
+           /* ItemMeta dataItem = tempItem.getItemMeta();
             dataItem.setDisplayName(ChatFormatting.formatText(cat.getName()));
             dataItem.setLore(cat.getDescriptions());
-            tempItem.setItemMeta(dataItem);
-            self.shop.addItem(tempItem);
-            self.shop.addItem(null);
+            tempItem.setItemMeta(dataItem);*/
+            //self.shop.addItem(tempItem);
+            //self.shop.addItem(null);
         });
 
     }

@@ -215,7 +215,10 @@ public  class Gui {
 
     public void open(Player player, boolean isStart){
         this.currentPlayersPage.put(player,0);
-        this.render(player, isStart);
+        if(!this.currentPlayersPage.isEmpty()){
+            this.render(player, isStart);
+        }
+
     }
 
     public Inventory render(Player player) {
@@ -227,16 +230,16 @@ public  class Gui {
         Inventory inventory = Bukkit.createInventory(player, this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
 
         if(this.itemPages.isEmpty()){
-            player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("no_categories")));
-            return inventory;
-        }
-        List<GuiItem> pageContent = this.itemPages.get(this.currentPlayersPage.get(player)).getPage();
+            player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix") + AdminShop.getInstance().getMessage().getCustomConfig().getString("no_categories")));
+        }else{
+            List<GuiItem> pageContent = this.itemPages.get(this.currentPlayersPage.get(player)).getPage();
 
 
-        for(int i = 0; i < pageContent.size(); i++){
-            GuiItem item = pageContent.get(i);
-            if (item != null) {
-                inventory.setItem(i, pageContent.get(i));
+            for(int i = 0; i < pageContent.size(); i++){
+                GuiItem item = pageContent.get(i);
+                if (item != null) {
+                    inventory.setItem(i, pageContent.get(i));
+                }
             }
         }
 
@@ -262,15 +265,17 @@ public  class Gui {
         int pageId = this.currentPlayersPage.get(player);
 
 
-        GuiItemPage page = this.itemPages.get(pageId);
+        if(!this.itemPages.isEmpty()){
+            GuiItemPage page = this.itemPages.get(pageId);
 
-        if(slotId < page.getPage().size()){
-            GuiItem item = page.getGuiItem(slotId);
-            if(item != null){
-                item.triggerAction(player, event.getClick());
+
+            if(slotId < page.getPage().size()){
+                GuiItem item = page.getGuiItem(slotId);
+                if(item != null){
+                    item.triggerAction(player, event.getClick());
+                }
             }
         }
-
     }
 
     public void exit(Player player) {
