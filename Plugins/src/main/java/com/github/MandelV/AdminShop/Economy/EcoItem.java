@@ -105,7 +105,7 @@ public class EcoItem extends GuiItem {
             }
 
             @Override
-            public boolean onShiftLeftClick(Player player) {
+            public boolean onShiftRightClick(Player player) {
 
                 int amount = self.getAmount(player);
                 amount += 10;
@@ -136,7 +136,7 @@ public class EcoItem extends GuiItem {
             }
 
             @Override
-            public boolean onShiftRightClick(Player player) { return false; }
+            public boolean onShiftLeftClick(Player player) { return false; }
         });
 
         this.buy_price = buy_price;
