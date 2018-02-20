@@ -153,10 +153,7 @@ public class AdminShop extends JavaPlugin{
                 temp.addItem(new EcoItem(ecoitemtype, 1, (short)0, cat.getItems().get(i).getBuy_price(),  cat.getItems().get(i).getSell_price(), ItemStatut.BOTH, null));
                 this.categories.add(temp);
             }
-
-
         });
-
     }
 
 

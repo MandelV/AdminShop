@@ -115,26 +115,33 @@ public  class Gui {
             // Set previous button
             page.getPage().add(new GuiItem(Material.PAPER, 1, (short) 0, new GuiAction() {
                 @Override
-                public void onRightClick(Player player) {
+                public boolean onRightClick(Player player) {
+
+                    return false;
 
                 }
 
                 @Override
-                public void onLeftClick(Player player) {
+                public boolean onLeftClick(Player player) {
                     self.pageDown(player);
+
+                    return false;
                 }
             }));
 
             // Set next button on previous page
             this.itemPages.get(pageIndex-1).getPage().add(new GuiItem(Material.PAPER, 1, (short) 0, new GuiAction() {
                 @Override
-                public void onRightClick(Player player) {
+                public boolean onRightClick(Player player) {
+                    return false;
 
                 }
 
                 @Override
-                public void onLeftClick(Player player) {
+                public boolean onLeftClick(Player player) {
                     self.pageUp(player);
+
+                    return false;
                 }
             }));
         } else {
@@ -273,7 +280,11 @@ public  class Gui {
             if(slotId < page.getPage().size()){
                 GuiItem item = page.getGuiItem(slotId);
                 if(item != null){
-                    item.triggerAction(player, event.getClick());
+                    boolean refresh = item.triggerAction(player, event.getClick());
+
+                    if(refresh){
+                        this.render(player);
+                    }
                 }
             }
         }

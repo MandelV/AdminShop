@@ -46,15 +46,17 @@ public class GuiItem extends ItemStack{
         this.guiAction = guiAction;
     }
 
-    public void triggerAction(Player player, ClickType clickType) {
+    public boolean triggerAction(Player player, ClickType clickType) {
 
         if(this.guiAction != null){
             if (clickType == ClickType.LEFT) {
-                this.guiAction.onLeftClick(player);
+                return this.guiAction.onLeftClick(player);
             } else if (clickType == ClickType.RIGHT) {
-                this.guiAction.onRightClick(player);
+               return this.guiAction.onRightClick(player);
             }
         }
+
+        return false;
     }
 
 

@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 
 public interface GuiAction {
 
-    void onRightClick(Player player);
+    boolean onRightClick(Player player);
 
-    void onLeftClick(Player player);
+    boolean onLeftClick(Player player);
 }

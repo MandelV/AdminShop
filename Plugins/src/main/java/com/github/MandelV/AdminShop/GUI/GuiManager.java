@@ -33,13 +33,11 @@ public class GuiManager implements Listener {
                 if (gui.hasPlayer(player)) {
                     event.setCancelled(true);
                     gui.dispatchEvent(player, event);
-
+                    break;
                 }
             }
         }
     }
-
-
     @EventHandler
     public void onClose(InventoryCloseEvent e){
         Player player = (Player) e.getPlayer();

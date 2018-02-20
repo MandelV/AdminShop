@@ -30,7 +30,7 @@ public class EcoItem extends GuiItem {
 
         this.setGuiAction(new GuiAction() {
             @Override
-            public void onRightClick(Player player) {
+            public boolean onRightClick(Player player) {
 
                 if(AdminShop.getEcon().has(player, self.buy_price * self.getAmount())){
                     player.sendMessage(ChatFormatting.formatText("&2Vous avez acheter :" + self.getType().toString()));
@@ -44,10 +44,12 @@ public class EcoItem extends GuiItem {
                 }else{
                     player.sendMessage(ChatFormatting.formatText("&4Vous n'avez pas les fonds nécessaire"));
                 }
+
+                return false;
             }
 
             @Override
-            public void onLeftClick(Player player) {
+            public boolean onLeftClick(Player player) {
 
                 int amount = self.getAmount();
                 amount++;
@@ -64,15 +66,14 @@ public class EcoItem extends GuiItem {
 
                 self.setItemMeta(meta);
 
+                return true;
+
             }
         });
-
 
         this.buy_price = buy_price;
         this.sell_price = sell_price;
         this.statut = statut;
-
-
         ItemMeta meta = this.getItemMeta();
         List<String> lore = new ArrayList<>();
         lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price)));
@@ -81,7 +82,6 @@ public class EcoItem extends GuiItem {
         lore.add(ChatFormatting.formatText("&a&oClic gauche pour augmenter le nombre d'item"));
 
         meta.setLore(lore);
-
         this.setItemMeta(meta);
 
     }
