@@ -28,6 +28,7 @@ public  class Gui {
 
     private GuiInvRow nbrLine;
     private String name;
+    private String displayName;
     private boolean navbar = true;
 
 
@@ -35,10 +36,10 @@ public  class Gui {
     /***
      *
      * @param nbrLine Enum definnissant le nombre de ligne dans le coffre de 1 à 6
-     * @param invName Nom de l'inventaire
+     * @param name Nom de l'inventaire
      * @see GuiInvRow
      */
-    public Gui(GuiInvRow nbrLine, String invName){
+    public Gui(GuiInvRow nbrLine, String name, String displayName){
 
         this.itemPages = new ArrayList<>();
         this.customNavbar = new ArrayList<>();
@@ -51,9 +52,18 @@ public  class Gui {
 
         this.uuid = UUID.randomUUID();
         this.nbrLine = nbrLine;
-        this.name = invName;
+        this.name = name;
+        this.displayName = displayName;
 
         GuiManager.addGui(this);
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public String getDisplayName(){
+        return this.displayName;
     }
 
     public void enableNavbar(boolean b) {
@@ -265,7 +275,7 @@ public  class Gui {
     }
     private Inventory render(Player player, boolean start) {
 
-        Inventory inventory = Bukkit.createInventory(player, this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
+        Inventory inventory = Bukkit.createInventory(player, this.nbrLine.getSize(), ChatFormatting.formatText(this.displayName));
 
         if(this.itemPages.isEmpty()){
             player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix") + AdminShop.getInstance().getMessage().getCustomConfig().getString("no_categories")));

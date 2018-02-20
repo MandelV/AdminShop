@@ -10,6 +10,7 @@ import java.util.List;
 public class Dao_Categorie {
 
     private String name;
+    private String displayName;
     private String id_item;
     private ResultSet result;
 
@@ -17,9 +18,10 @@ public class Dao_Categorie {
 
     private List<Dao_item> items;
 
-    public Dao_Categorie(final String name, final String id_item){
+    public Dao_Categorie(final String name, final String displayName, final String id_item){
 
         this.name = name;
+        this.displayName = displayName;
         this.id_item = id_item;
         this.descriptions = new ArrayList<>();
         this.items = new ArrayList<>();
@@ -91,5 +93,9 @@ public class Dao_Categorie {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getDisplayName() {
+        return displayName;
     }
 }

@@ -37,39 +37,10 @@ public class AdminShop extends JavaPlugin{
 
         adminShop = this;
         ChatFormatting.getInstance();
-        this.shop = new Gui(GuiInvRow.ROW2, "&4AdminShop &f- &eCategories");
+        this.shop = new Gui(GuiInvRow.ROW2, "adminshop",  "&4AdminShop &f- &eCategories");
         this.categories = new ArrayList<>();
-
         AdminShop self = this;
 
-
-        /*shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
-        shop.addItem(null);
-        shop.addItem(new GuiItem(Material.DIAMOND_SWORD, 64, (short) 0, new GuiAction() {
-            @Override
-            public void onRightClick(Player player) {
-                self.shop.pageUp(player);
-            }
-
-            @Override
-            public void onLeftClick(Player player) {
-
-            }
-        }));
-        //List<String> desc = new ArrayList<>();
-
-        //desc.add("&aCatégorie minerai");
-        //desc.add("&aYOLO test");
-        //Gui Minerai = EcoGuiFactory.createSubGui(GuiInvRow.ROW3, "Minerais", this.shop,desc,Material.DIAMOND_ORE, "&bMinerai");
-        /*Minerai.addItem(new  EcoItem(Material.DIAMOND_ORE, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
-
-        for(int i = 0; i < 100; i++){
-            Minerai.addItem(new  EcoItem(Material.IRON_ORE, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
-        }*/
-
-
-
-       // shop.addItem(new EcoItem(Material.DIAMOND, 64, (short)0, 25, 30, ItemStatut.BOTH, null));
 
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &5By Akitoshi and Hougo13"));
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &5Version : 1.0-SNAPSHOT"));
@@ -144,7 +115,7 @@ public class AdminShop extends JavaPlugin{
             Material item = Material.getMaterial(cat.getId_item());
            // GuiItem tempItem = new GuiItem(item, 1, (short)0, null);
 
-            Gui temp = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, cat.getName(), self.shop, cat.getDescriptions(), item, cat.getName());
+            Gui temp = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, cat.getName(), cat.getDisplayName(),  self.shop, cat.getDescriptions(), item, cat.getDisplayName());
 
             for(int i = 0; i < cat.getItems().size(); i++){
 

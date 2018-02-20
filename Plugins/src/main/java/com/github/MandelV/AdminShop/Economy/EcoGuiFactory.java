@@ -15,19 +15,19 @@ public abstract class EcoGuiFactory {
     /**
      *
      * @param nbrLine Enum qui représente chaque ligne possible 6 max
-     * @param invName le nom de l'inventaire
+     * @param name le nom de l'inventaire
      * @return le nouveau Gui
      * @see GuiInvRow
      * @see Gui
      */
-    public static Gui createGui(GuiInvRow nbrLine, String invName){
-        return new Gui(nbrLine, invName);
+    public static Gui createGui(GuiInvRow nbrLine, String name, String displayName){
+        return new Gui(nbrLine, name, displayName);
     }
 
     /**
      *Permet de rajouter à un Gui un sous Gui.
      * @param nrgLine Nombre de ligne du GUI enfant
-     * @param invName Nom du sous-Gui
+     * @param name Nom du sous-Gui
      * @param parentGui Gui parent
      * @param description Description de l'item permettant d'acceder au GUI enfant (Dans le parent)
      * @param icon Icon (ItemGui) qui représentera le sous GUI dans le parent
@@ -37,9 +37,9 @@ public abstract class EcoGuiFactory {
      * @see Material
      * @see Gui
      */
-    public static Gui createSubGui(GuiInvRow nrgLine, String invName, Gui parentGui, List<String> description, Material icon, final String nameIcon){
+    public static Gui createSubGui(GuiInvRow nrgLine, String name, String displayName, Gui parentGui, List<String> description, Material icon, final String nameIcon){
 
-        Gui childGui = new Gui(nrgLine, invName);
+        Gui childGui = new Gui(nrgLine, name, displayName);
 
         //Creation de l'icon permettant d'aller au sous Gui
         GuiItem iconItem = new GuiItem(icon, 1, false, (short) 0, new GuiAction() {
