@@ -8,7 +8,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Akitoshi
@@ -20,6 +22,8 @@ public class GuiItem extends ItemStack{
 
     private ItemMeta dataItem;
     private List<String> description;
+    private boolean uniqueAmount;
+    private Map<Player, Integer> playerAmount = new HashMap<>();
 
     private GuiAction guiAction;
 
@@ -30,16 +34,31 @@ public class GuiItem extends ItemStack{
      * @param damage damage value
      * @param guiAction action when item is clicked
      */
-    public GuiItem(Material type, int amount, short damage, GuiAction guiAction){
-
-
+    public GuiItem(Material type, int amount, boolean uniqueAmount, short damage, GuiAction guiAction){
         super(type, amount, damage);
 
-
+        this.uniqueAmount = uniqueAmount;
         this.description = new ArrayList<>();
         this.guiAction = guiAction;
         this.dataItem = this.getItemMeta();
+    }
 
+    public int getAmount(Player player) {
+        if (this.uniqueAmount) {
+            return this.getAmount();
+        } else {
+            Integer amount = this.playerAmount.get(player);
+
+            if (amount != null) {
+                return amount;
+            } else {
+                return this.getAmount();
+            }
+        }
+    }
+
+    public void setAmount(Player player, int amount) {
+        this.playerAmount.put(player, amount);
     }
 
     public void setGuiAction(GuiAction guiAction) {

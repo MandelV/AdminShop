@@ -20,11 +20,9 @@ public class EcoItem extends GuiItem {
     private double buy_price;
     private double sell_price;
     private ItemStatut statut;
-
-
     public EcoItem(Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut, GuiAction action){
 
-        super(type, amount, damage, action);
+        super(type, amount, false, damage, action);
 
         EcoItem self = this;
 
@@ -33,9 +31,9 @@ public class EcoItem extends GuiItem {
             @Override
             public boolean onLeftClick(Player player) {
 
-                if(AdminShop.getEcon().has(player, self.buy_price * self.getAmount())){
+                if(AdminShop.getEcon().has(player, self.buy_price * self.getAmount(player))){
                     player.sendMessage(ChatFormatting.formatText("&2Vous avez acheter :" + self.getType().toString()));
-                    AdminShop.getEcon().withdrawPlayer(player, self.buy_price * self.getAmount());
+                    AdminShop.getEcon().withdrawPlayer(player, self.buy_price * self.getAmount(player));
 
                     ItemStack giveItem = self.clone();
                     ItemMeta meta = giveItem.getItemMeta();
@@ -52,10 +50,10 @@ public class EcoItem extends GuiItem {
             @Override
             public boolean onRightClick(Player player) {
 
-                int amount = self.getAmount();
+                int amount = self.getAmount(player);
                 amount++;
                 if(amount < 64){
-                    self.setAmount(amount);
+                    self.setAmount(player, amount);
                 }else{
                     amount = 64;
                 }
@@ -63,7 +61,7 @@ public class EcoItem extends GuiItem {
                 System.err.println(amount);
                 ItemMeta meta = self.getItemMeta();
                 List<String> lore = new ArrayList<>();
-                lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price * self.getAmount())));
+                lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price * self.getAmount(player))));
                 lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
                 lore.add(ChatFormatting.formatText("&a&oClic gauche pour acheter"));
                 lore.add(ChatFormatting.formatText("&a&oClic droit pour augmenter le nombre d'item"));
@@ -81,10 +79,10 @@ public class EcoItem extends GuiItem {
 
             @Override
             public boolean onMiddleClick(Player player) {
-                int amount = self.getAmount();
+                int amount = self.getAmount(player);
                 amount--;
                 if(amount > 0){
-                    self.setAmount(amount);
+                    self.setAmount(player, amount);
                 }else{
                     amount = 1;
                 }
@@ -92,7 +90,7 @@ public class EcoItem extends GuiItem {
                 System.err.println(amount);
                 ItemMeta meta = self.getItemMeta();
                 List<String> lore = new ArrayList<>();
-                lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price * self.getAmount())));
+                lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price * self.getAmount(player))));
                 lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
                 lore.add(ChatFormatting.formatText("&a&oClic gauche pour acheter"));
                 lore.add(ChatFormatting.formatText("&a&oClic droit pour augmenter le nombre d'item"));
@@ -109,10 +107,10 @@ public class EcoItem extends GuiItem {
             @Override
             public boolean onShiftLeftClick(Player player) {
 
-                int amount = self.getAmount();
+                int amount = self.getAmount(player);
                 amount += 10;
                 if(amount < 64){
-                    self.setAmount(amount);
+                    self.setAmount(player, amount);
                 }else{
                     amount = 64;
                 }
@@ -120,7 +118,7 @@ public class EcoItem extends GuiItem {
                 System.err.println(amount);
                 ItemMeta meta = self.getItemMeta();
                 List<String> lore = new ArrayList<>();
-                lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price * self.getAmount())));
+                lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price * self.getAmount(player))));
                 lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
                 lore.add(ChatFormatting.formatText("&a&oClic gauche pour acheter"));
                 lore.add(ChatFormatting.formatText("&a&oClic droit pour augmenter le nombre d'item"));
