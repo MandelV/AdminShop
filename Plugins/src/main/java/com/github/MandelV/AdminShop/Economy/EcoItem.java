@@ -67,7 +67,8 @@ public class EcoItem extends GuiItem {
                 lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
                 lore.add(ChatFormatting.formatText("&a&oClic gauche pour acheter"));
                 lore.add(ChatFormatting.formatText("&a&oClic droit pour augmenter le nombre d'item"));
-                lore.add(ChatFormatting.formatText("&a&oClic molette pour augmenter le nombre d'item"));
+                lore.add(ChatFormatting.formatText("&a&oShift + Clic droit pour augmenter de 10 le nombre d'item"));
+                lore.add(ChatFormatting.formatText("&a&oClic molette pour diminuer le nombre d'item"));
 
 
                 meta.setLore(lore);
@@ -93,8 +94,10 @@ public class EcoItem extends GuiItem {
                 List<String> lore = new ArrayList<>();
                 lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price * self.getAmount())));
                 lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
-                lore.add(ChatFormatting.formatText("&a&oClic droit pour acheter"));
-                lore.add(ChatFormatting.formatText("&a&oClic gauche pour augmenter le nombre d'item"));
+                lore.add(ChatFormatting.formatText("&a&oClic gauche pour acheter"));
+                lore.add(ChatFormatting.formatText("&a&oClic droit pour augmenter le nombre d'item"));
+                lore.add(ChatFormatting.formatText("&a&oShift + Clic droit pour augmenter de 10 le nombre d'item"));
+                lore.add(ChatFormatting.formatText("&a&oClic molette pour diminuer le nombre d'item"));
 
                 meta.setLore(lore);
 
@@ -121,7 +124,8 @@ public class EcoItem extends GuiItem {
                 lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
                 lore.add(ChatFormatting.formatText("&a&oClic gauche pour acheter"));
                 lore.add(ChatFormatting.formatText("&a&oClic droit pour augmenter le nombre d'item"));
-                lore.add(ChatFormatting.formatText("&a&oClic molette pour augmenter le nombre d'item"));
+                lore.add(ChatFormatting.formatText("&a&oShift + Clic droit pour augmenter de 10 le nombre d'item"));
+                lore.add(ChatFormatting.formatText("&a&oClic molette pour diminuer le nombre d'item"));
 
 
                 meta.setLore(lore);
@@ -144,8 +148,10 @@ public class EcoItem extends GuiItem {
         List<String> lore = new ArrayList<>();
         lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price)));
         lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
-        lore.add(ChatFormatting.formatText("&a&oClic droit pour acheter"));
-        lore.add(ChatFormatting.formatText("&a&oClic gauche pour augmenter le nombre d'item"));
+        lore.add(ChatFormatting.formatText("&a&oClic gauche pour acheter"));
+        lore.add(ChatFormatting.formatText("&a&oClic droit pour augmenter le nombre d'item"));
+        lore.add(ChatFormatting.formatText("&a&oShift + Clic droit pour augmenter de 10 le nombre d'item"));
+        lore.add(ChatFormatting.formatText("&a&oClic molette pour diminuer le nombre d'item"));
 
         meta.setLore(lore);
         this.setItemMeta(meta);
