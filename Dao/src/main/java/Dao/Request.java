@@ -25,7 +25,7 @@ public abstract class Request {
         try {
             while(result.next()){
 
-                categories.add(new Dao_Categorie(result.getString(1), result.getString(2)));
+                categories.add(new Dao_Categorie(result.getString(1),result.getString(2), result.getString(3)));
 
             }
             result.close();
