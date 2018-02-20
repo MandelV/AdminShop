@@ -22,6 +22,7 @@ public class GuiItem extends ItemStack{
 
     private ItemMeta dataItem;
     private List<String> description;
+    private int defaultAmount;
     private boolean uniqueAmount;
     private Map<Player, Integer> playerAmount = new HashMap<>();
 
@@ -37,6 +38,7 @@ public class GuiItem extends ItemStack{
     public GuiItem(Material type, int amount, boolean uniqueAmount, short damage, GuiAction guiAction){
         super(type, amount, damage);
 
+        this.defaultAmount = amount;
         this.uniqueAmount = uniqueAmount;
         this.description = new ArrayList<>();
         this.guiAction = guiAction;
@@ -45,20 +47,26 @@ public class GuiItem extends ItemStack{
 
     public int getAmount(Player player) {
         if (this.uniqueAmount) {
-            return this.getAmount();
+            return this.defaultAmount;
         } else {
             Integer amount = this.playerAmount.get(player);
 
             if (amount != null) {
                 return amount;
             } else {
-                return this.getAmount();
+                return this.defaultAmount;
             }
         }
     }
 
     public void setAmount(Player player, int amount) {
-        this.playerAmount.put(player, amount);
+        if (!this.uniqueAmount) {
+            this.playerAmount.put(player, amount);
+        }
+    }
+
+    public void setToPlayerAmount(Player player) {
+        this.setAmount(this.getAmount(player));
     }
 
     public void setGuiAction(GuiAction guiAction) {

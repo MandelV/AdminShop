@@ -271,12 +271,12 @@ public  class Gui {
             player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix") + AdminShop.getInstance().getMessage().getCustomConfig().getString("no_categories")));
         }else{
 
-
             List<GuiItem> pageContent = this.itemPages.get(this.currentPlayersPage.get(player)).getPage();
 
             for(int i = 0; i < pageContent.size(); i++){
                 GuiItem item = pageContent.get(i);
                 if (item != null) {
+                    item.setToPlayerAmount(player);
                     inventory.setItem(i, pageContent.get(i));
                 }
             }
