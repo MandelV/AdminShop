@@ -50,9 +50,27 @@ public class GuiItem extends ItemStack{
 
         if(this.guiAction != null){
             if (clickType == ClickType.LEFT) {
+
                 return this.guiAction.onLeftClick(player);
+
             } else if (clickType == ClickType.RIGHT) {
+
                return this.guiAction.onRightClick(player);
+
+            }else if(clickType == ClickType.MIDDLE){
+
+                return this.guiAction.onMiddleClick(player);
+
+            }else if(clickType == ClickType.SHIFT_LEFT){
+
+                return this.guiAction.onShiftLeftClick(player);
+
+            }else if(clickType == ClickType.SHIFT_RIGHT){
+
+                return  this.guiAction.onShiftRightClick(player);
+
+
+
             }
         }
 

@@ -44,17 +44,24 @@ public abstract class EcoGuiFactory {
         //Creation de l'icon permettant d'aller au sous Gui
         GuiItem iconItem = new GuiItem(icon, 1, (short) 0, new GuiAction() {
             @Override
-            public boolean onRightClick(Player player) {
-                childGui.open(player, false);
-                return false;
-
-
-            }
+            public boolean onRightClick(Player player) { return false; }
             @Override
             public boolean onLeftClick(Player player) {
                 childGui.open(player, false);
                 return false;
+            }
 
+            @Override
+            public boolean onMiddleClick(Player player) { return false; }
+
+            @Override
+            public boolean onShiftLeftClick(Player player) {
+                return false;
+            }
+
+            @Override
+            public boolean onShiftRightClick(Player player) {
+                return false;
             }
         });
 

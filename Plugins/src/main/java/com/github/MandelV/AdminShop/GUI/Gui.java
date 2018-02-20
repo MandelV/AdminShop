@@ -127,6 +127,21 @@ public  class Gui {
 
                     return false;
                 }
+
+                @Override
+                public boolean onMiddleClick(Player player) {
+                    return false;
+                }
+
+                @Override
+                public boolean onShiftLeftClick(Player player) {
+                    return false;
+                }
+
+                @Override
+                public boolean onShiftRightClick(Player player) {
+                    return false;
+                }
             }));
 
             // Set next button on previous page
@@ -141,6 +156,21 @@ public  class Gui {
                 public boolean onLeftClick(Player player) {
                     self.pageUp(player);
 
+                    return false;
+                }
+
+                @Override
+                public boolean onMiddleClick(Player player) {
+                    return false;
+                }
+
+                @Override
+                public boolean onShiftLeftClick(Player player) {
+                    return false;
+                }
+
+                @Override
+                public boolean onShiftRightClick(Player player) {
                     return false;
                 }
             }));
@@ -281,6 +311,7 @@ public  class Gui {
                 GuiItem item = page.getGuiItem(slotId);
                 if(item != null){
                     boolean refresh = item.triggerAction(player, event.getClick());
+
 
                     if(refresh){
                         this.render(player);

@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -30,7 +31,7 @@ public class EcoItem extends GuiItem {
 
         this.setGuiAction(new GuiAction() {
             @Override
-            public boolean onRightClick(Player player) {
+            public boolean onLeftClick(Player player) {
 
                 if(AdminShop.getEcon().has(player, self.buy_price * self.getAmount())){
                     player.sendMessage(ChatFormatting.formatText("&2Vous avez acheter :" + self.getType().toString()));
@@ -49,11 +50,44 @@ public class EcoItem extends GuiItem {
             }
 
             @Override
-            public boolean onLeftClick(Player player) {
+            public boolean onRightClick(Player player) {
 
                 int amount = self.getAmount();
                 amount++;
-                self.setAmount(amount);
+                if(amount < 64){
+                    self.setAmount(amount);
+                }else{
+                    amount = 64;
+                }
+
+                System.err.println(amount);
+                ItemMeta meta = self.getItemMeta();
+                List<String> lore = new ArrayList<>();
+                lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price * self.getAmount())));
+                lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
+                lore.add(ChatFormatting.formatText("&a&oClic gauche pour acheter"));
+                lore.add(ChatFormatting.formatText("&a&oClic droit pour augmenter le nombre d'item"));
+                lore.add(ChatFormatting.formatText("&a&oClic molette pour augmenter le nombre d'item"));
+
+
+                meta.setLore(lore);
+
+                self.setItemMeta(meta);
+
+                return true;
+
+            }
+
+            @Override
+            public boolean onMiddleClick(Player player) {
+                int amount = self.getAmount();
+                amount--;
+                if(amount > 0){
+                    self.setAmount(amount);
+                }else{
+                    amount = 1;
+                }
+
                 System.err.println(amount);
                 ItemMeta meta = self.getItemMeta();
                 List<String> lore = new ArrayList<>();
@@ -67,8 +101,40 @@ public class EcoItem extends GuiItem {
                 self.setItemMeta(meta);
 
                 return true;
+            }
+
+            @Override
+            public boolean onShiftLeftClick(Player player) {
+
+                int amount = self.getAmount();
+                amount += 10;
+                if(amount < 64){
+                    self.setAmount(amount);
+                }else{
+                    amount = 64;
+                }
+
+                System.err.println(amount);
+                ItemMeta meta = self.getItemMeta();
+                List<String> lore = new ArrayList<>();
+                lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price * self.getAmount())));
+                lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
+                lore.add(ChatFormatting.formatText("&a&oClic gauche pour acheter"));
+                lore.add(ChatFormatting.formatText("&a&oClic droit pour augmenter le nombre d'item"));
+                lore.add(ChatFormatting.formatText("&a&oClic molette pour augmenter le nombre d'item"));
+
+
+                meta.setLore(lore);
+
+                self.setItemMeta(meta);
+
+                return true;
+
 
             }
+
+            @Override
+            public boolean onShiftRightClick(Player player) { return false; }
         });
 
         this.buy_price = buy_price;
