@@ -35,6 +35,7 @@ public class GuiItem extends ItemStack{
 
         super(type, amount, damage);
 
+
         this.description = new ArrayList<>();
         this.guiAction = guiAction;
         this.dataItem = this.getItemMeta();

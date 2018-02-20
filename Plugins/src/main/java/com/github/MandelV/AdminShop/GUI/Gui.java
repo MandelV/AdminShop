@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
@@ -217,23 +218,24 @@ public  class Gui {
         this.currentPlayersPage.put(player,0);
         if(!this.currentPlayersPage.isEmpty()){
             this.render(player, isStart);
+            System.out.println("[AdminShop]" + player.getName() + "action : " + "OPEN");
         }
 
     }
 
-    public Inventory render(Player player) {
+    private Inventory render(Player player) {
         return this.render(player, false);
     }
-
-    public Inventory render(Player player, boolean start) {
+    private Inventory render(Player player, boolean start) {
 
         Inventory inventory = Bukkit.createInventory(player, this.nbrLine.getSize(), ChatFormatting.formatText(this.name));
 
         if(this.itemPages.isEmpty()){
             player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix") + AdminShop.getInstance().getMessage().getCustomConfig().getString("no_categories")));
         }else{
-            List<GuiItem> pageContent = this.itemPages.get(this.currentPlayersPage.get(player)).getPage();
 
+
+            List<GuiItem> pageContent = this.itemPages.get(this.currentPlayersPage.get(player)).getPage();
 
             for(int i = 0; i < pageContent.size(); i++){
                 GuiItem item = pageContent.get(i);
@@ -242,7 +244,6 @@ public  class Gui {
                 }
             }
         }
-
         if (start) {
             this.playerChangingPage.put(player, false);
         } else {
@@ -284,7 +285,7 @@ public  class Gui {
         } else {
             this.playerChangingPage.remove(player);
             this.currentPlayersPage.remove(player);
-            System.out.println("Exit");
+            System.out.println("[AdminShop]" + player.getName() + "action : " + "EXIT");
         }
     }
 

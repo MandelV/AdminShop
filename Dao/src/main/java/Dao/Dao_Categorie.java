@@ -15,12 +15,19 @@ public class Dao_Categorie {
 
     private List<String> descriptions;
 
+    private List<Dao_item> items;
+
     public Dao_Categorie(final String name, final String id_item){
 
         this.name = name;
         this.id_item = id_item;
         this.descriptions = new ArrayList<>();
+        this.items = new ArrayList<>();
+
         this.requestDescriptions();
+        this.requestItemCategorie();
+
+
     }
 
     public void addDescriptions(String desc) {
@@ -52,7 +59,32 @@ public class Dao_Categorie {
             e.printStackTrace();
         }
     }
+    public List<Dao_item> getItems(){
+        return this.items;
+    }
 
+    private void requestItemCategorie(){
+
+        this.result = Dao.getInstance().query("SELECT * FROM as_item WHERE as_item.name_categorie ='" + this.name + "'");
+
+        try {
+
+            while (this.result.next()){
+
+                this.items.add(new Dao_item(
+                        this.result.getString(3),
+                        this.result.getDouble(4),
+                        this.result.getDouble(5),
+                        this.result.getString(6)));
+            }
+
+            this.result.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+
+    }
     public List<String> getDescriptions(){
         return this.descriptions;
     }

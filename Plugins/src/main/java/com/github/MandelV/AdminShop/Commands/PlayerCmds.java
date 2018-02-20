@@ -30,7 +30,7 @@ public class PlayerCmds extends Commands {
             if(command.getName().equalsIgnoreCase("adminshop") && args.length == 0){
 
 
-                System.out.println("Open inventory");
+
                 adminShop.shop.open(adminShop.getServer().getPlayer(commandSender.getName()));
 
 

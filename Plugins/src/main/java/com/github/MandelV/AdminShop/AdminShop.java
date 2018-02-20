@@ -144,16 +144,17 @@ public class AdminShop extends JavaPlugin{
             Material item = Material.getMaterial(cat.getId_item());
            // GuiItem tempItem = new GuiItem(item, 1, (short)0, null);
 
+            Gui temp = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, cat.getName(), self.shop, cat.getDescriptions(), item, cat.getName());
 
-            EcoGuiFactory.createSubGui(GuiInvRow.ROW6, cat.getName(), self.shop, cat.getDescriptions(), item, cat.getName());
+            for(int i = 0; i < cat.getItems().size(); i++){
+
+                Material ecoitemtype = Material.getMaterial(cat.getItems().get(i).getId_item());
+
+                temp.addItem(new EcoItem(ecoitemtype, 1, (short)0, cat.getItems().get(i).getBuy_price(),  cat.getItems().get(i).getSell_price(), ItemStatut.BOTH, null));
+                this.categories.add(temp);
+            }
 
 
-           /* ItemMeta dataItem = tempItem.getItemMeta();
-            dataItem.setDisplayName(ChatFormatting.formatText(cat.getName()));
-            dataItem.setLore(cat.getDescriptions());
-            tempItem.setItemMeta(dataItem);*/
-            //self.shop.addItem(tempItem);
-            //self.shop.addItem(null);
         });
 
     }

@@ -1,10 +1,18 @@
 package com.github.MandelV.AdminShop.Economy;
 
+import com.github.MandelV.AdminShop.AdminShop;
 import com.github.MandelV.AdminShop.GUI.GuiAction;
 import com.github.MandelV.AdminShop.GUI.GuiItem;
+import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EcoItem extends GuiItem {
 
@@ -19,17 +27,43 @@ public class EcoItem extends GuiItem {
 
         EcoItem self = this;
 
+
         this.setGuiAction(new GuiAction() {
             @Override
             public void onRightClick(Player player) {
-                self.buy_price--;
-                System.out.println("Prix item : " + self.buy_price);
+
+                if(AdminShop.getEcon().has(player, self.buy_price * self.getAmount())){
+                    player.sendMessage(ChatFormatting.formatText("&2Vous avez acheter :" + self.getType().toString()));
+                    AdminShop.getEcon().withdrawPlayer(player, self.buy_price * self.getAmount());
+
+                    ItemStack giveItem = self.clone();
+                    ItemMeta meta = giveItem.getItemMeta();
+                    meta.setLore(new ArrayList<>());
+                    giveItem.setItemMeta(meta);
+                    player.getInventory().addItem(giveItem);
+                }else{
+                    player.sendMessage(ChatFormatting.formatText("&4Vous n'avez pas les fonds nécessaire"));
+                }
             }
 
             @Override
             public void onLeftClick(Player player) {
-                self.buy_price++;
-                System.out.println("++" + self.buy_price);
+
+                int amount = self.getAmount();
+                amount++;
+                self.setAmount(amount);
+                System.err.println(amount);
+                ItemMeta meta = self.getItemMeta();
+                List<String> lore = new ArrayList<>();
+                lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price * self.getAmount())));
+                lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
+                lore.add(ChatFormatting.formatText("&a&oClic droit pour acheter"));
+                lore.add(ChatFormatting.formatText("&a&oClic gauche pour augmenter le nombre d'item"));
+
+                meta.setLore(lore);
+
+                self.setItemMeta(meta);
+
             }
         });
 
@@ -37,6 +71,18 @@ public class EcoItem extends GuiItem {
         this.buy_price = buy_price;
         this.sell_price = sell_price;
         this.statut = statut;
+
+
+        ItemMeta meta = this.getItemMeta();
+        List<String> lore = new ArrayList<>();
+        lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price)));
+        lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
+        lore.add(ChatFormatting.formatText("&a&oClic droit pour acheter"));
+        lore.add(ChatFormatting.formatText("&a&oClic gauche pour augmenter le nombre d'item"));
+
+        meta.setLore(lore);
+
+        this.setItemMeta(meta);
 
     }
 
