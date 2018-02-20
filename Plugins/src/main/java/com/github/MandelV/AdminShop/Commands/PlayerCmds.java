@@ -3,6 +3,8 @@ package com.github.MandelV.AdminShop.Commands;
 
 import Dao.Request;
 import com.github.MandelV.AdminShop.AdminShop;
+import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
+import net.milkbowl.vault.chat.Chat;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -35,24 +37,9 @@ public class PlayerCmds extends Commands {
 
 
             }
-            else if(args[0].equalsIgnoreCase("up")){
+            else if(args[0].equalsIgnoreCase("listcategorie")){
 
-                adminShop.shop.pageUp(adminShop.getServer().getPlayer(commandSender.getName()));
-
-            }
-            else if(args[0].equalsIgnoreCase("down")){
-
-                adminShop.shop.pageDown(adminShop.getServer().getPlayer(commandSender.getName()));
-
-            }
-            else if(args[0].equalsIgnoreCase("size")){
-
-                commandSender.sendMessage("nombre de page : " + adminShop.shop.getnbrPage());
-
-            }
-            else if(args[0].equalsIgnoreCase("actuel")){
-
-                commandSender.sendMessage("Page actuelle : " + adminShop.shop.getCurrentPage(adminShop.getServer().getPlayer(commandSender.getName())));
+                this.listCategorie(commandSender);
 
             }
 
@@ -60,6 +47,12 @@ public class PlayerCmds extends Commands {
         return true;
     }
 
+    private void listCategorie(CommandSender sender){
+        sender.sendMessage(ChatFormatting.formatText("[&6AdminShop&f] &2Nombre de categorie : &6" + adminShop.categories.size()));
+        adminShop.categories.forEach(cat ->{
+            sender.sendMessage(ChatFormatting.formatText("&6"+ cat.getName()));
+        });
+    }
 
 
 }

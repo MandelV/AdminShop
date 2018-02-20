@@ -122,8 +122,9 @@ public class AdminShop extends JavaPlugin{
                 Material ecoitemtype = Material.getMaterial(cat.getItems().get(i).getId_item());
 
                 temp.addItem(new EcoItem(ecoitemtype, 1, (short)0, cat.getItems().get(i).getBuy_price(),  cat.getItems().get(i).getSell_price(), ItemStatut.BOTH, null));
-                this.categories.add(temp);
+
             }
+            this.categories.add(temp);
         });
     }
 

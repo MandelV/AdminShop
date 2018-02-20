@@ -6,6 +6,7 @@ import com.github.MandelV.AdminShop.GUI.GuiItem;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -20,6 +21,7 @@ public class EcoItem extends GuiItem {
     private double buy_price;
     private double sell_price;
     private ItemStatut statut;
+
     public EcoItem(Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut, GuiAction action){
 
         super(type, amount, false, damage, action);
@@ -61,16 +63,14 @@ public class EcoItem extends GuiItem {
                 System.err.println(amount);
                 ItemMeta meta = self.getItemMeta();
                 List<String> lore = new ArrayList<>();
-                lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price * self.getAmount(player))));
-                lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
-                lore.add(ChatFormatting.formatText("&a&oClic gauche pour acheter"));
-                lore.add(ChatFormatting.formatText("&a&oClic droit pour augmenter le nombre d'item"));
-                lore.add(ChatFormatting.formatText("&a&oShift + Clic droit pour augmenter de 10 le nombre d'item"));
-                lore.add(ChatFormatting.formatText("&a&oClic molette pour diminuer le nombre d'item"));
 
+               AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
+                   v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getAmount(player)));
+                   v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
+                   lore.add(ChatFormatting.formatText(v));
+                });
 
                 meta.setLore(lore);
-
                 self.setItemMeta(meta);
 
                 return true;
@@ -90,12 +90,12 @@ public class EcoItem extends GuiItem {
                 System.err.println(amount);
                 ItemMeta meta = self.getItemMeta();
                 List<String> lore = new ArrayList<>();
-                lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price * self.getAmount(player))));
-                lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
-                lore.add(ChatFormatting.formatText("&a&oClic gauche pour acheter"));
-                lore.add(ChatFormatting.formatText("&a&oClic droit pour augmenter le nombre d'item"));
-                lore.add(ChatFormatting.formatText("&a&oShift + Clic droit pour augmenter de 10 le nombre d'item"));
-                lore.add(ChatFormatting.formatText("&a&oClic molette pour diminuer le nombre d'item"));
+                AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
+                   v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getAmount(player)));
+                    v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
+                    lore.add(ChatFormatting.formatText(v));
+                });
+
 
                 meta.setLore(lore);
 
@@ -118,13 +118,11 @@ public class EcoItem extends GuiItem {
                 System.err.println(amount);
                 ItemMeta meta = self.getItemMeta();
                 List<String> lore = new ArrayList<>();
-                lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price * self.getAmount(player))));
-                lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
-                lore.add(ChatFormatting.formatText("&a&oClic gauche pour acheter"));
-                lore.add(ChatFormatting.formatText("&a&oClic droit pour augmenter le nombre d'item"));
-                lore.add(ChatFormatting.formatText("&a&oShift + Clic droit pour augmenter de 10 le nombre d'item"));
-                lore.add(ChatFormatting.formatText("&a&oClic molette pour diminuer le nombre d'item"));
-
+                AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
+                   v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getAmount(player)));
+                    v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
+                    lore.add(ChatFormatting.formatText(v));
+                });
 
                 meta.setLore(lore);
 
@@ -144,12 +142,12 @@ public class EcoItem extends GuiItem {
         this.statut = statut;
         ItemMeta meta = this.getItemMeta();
         List<String> lore = new ArrayList<>();
-        lore.add(ChatFormatting.formatText("&cPrix Achat : " + String.valueOf(buy_price)));
-        lore.add(ChatFormatting.formatText("&2Prix Vente : " + String.valueOf(sell_price)));
-        lore.add(ChatFormatting.formatText("&a&oClic gauche pour acheter"));
-        lore.add(ChatFormatting.formatText("&a&oClic droit pour augmenter le nombre d'item"));
-        lore.add(ChatFormatting.formatText("&a&oShift + Clic droit pour augmenter de 10 le nombre d'item"));
-        lore.add(ChatFormatting.formatText("&a&oClic molette pour diminuer le nombre d'item"));
+        AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
+           v = v.replace("{BUY_PRICE}", String.valueOf(buy_price));
+            v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
+            lore.add(ChatFormatting.formatText(v));
+        });
+
 
         meta.setLore(lore);
         this.setItemMeta(meta);
