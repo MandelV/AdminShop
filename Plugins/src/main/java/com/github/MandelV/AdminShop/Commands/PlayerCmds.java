@@ -2,9 +2,12 @@ package com.github.MandelV.AdminShop.Commands;
 
 
 import Dao.Dao_Categorie;
+import Dao.Dao_item;
 import Dao.Request;
 import com.github.MandelV.AdminShop.AdminShop;
 import com.github.MandelV.AdminShop.Economy.EcoGuiFactory;
+import com.github.MandelV.AdminShop.Economy.EcoItem;
+import com.github.MandelV.AdminShop.Economy.ItemStatut;
 import com.github.MandelV.AdminShop.GUI.Gui;
 import com.github.MandelV.AdminShop.GUI.GuiInvRow;
 import com.github.MandelV.AdminShop.GUI.GuiItem;
@@ -13,6 +16,8 @@ import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Item;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
@@ -51,6 +56,8 @@ public class PlayerCmds extends Commands {
             }
 
 
+        }else if(args[0].equalsIgnoreCase("item") && (args.length > 1)){
+            this.addItemIntoCategorie(commandSender, args);
         }
 
         return true;
@@ -139,8 +146,50 @@ public class PlayerCmds extends Commands {
             adminShop.shop.removeItem(displayname);
 
         }
+        return true;
+    }
 
+    private boolean addItemIntoCategorie(CommandSender sender, String[] args){
+        if(!sender.hasPermission("adminshop.item.add")){
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
+            return true;
+        }
+        if(args.length == 6){
+            ItemStack itemHolder = sender.getServer().getPlayer(sender.getName()).getInventory().getItemInMainHand();
+            if(itemHolder.getType() != Material.AIR){
+                String catname = (!args[2].contains("&")) ? args[2] : null;
 
+                Double buy_price;
+                Double sell_price;
+                try{
+                    buy_price = Double.valueOf(args[3]);
+                    sell_price = Double.valueOf(args[4]);
+                }catch (NumberFormatException e){
+                    sender.sendMessage("Prix incorrect");
+                    return false;
+                }
+                ItemStatut statut = ItemStatut.getStatut(args[5]);
+                if(statut == null){
+                    sender.sendMessage("Mauvais statut");
+                    return false;
+                }
+                System.err.println(statut);
+                if(catname != null){
+                    for(int i = 0; i < adminShop.categories.size(); i++){
+                        if(adminShop.categories.get(i).getName().equalsIgnoreCase(catname)){
+                            adminShop.categories.get(i).addItem(new EcoItem(itemHolder.getType(), 1, (short)itemHolder.getDurability(), buy_price, sell_price, statut));
+                            break;
+                        }
+                    }
+
+                    Dao_item sqlitem = new Dao_item(itemHolder.getType().toString(), itemHolder.getDurability(), buy_price, sell_price,statut.getName());
+
+                    Request.addItemIntoCategorie(catname, sqlitem);
+
+                    sender.sendMessage("Item Ajouté");
+                }
+            }
+        }
         return true;
     }
 

@@ -209,6 +209,8 @@ public class Dao {
 
                     preparedStatement.setDate(i,(Date) parameter.getParameter());
 
+                }else if(parameter.getParameter() instanceof Short){
+                    preparedStatement.setShort(i, (Short)parameter.getParameter());
                 }
                 i++;
             }

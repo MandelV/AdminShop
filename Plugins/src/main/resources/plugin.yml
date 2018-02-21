@@ -27,9 +27,13 @@ permission:
     default: false
     description: remove a categorie
 
+  adminshop.item.add:
+    default: false
+    description: add item into categorie
 
-
-
+  adminshop.item.remove:
+    default: false
+    description: remove item from categorie
 
 
 

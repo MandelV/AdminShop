@@ -22,9 +22,9 @@ public class EcoItem extends GuiItem {
     private double sell_price;
     private ItemStatut statut;
 
-    public EcoItem(Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut, GuiAction action){
+    public EcoItem(Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut){
 
-        super(type, amount, damage, true, action);
+        super(type, amount, damage, true, null);
 
         EcoItem self = this;
 

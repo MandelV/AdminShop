@@ -1,5 +1,6 @@
 package com.github.MandelV.AdminShop.GUI;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -14,6 +15,7 @@ public class GuiItemInstance extends ItemStack{
 
         this.guiItem = guiItem;
         this.player = player;
+        this.setDurability(this.guiItem.getDamage());
 
         this.refreshMeta();
     }
@@ -22,6 +24,9 @@ public class GuiItemInstance extends ItemStack{
         ItemMeta meta = super.getItemMeta();
         meta.setDisplayName(this.guiItem.getDisplayName());
         meta.setLore(this.guiItem.getPlayerDescription(this.player));
+
+        this.setDurability(this.guiItem.getDamage());
+
         super.setItemMeta(meta);
     }
 
