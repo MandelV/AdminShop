@@ -64,14 +64,11 @@ public class EcoItem extends GuiItem {
                 List<String> lore = new ArrayList<>();
 
                AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
-                   v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getAmount(player)));
+                   v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getPlayerAmount(player)));
                    v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
                    lore.add(ChatFormatting.formatText(v));
                 });
-
-                meta.setLore(lore);
-                self.setItemMeta(meta);
-
+                setPlayerDescription(player, lore);
                 return true;
 
             }
@@ -89,14 +86,11 @@ public class EcoItem extends GuiItem {
                 System.err.println(amount);
                 List<String> lore = new ArrayList<>();
                 AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
-                   v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getAmount(player)));
+                   v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getPlayerAmount(player)));
                     v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
                     lore.add(ChatFormatting.formatText(v));
                 });
-
-
-                meta.setLore(lore);
-
+                setPlayerDescription(player, lore);
                 return true;
             }
 
@@ -114,17 +108,14 @@ public class EcoItem extends GuiItem {
                 System.err.println(amount);
                 List<String> lore = new ArrayList<>();
                 AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
-                   v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getAmount(player)));
+                   v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getPlayerAmount(player)));
                     v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
                     lore.add(ChatFormatting.formatText(v));
                 });
 
-                meta.setLore(lore);
-
-                self.setItemMeta(meta);
+                setPlayerDescription(player, lore);
 
                 return true;
-
 
             }
 
@@ -142,9 +133,7 @@ public class EcoItem extends GuiItem {
             lore.add(ChatFormatting.formatText(v));
         });
 
-
-        meta.setLore(lore);
-        this.setItemMeta(meta);
+        this.setDefaultDescription(lore);
 
     }
 
