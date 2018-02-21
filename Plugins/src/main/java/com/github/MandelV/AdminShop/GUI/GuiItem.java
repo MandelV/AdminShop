@@ -183,4 +183,9 @@ public class GuiItem {
 
         this.setPlayerDescription(player, description);
     }
+
+    public void removePlayer(Player player) {
+        this.playerDescriptions.remove(player);
+        this.playerAmounts.remove(player);
+    }
 }
