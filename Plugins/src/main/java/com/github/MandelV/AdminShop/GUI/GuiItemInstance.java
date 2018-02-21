@@ -35,10 +35,4 @@ public class GuiItemInstance extends ItemStack{
         this.refreshMeta();
         return super.getItemMeta();
     }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-        this.guiItem.removePlayer(this.player);
-    }
 }
