@@ -4,6 +4,7 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.concurrent.Callable;
 
 /**
  * @author Vaubourg Mandel
@@ -152,32 +153,50 @@ public class Dao {
         return bdd_url_connection;
     }
 
-    public ResultSet query(final String sql){
+
+    private synchronized ResultSet requestQuery(final String sql){
         try {
             PreparedStatement preparedStatement = (PreparedStatement) dao_instance.getBdd_connection().prepareStatement(sql);
             return preparedStatement.executeQuery();
-
 
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
     }
+    public ResultSet query(final String sql) {
 
-    public boolean update(String request)
-    {
-
-        PreparedStatement myPreparedStatement;
+        Callable<ResultSet> callable = () -> {
+            return requestQuery(sql);
+        };
         try {
-            myPreparedStatement = dao_instance.getBdd_connection().prepareStatement(request);
-            myPreparedStatement.executeUpdate();
-
-            return true;
-        } catch (SQLException e) {
+            return callable.call();
+        } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
 
         }
+    }
+
+    public void update(String request)
+    {
+
+        Runnable asyncUpdate = () -> {
+            PreparedStatement myPreparedStatement;
+            try {
+                myPreparedStatement = dao_instance.getBdd_connection().prepareStatement(request);
+                myPreparedStatement.executeUpdate();
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+
+            }
+        };
+
+        new Thread(asyncUpdate).start();
+
     }
 
     public final Optional<PreparedStatement> createStatement(String sql, final ArrayList<Parameters> parameters) {
@@ -222,10 +241,15 @@ public class Dao {
     }
 
     public static void executeStatement(final PreparedStatement statement){
-        try {
-            statement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        Runnable asyncStatement = () -> {
+            try {
+                System.err.println("LOL");
+                statement.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        };
+        new Thread(asyncStatement).start();
     }
 }

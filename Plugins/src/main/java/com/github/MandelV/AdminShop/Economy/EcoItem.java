@@ -43,6 +43,15 @@ public class EcoItem extends GuiItem {
                 }
                 return false;
             }
+            @Override
+            public boolean onShiftLeftClick(Player player) {
+
+
+
+
+
+
+                return false; }
 
             @Override
             public boolean onRightClick(Player player) {
@@ -59,7 +68,7 @@ public class EcoItem extends GuiItem {
 
                AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
                    v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getPlayerAmount(player)));
-                   v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
+                   v = v.replace("{SELL_PRICE}", String.valueOf(sell_price * self.getPlayerAmount(player)));
                    lore.add(ChatFormatting.formatText(v));
                 });
                 setPlayerDescription(player, lore);
@@ -82,7 +91,7 @@ public class EcoItem extends GuiItem {
                 List<String> lore = new ArrayList<>();
                 AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
                    v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getPlayerAmount(player)));
-                    v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
+                    v = v.replace("{SELL_PRICE}", String.valueOf(sell_price * self.getPlayerAmount(player)));
                     lore.add(ChatFormatting.formatText(v));
                 });
                 setPlayerDescription(player, lore);
@@ -115,8 +124,7 @@ public class EcoItem extends GuiItem {
 
             }
 
-            @Override
-            public boolean onShiftLeftClick(Player player) { return false; }
+
         });
 
         this.buy_price = buy_price;
