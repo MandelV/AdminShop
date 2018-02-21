@@ -1,8 +1,12 @@
 package com.github.MandelV.AdminShop.Commands;
 
 
+import Dao.Dao_Categorie;
 import Dao.Request;
 import com.github.MandelV.AdminShop.AdminShop;
+import com.github.MandelV.AdminShop.Economy.EcoGuiFactory;
+import com.github.MandelV.AdminShop.GUI.Gui;
+import com.github.MandelV.AdminShop.GUI.GuiInvRow;
 import com.github.MandelV.AdminShop.GUI.GuiItem;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import net.milkbowl.vault.chat.Chat;
@@ -38,7 +42,7 @@ public class PlayerCmds extends Commands {
 
             if(args[1].equalsIgnoreCase("add")){
 
-                this.addCategorie(commandSender);
+                this.addCategorie(commandSender, args);
 
             }else if(args[1].equalsIgnoreCase("remove")){
 
@@ -80,13 +84,48 @@ public class PlayerCmds extends Commands {
         return true;
     }
 
-    private boolean addCategorie(CommandSender sender){
+    private boolean addCategorie(CommandSender sender, String[] args){
         if(!sender.hasPermission("adminshop.categorie.add")){
             sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
             return true;
         }
+        if(args.length == 5){
 
-        sender.sendMessage("Ajoutt");
+            Material itemcat = Material.getMaterial(args[4].toUpperCase());
+            if(itemcat != null){
+                sender.sendMessage("Ajout de : " + itemcat.toString());
+
+                String name = (!args[2].contains("&")) ? args[2] : null;
+                String displayname = args[3];
+
+                if(name != null){
+
+                    Gui gu = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, name, displayname, adminShop.shop, null, itemcat, displayname);
+
+                    if(gu != null){
+                        Dao_Categorie prepareSqlCategorie = new Dao_Categorie(name, displayname, itemcat.toString());
+                        Request.addCategorie(prepareSqlCategorie);
+                    }
+
+
+
+
+                }else{
+                    sender.sendMessage("&4Attention le nom d'une categorie est différent du nom affiché. ce nom ne doit contenir aucun '&'");
+                }
+
+
+
+
+            }else{
+                sender.sendMessage("Erreur item");
+            }
+
+        }else{
+            this.command_help(sender);
+        }
+
+
         //adminShop.shop.addItem(new GuiItem(Material.DIAMOND, 1, (short)0, null));
         //adminShop.categories.get(0).addItem(new GuiItem(Material.DIAMOND, 1, (short)0, null));
 

@@ -1,6 +1,9 @@
 package Dao;
 
 import java.sql.*;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * @author Vaubourg Mandel
@@ -151,13 +154,12 @@ public class Dao {
 
     public ResultSet query(final String sql){
         try {
-            PreparedStatement myPreparedStatement = (PreparedStatement) dao_instance.getBdd_connection().prepareStatement(sql);
-            ResultSet result = myPreparedStatement.executeQuery();
-
-            return result;
+            PreparedStatement preparedStatement = (PreparedStatement) dao_instance.getBdd_connection().prepareStatement(sql);
+            return preparedStatement.executeQuery();
 
 
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -172,13 +174,56 @@ public class Dao {
 
             return true;
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
 
         }
-
-
-
-
     }
 
+    public final Optional<PreparedStatement> createStatement(String sql, final ArrayList<Parameters> parameters) {
+
+        int i = 1;
+        try{
+
+            PreparedStatement preparedStatement = dao_instance.getBdd_connection().prepareStatement(sql);
+            for(Parameters parameter : parameters){
+
+                if(parameter.getParameter() instanceof String){
+
+                    preparedStatement.setString(i, (String)parameter.getParameter());
+
+                }else if(parameter.getParameter() instanceof Integer){
+
+                    preparedStatement.setInt(i, (Integer)parameter.getParameter());
+
+                }else if(parameter.getParameter() instanceof Double){
+
+                    preparedStatement.setDouble(i,(Double)parameter.getParameter());
+
+
+                }else if(parameter.getParameter() instanceof Boolean){
+
+                    preparedStatement.setBoolean(i, (Boolean)parameter.getParameter());
+
+                }else if(parameter.getParameter() instanceof Date){
+
+                    preparedStatement.setDate(i,(Date) parameter.getParameter());
+
+                }
+                i++;
+            }
+            return Optional.of(preparedStatement);
+        }catch (SQLException e){
+            e.printStackTrace();
+            return Optional.empty();
+        }
+    }
+
+    public static void executeStatement(final PreparedStatement statement){
+        try {
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

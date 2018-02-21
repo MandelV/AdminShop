@@ -1,6 +1,8 @@
 package Dao;
 
 
+import javax.lang.model.type.NullType;
+import java.lang.reflect.Parameter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,6 +37,37 @@ public abstract class Request {
             e.printStackTrace();
         }
         return categories;
+    }
+
+    public static void addCategorie(Dao_Categorie categorie) throws NullPointerException{
+        if(categorie != null){
+
+
+            ArrayList<Parameters> parameters = new ArrayList<>();
+
+            Parameters<String> catname = new Parameters<>(categorie.getName());
+            Parameters<String> catdisplayName = new Parameters<>(categorie.getDisplayName());
+            Parameters<String> id_item = new Parameters<String>(categorie.getId_item());
+
+            parameters.add(catname);
+            parameters.add(catdisplayName);
+            parameters.add(id_item);
+
+
+
+            Dao.getInstance().createStatement("INSERT INTO as_categorie VALUE (?,?,?)",parameters).ifPresent(Dao::executeStatement);
+
+
+
+
+
+
+
+
+
+        }else{
+            throw new NullPointerException();
+        }
     }
 }
 

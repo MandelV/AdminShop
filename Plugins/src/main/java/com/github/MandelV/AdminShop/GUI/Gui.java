@@ -93,11 +93,9 @@ public  class Gui {
         GuiItemPage page;
 
         if (this.hasAvailableSlot()) {
-            System.err.println("AJOUTadditem1");
             page = this.itemPages.get(this.itemPages.size()-1);
             page.addItem(item);
         } else {
-            System.err.println("AJOUTadditem2");
             page = new GuiItemPage(this.nbrLine.getSize());
             this.itemPages.add(page);
             page.addItem(item);

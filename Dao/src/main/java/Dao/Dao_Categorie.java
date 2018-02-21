@@ -84,9 +84,8 @@ public class Dao_Categorie {
         }catch (SQLException e){
             e.printStackTrace();
         }
-
-
     }
+
     public List<String> getDescriptions(){
         return this.descriptions;
     }

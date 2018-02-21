@@ -113,19 +113,27 @@ public class AdminShop extends JavaPlugin{
 
         DAOcategories.forEach(cat -> {
             Material item = Material.getMaterial(cat.getId_item());
-           // GuiItem tempItem = new GuiItem(item, 1, (short)0, null);
+            if(item != null){
+                Gui temp = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, cat.getName(), cat.getDisplayName(),  self.shop, cat.getDescriptions(), item, cat.getDisplayName());
 
-            Gui temp = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, cat.getName(), cat.getDisplayName(),  self.shop, cat.getDescriptions(), item, cat.getDisplayName());
+                for(int i = 0; i < cat.getItems().size(); i++){
 
-            for(int i = 0; i < cat.getItems().size(); i++){
+                    Material ecoitemtype = Material.getMaterial(cat.getItems().get(i).getId_item());
+                    if(ecoitemtype != null){
+                        temp.addItem(new EcoItem(ecoitemtype, 1, (short)0, cat.getItems().get(i).getBuy_price(),  cat.getItems().get(i).getSell_price(), ItemStatut.BOTH, null));
+                        temp.addItem(null);
+                    }else{
+                        System.err.println("[AdminShop] Erreur ajout item (id incorrect) : " + cat.getItems().get(i).getId_item());
+                    }
+                }
 
-                Material ecoitemtype = Material.getMaterial(cat.getItems().get(i).getId_item());
-
-                temp.addItem(new EcoItem(ecoitemtype, 1, (short)0, cat.getItems().get(i).getBuy_price(),  cat.getItems().get(i).getSell_price(), ItemStatut.BOTH, null));
-                temp.addItem(null);
+                this.categories.add(temp);
+            }else{
+                System.err.println("[AdminShop] Erreur ajout categorie (item) : " + cat.getName());
             }
 
-            this.categories.add(temp);
+
+
 
         });
     }

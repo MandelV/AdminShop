@@ -3,8 +3,8 @@ package Dao;
 public class Dao_item {
 
     private String id_item;
-    private double buy_price;//achat
-    private double sell_price;//vente
+    private Double buy_price;//achat
+    private Double sell_price;//vente
     private String statut;
 
 
@@ -16,11 +16,11 @@ public class Dao_item {
         this.statut = statut;
     }
 
-    public double getSell_price() {
+    public Double getSell_price() {
         return sell_price;
     }
 
-    public double getBuy_price() {
+    public Double getBuy_price() {
         return buy_price;
     }
 
