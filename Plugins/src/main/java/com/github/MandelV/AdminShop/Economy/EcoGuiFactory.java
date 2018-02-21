@@ -112,8 +112,6 @@ public abstract class EcoGuiFactory {
         childGui.setCustomNavbar(customNavbar);
 
         //Return du nouveau Gui
-
-        //childGui.addItem(new GuiItem(Material.GLASS, 52, (short)0, null));
         return childGui;
     }
 }

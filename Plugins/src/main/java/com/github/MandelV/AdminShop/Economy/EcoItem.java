@@ -36,16 +36,11 @@ public class EcoItem extends GuiItem {
                 if(AdminShop.getEcon().has(player, self.buy_price * self.getPlayerAmount(player))){
                     player.sendMessage(ChatFormatting.formatText("&2Vous avez acheter :" + self.getType().toString()));
                     AdminShop.getEcon().withdrawPlayer(player, self.buy_price * self.getPlayerAmount(player));
-
                     ItemStack giveItem = new ItemStack(self.getType(), self.getPlayerAmount(player), self.getDamage());
-                    /*ItemMeta meta = giveItem.getItemMeta();
-                    meta.setLore(new ArrayList<>());
-                    giveItem.setItemMeta(meta);*/
                     player.getInventory().addItem(giveItem);
                 }else{
                     player.sendMessage(ChatFormatting.formatText("&4Vous n'avez pas les fonds nécessaire"));
                 }
-
                 return false;
             }
 
@@ -58,9 +53,8 @@ public class EcoItem extends GuiItem {
                     self.setPlayerAmount(player, amount);
                 }else{
                     amount = 64;
+                    self.setPlayerAmount(player, amount);
                 }
-
-                System.err.println(amount);
                 List<String> lore = new ArrayList<>();
 
                AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
@@ -81,6 +75,7 @@ public class EcoItem extends GuiItem {
                     self.setPlayerAmount(player, amount);
                 }else{
                     amount = 1;
+                    self.setPlayerAmount(player, amount);
                 }
 
                 System.err.println(amount);
@@ -103,6 +98,7 @@ public class EcoItem extends GuiItem {
                     self.setPlayerAmount(player, amount);
                 }else{
                     amount = 64;
+                    self.setPlayerAmount(player, amount);
                 }
 
                 System.err.println(amount);

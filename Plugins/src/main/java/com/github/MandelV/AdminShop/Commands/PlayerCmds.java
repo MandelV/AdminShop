@@ -3,8 +3,10 @@ package com.github.MandelV.AdminShop.Commands;
 
 import Dao.Request;
 import com.github.MandelV.AdminShop.AdminShop;
+import com.github.MandelV.AdminShop.GUI.GuiItem;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import net.milkbowl.vault.chat.Chat;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -84,7 +86,8 @@ public class PlayerCmds extends Commands {
             return true;
         }
 
-        sender.sendMessage("Ajout");
+        sender.sendMessage("Ajoutt");
+        adminShop.shop.addItem(new GuiItem(Material.ACACIA_DOOR, 1, (short)0, null));
 
         return true;
     }
