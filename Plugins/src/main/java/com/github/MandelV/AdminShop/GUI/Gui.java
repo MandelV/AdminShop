@@ -123,7 +123,7 @@ public  class Gui {
 
         if (pageIndex > 0) {
             // Set previous button
-            page.getPage().add(new GuiItem(Material.PAPER, 1, true, (short) 0, new GuiAction() {
+            page.getPage().add(new GuiItem(Material.PAPER, 1, (short) 0, new GuiAction() {
                 @Override
                 public boolean onRightClick(Player player) {
 
@@ -155,7 +155,7 @@ public  class Gui {
             }));
 
             // Set next button on previous page
-            this.itemPages.get(pageIndex-1).getPage().add(new GuiItem(Material.PAPER, 1, true, (short) 0, new GuiAction() {
+            this.itemPages.get(pageIndex-1).getPage().add(new GuiItem(Material.PAPER, 1, (short) 0, new GuiAction() {
                 @Override
                 public boolean onRightClick(Player player) {
                     return false;
@@ -286,8 +286,7 @@ public  class Gui {
             for(int i = 0; i < pageContent.size(); i++){
                 GuiItem item = pageContent.get(i);
                 if (item != null) {
-                    item.setToPlayerAmount(player);
-                    inventory.setItem(i, pageContent.get(i));
+                    inventory.setItem(i, new GuiItemInstance(item, player));
                 }
             }
         }
