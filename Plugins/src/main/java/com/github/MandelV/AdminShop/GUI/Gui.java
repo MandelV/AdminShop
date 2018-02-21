@@ -336,15 +336,16 @@ public  class Gui {
         } else {
             this.playerChangingPage.remove(player);
             this.currentPlayersPage.remove(player);
-            System.out.println("[AdminShop]" + player.getName() + "action : " + "EXIT");
-        }
 
-        for (GuiItemPage page: this.itemPages) {
-            for (GuiItem item: page.getPage()) {
-                if (item != null) {
-                    item.removePlayer(player);
+            for (GuiItemPage page: this.itemPages) {
+                for (GuiItem item: page.getPage()) {
+                    if (item != null) {
+                        item.removePlayer(player);
+                    }
                 }
             }
+
+            System.out.println("[AdminShop]" + player.getName() + "action : " + "EXIT");
         }
     }
 
