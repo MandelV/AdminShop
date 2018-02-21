@@ -1,12 +1,10 @@
 package com.github.MandelV.AdminShop.Economy;
 
-import com.github.MandelV.AdminShop.GUI.Gui;
-import com.github.MandelV.AdminShop.GUI.GuiAction;
-import com.github.MandelV.AdminShop.GUI.GuiInvRow;
-import com.github.MandelV.AdminShop.GUI.GuiItem;
+import com.github.MandelV.AdminShop.GUI.*;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class EcoGuiFactory {
@@ -72,6 +70,46 @@ public abstract class EcoGuiFactory {
 
         //Ajout de l'item permettant d'aller au sous GUI
         parentGui.addItem(iconItem);
+
+
+        // Create custom Navbar
+        List<GuiItem> customNavbar = new ArrayList<>();
+
+        customNavbar.add(null);
+        customNavbar.add(null);
+        customNavbar.add(null);
+        customNavbar.add(new GuiItem(Material.BARRIER, 1, (short) 0, new GuiAction() {
+            @Override
+            public boolean onRightClick(Player player) {
+                return false;
+            }
+
+            @Override
+            public boolean onLeftClick(Player player) {
+                parentGui.open(player, false);
+                return false;
+            }
+
+            @Override
+            public boolean onMiddleClick(Player player) {
+                return false;
+            }
+
+            @Override
+            public boolean onShiftLeftClick(Player player) {
+                return false;
+            }
+
+            @Override
+            public boolean onShiftRightClick(Player player) {
+                return false;
+            }
+        }));
+        customNavbar.add(null);
+        customNavbar.add(null);
+        customNavbar.add(null);
+
+        childGui.setCustomNavbar(customNavbar);
 
         //Return du nouveau Gui
 
