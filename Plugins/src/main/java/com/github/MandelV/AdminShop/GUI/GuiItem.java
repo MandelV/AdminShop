@@ -162,6 +162,8 @@ public class GuiItem {
      */
     public void setName(String displayName){
         this.displayName = ChatFormatting.formatText(displayName);
+
+
     }
 
     /**

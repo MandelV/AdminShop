@@ -46,7 +46,7 @@ public class PlayerCmds extends Commands {
 
             }else if(args[1].equalsIgnoreCase("remove")){
 
-                this.removeCategorie(commandSender);
+                this.removeCategorie(commandSender, args);
 
             }
 
@@ -101,43 +101,46 @@ public class PlayerCmds extends Commands {
                 if(name != null){
 
                     Gui gu = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, name, displayname, adminShop.shop, null, itemcat, displayname);
+                    adminShop.categories.add(gu);
 
                     if(gu != null){
                         Dao_Categorie prepareSqlCategorie = new Dao_Categorie(name, displayname, itemcat.toString());
                         Request.addCategorie(prepareSqlCategorie);
                     }
-
-
-
-
                 }else{
                     sender.sendMessage("&4Attention le nom d'une categorie est différent du nom affiché. ce nom ne doit contenir aucun '&'");
                 }
-
-
-
-
             }else{
                 sender.sendMessage("Erreur item");
             }
-
         }else{
             this.command_help(sender);
         }
-
-
-        //adminShop.shop.addItem(new GuiItem(Material.DIAMOND, 1, (short)0, null));
-        //adminShop.categories.get(0).addItem(new GuiItem(Material.DIAMOND, 1, (short)0, null));
-
         return true;
     }
 
-    private boolean removeCategorie(CommandSender sender){
+    private boolean removeCategorie(CommandSender sender, String[] args){
         if(!sender.hasPermission("adminshop.categorie.remove")){
             sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
             return true;
         }
-        sender.sendMessage("delete");
+
+        if(args.length == 3){
+
+            Request.removeCategorie(args[2]);
+            String displayname = "unknown";
+            for(int i = 0; i < adminShop.categories.size(); i++) {
+                if (adminShop.categories.get(i).getName().equalsIgnoreCase(args[2])) {
+                    displayname = adminShop.categories.get(i).getDisplayName();
+                    adminShop.categories.remove(i);
+                    break;
+                }
+            }
+            adminShop.shop.removeItem(displayname);
+
+        }
+
+
         return true;
     }
 

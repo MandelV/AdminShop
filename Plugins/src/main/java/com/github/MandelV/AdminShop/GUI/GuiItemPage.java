@@ -1,5 +1,6 @@
 package com.github.MandelV.AdminShop.GUI;
 
+import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import javafx.scene.paint.Material;
 import org.bukkit.entity.Item;
 
@@ -36,6 +37,21 @@ public class GuiItemPage {
             }
         }
     }
+    public void removeItem(String displayname){
+        for(int i = 0; i < this.itemList.size(); i++){
+            GuiItem rmItem = this.itemList.get(i);
+            if(rmItem !=null){
+                System.err.println(this.itemList.get(i).getDisplayName());
+                if(this.itemList.get(i).getDisplayName().equalsIgnoreCase(ChatFormatting.formatText(displayname))){
+                    System.err.println("REMOVE");
+                    this.itemList.remove(i);
+                    break;
+                }
+            }
+
+
+        }
+    }
 
     private int getNextAvailableIndex() {
         for (int i=0; i < this.itemList.size(); i++) {
@@ -49,6 +65,8 @@ public class GuiItemPage {
     public GuiItem getGuiItem(int id) {
         return this.itemList.get(id);
     }
+
+
 
     public int availableSlots() {
         int count = 0;

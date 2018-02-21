@@ -105,6 +105,12 @@ public  class Gui {
         }
     }
 
+    public void removeItem(String name){
+        this.itemPages.forEach(page -> {
+            page.removeItem(name);
+        });
+
+    }
     private void addNavbar(GuiItemPage page) {
         if (nbrLine.getSize() <= 9) {
             throw new Error("Cannot add navbar on small inventory");
