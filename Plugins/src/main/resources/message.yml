@@ -3,6 +3,10 @@ permission_deny: "&4Vous n'avez pas accès à cette commande."
 plugin_reload_success: "&areload fait."
 no_categories: "&4Aucune catégories"
 
+next_page: "&ePage suivante"
+previous_page: "&ePage précédente"
+back_to_categories: "&cRevenir aux catégories"
+
 item_lore:
   - "&cprix achat : {BUY_PRICE}"
   - "&2prix vente : {SELL_PRICE}"

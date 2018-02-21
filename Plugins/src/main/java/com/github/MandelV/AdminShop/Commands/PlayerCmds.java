@@ -87,7 +87,8 @@ public class PlayerCmds extends Commands {
         }
 
         sender.sendMessage("Ajoutt");
-        adminShop.shop.addItem(new GuiItem(Material.ACACIA_DOOR, 1, (short)0, null));
+        //adminShop.shop.addItem(new GuiItem(Material.DIAMOND, 1, (short)0, null));
+        //adminShop.categories.get(0).addItem(new GuiItem(Material.DIAMOND, 1, (short)0, null));
 
         return true;
     }
