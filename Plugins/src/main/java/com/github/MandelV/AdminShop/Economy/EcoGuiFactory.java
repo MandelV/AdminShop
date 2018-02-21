@@ -42,7 +42,7 @@ public abstract class EcoGuiFactory {
         Gui childGui = new Gui(nrgLine, name, displayName);
 
         //Creation de l'icon permettant d'aller au sous Gui
-        GuiItem iconItem = new GuiItem(icon, 1, false, (short) 0, new GuiAction() {
+        GuiItem iconItem = new GuiItem(icon, 1, (short) 0, new GuiAction() {
             @Override
             public boolean onRightClick(Player player) { return false; }
             @Override
@@ -68,7 +68,7 @@ public abstract class EcoGuiFactory {
         //Set Display Name
         iconItem.setName(nameIcon);
         //Set description
-        description.forEach(iconItem::addLineDescription);
+       iconItem.setDefaultDescription(description);
 
         //Ajout de l'item permettant d'aller au sous GUI
         parentGui.addItem(iconItem);

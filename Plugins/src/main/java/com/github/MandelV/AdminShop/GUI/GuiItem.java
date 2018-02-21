@@ -18,59 +18,110 @@ import java.util.Map;
  * Représente un item dans le GUI
  * L'item se voit ajouté une action.
  */
-public class GuiItem extends ItemStack{
+public class GuiItem {
+    // Item fixed property
+    private Material type;
+    private short damage;
+    private String displayName;
 
-    private ItemMeta dataItem;
-    private List<String> description;
+    // Item default values
     private int defaultAmount;
-    private boolean uniqueAmount;
-    private Map<Player, Integer> playerAmount = new HashMap<>();
+    private List<String> defaultDescription = new ArrayList<>();
+
+    // Player specific values
+    private Map<Player, Integer> playerAmounts = new HashMap<>();
+    private Map<Player, List<String>> playerDescriptions = new HashMap<>();
 
     private GuiAction guiAction;
+    private boolean oneByPlayer = false;
 
     /**
      *
      * @param type type of item
-     * @param amount amount of this item in inventory
+     * @param defaultAmount amount of this item in inventory
      * @param damage damage value
      * @param guiAction action when item is clicked
      */
-    public GuiItem(Material type, int amount, boolean uniqueAmount, short damage, GuiAction guiAction){
-        super(type, amount, damage);
-
-        this.defaultAmount = amount;
-        this.uniqueAmount = uniqueAmount;
-        this.description = new ArrayList<>();
+    public GuiItem(Material type, int defaultAmount, short damage, GuiAction guiAction){
+        this.type = type;
+        this.defaultAmount = defaultAmount;
+        this.damage = damage;
         this.guiAction = guiAction;
-        this.dataItem = this.getItemMeta();
     }
 
-    public int getAmount(Player player) {
-        if (this.uniqueAmount) {
-            return this.defaultAmount;
-        } else {
-            Integer amount = this.playerAmount.get(player);
-
-            if (amount != null) {
-                return amount;
-            } else {
-                return this.defaultAmount;
-            }
-        }
+    public GuiItem(Material type, int defaultAmount, short damage, boolean oneByPlayer, GuiAction guiAction){
+        this.type = type;
+        this.defaultAmount = defaultAmount;
+        this.damage = damage;
+        this.oneByPlayer = oneByPlayer;
+        this.guiAction = guiAction;
     }
-
-    public void setAmount(Player player, int amount) {
-        if (!this.uniqueAmount) {
-            this.playerAmount.put(player, amount);
-        }
-    }
-
-    public void setToPlayerAmount(Player player) {
-        this.setAmount(this.getAmount(player));
-    }
+    
 
     public void setGuiAction(GuiAction guiAction) {
         this.guiAction = guiAction;
+    }
+
+    public Material getType() {
+        return this.type;
+    }
+
+    public short getDamage() {
+        return this.damage;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public int getDefaultAmount() {
+        return this.defaultAmount;
+    }
+
+    public void setDefaultAmount(int defaultAmount) {
+        this.defaultAmount = defaultAmount;
+    }
+
+    public List<String> getDefaultDescription() {
+        return this.defaultDescription;
+    }
+
+    public void setDefaultDescription(List<String> defaultDescription) {
+        this.defaultDescription = defaultDescription;
+    }
+
+    public int getPlayerAmount(Player player) {
+        if (this.oneByPlayer) {
+            Integer amount = this.playerAmounts.get(player);
+            if (amount != null) {
+                return amount;
+            }
+        }
+
+        return this.defaultAmount;
+    }
+
+    public void setPlayerAmount(Player player, int amount) {
+        if (this.oneByPlayer) {
+            this.playerAmounts.put(player, amount);
+        }
+    }
+
+    public List<String> getPlayerDescription(Player player) {
+        if (this.oneByPlayer) {
+            List<String> description = this.playerDescriptions.get(player);
+            if (description != null && !description.isEmpty()) {
+                return description;
+            }
+        }
+
+        return this.defaultDescription;
+    }
+
+    public void setPlayerDescription(Player player, List<String> description) {
+        if (this.oneByPlayer) {
+            this.playerDescriptions.put(player, description);
+        }
     }
 
     public boolean triggerAction(Player player, ClickType clickType) {
@@ -110,17 +161,31 @@ public class GuiItem extends ItemStack{
      * @param displayName Nom a afficher
      */
     public void setName(String displayName){
-        this.dataItem.setDisplayName(ChatFormatting.formatText(displayName));
-        this.setItemMeta(this.dataItem);
+        this.displayName = ChatFormatting.formatText(displayName);
     }
 
     /**
      * Ajoute une description à l'item
-     * @param description ligne de la description.
+     * @param newRow ligne de la description.
      */
-    public void addLineDescription(final String description){
-        this.description.add(ChatFormatting.formatText(description));
-        this.dataItem.setLore(this.description);
-        this.setItemMeta(this.dataItem);
+    public void addRowToDefaultDescription(final String newRow){
+        this.defaultDescription.add(ChatFormatting.formatText(newRow));
+    }
+
+    public void addRowToDescription(Player player, final String newRow){
+        List<String> description = this.playerDescriptions.get(player);
+
+        if (description == null) {
+            description = new ArrayList<>();
+        }
+
+        description.add(ChatFormatting.formatText(newRow));
+
+        this.setPlayerDescription(player, description);
+    }
+
+    public void removePlayer(Player player) {
+        this.playerDescriptions.remove(player);
+        this.playerAmounts.remove(player);
     }
 }

@@ -24,7 +24,7 @@ public class EcoItem extends GuiItem {
 
     public EcoItem(Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut, GuiAction action){
 
-        super(type, amount, false, damage, action);
+        super(type, amount, damage, true, action);
 
         EcoItem self = this;
 
@@ -33,14 +33,14 @@ public class EcoItem extends GuiItem {
             @Override
             public boolean onLeftClick(Player player) {
 
-                if(AdminShop.getEcon().has(player, self.buy_price * self.getAmount(player))){
+                if(AdminShop.getEcon().has(player, self.buy_price * self.getPlayerAmount(player))){
                     player.sendMessage(ChatFormatting.formatText("&2Vous avez acheter :" + self.getType().toString()));
-                    AdminShop.getEcon().withdrawPlayer(player, self.buy_price * self.getAmount(player));
+                    AdminShop.getEcon().withdrawPlayer(player, self.buy_price * self.getPlayerAmount(player));
 
-                    ItemStack giveItem = self.clone();
-                    ItemMeta meta = giveItem.getItemMeta();
+                    ItemStack giveItem = new ItemStack(self.getType(), self.getPlayerAmount(player), self.getDamage());
+                    /*ItemMeta meta = giveItem.getItemMeta();
                     meta.setLore(new ArrayList<>());
-                    giveItem.setItemMeta(meta);
+                    giveItem.setItemMeta(meta);*/
                     player.getInventory().addItem(giveItem);
                 }else{
                     player.sendMessage(ChatFormatting.formatText("&4Vous n'avez pas les fonds nécessaire"));
@@ -52,16 +52,15 @@ public class EcoItem extends GuiItem {
             @Override
             public boolean onRightClick(Player player) {
 
-                int amount = self.getAmount(player);
+                int amount = self.getPlayerAmount(player);
                 amount++;
                 if(amount < 64){
-                    self.setAmount(player, amount);
+                    self.setPlayerAmount(player, amount);
                 }else{
                     amount = 64;
                 }
 
                 System.err.println(amount);
-                ItemMeta meta = self.getItemMeta();
                 List<String> lore = new ArrayList<>();
 
                AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
@@ -79,16 +78,15 @@ public class EcoItem extends GuiItem {
 
             @Override
             public boolean onMiddleClick(Player player) {
-                int amount = self.getAmount(player);
+                int amount = self.getPlayerAmount(player);
                 amount--;
                 if(amount > 0){
-                    self.setAmount(player, amount);
+                    self.setPlayerAmount(player, amount);
                 }else{
                     amount = 1;
                 }
 
                 System.err.println(amount);
-                ItemMeta meta = self.getItemMeta();
                 List<String> lore = new ArrayList<>();
                 AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
                    v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getAmount(player)));
@@ -99,24 +97,21 @@ public class EcoItem extends GuiItem {
 
                 meta.setLore(lore);
 
-                self.setItemMeta(meta);
-
                 return true;
             }
 
             @Override
             public boolean onShiftRightClick(Player player) {
 
-                int amount = self.getAmount(player);
+                int amount = self.getPlayerAmount(player);
                 amount += 10;
                 if(amount < 64){
-                    self.setAmount(player, amount);
+                    self.setPlayerAmount(player, amount);
                 }else{
                     amount = 64;
                 }
 
                 System.err.println(amount);
-                ItemMeta meta = self.getItemMeta();
                 List<String> lore = new ArrayList<>();
                 AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
                    v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getAmount(player)));
@@ -140,7 +135,6 @@ public class EcoItem extends GuiItem {
         this.buy_price = buy_price;
         this.sell_price = sell_price;
         this.statut = statut;
-        ItemMeta meta = this.getItemMeta();
         List<String> lore = new ArrayList<>();
         AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
            v = v.replace("{BUY_PRICE}", String.valueOf(buy_price));
