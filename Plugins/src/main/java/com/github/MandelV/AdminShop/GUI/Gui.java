@@ -341,7 +341,9 @@ public  class Gui {
 
         for (GuiItemPage page: this.itemPages) {
             for (GuiItem item: page.getPage()) {
-                item.removePlayer(player);
+                if (item != null) {
+                    item.removePlayer(player);
+                }
             }
         }
     }
