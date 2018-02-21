@@ -11,18 +11,25 @@ commands:
 
 
 permission:
-  adminshop.player:
+
+  adminshop.open:
     default: true
-    description: Permission adminshop player
+    description: Permission to open adminshop gui
 
-  adminshop.moderateur:
-      default: false
-      description: Permission adminshop player
-      children:
-        adminshop.player: true
+  adminshop.categorie.listcategorie:
+    default: false
+    description: List all categorie in adminshop
 
-  adminshop.admin:
-      default: false
-      description: Permission adminshop player
-      children:
-        adminshop.moderateur: true
+  adminshop.categorie.add:
+    default: false
+    description: add a new categorie
+  adminshop.categorie.remove:
+    default: false
+    description: remove a categorie
+
+
+
+
+
+
+
