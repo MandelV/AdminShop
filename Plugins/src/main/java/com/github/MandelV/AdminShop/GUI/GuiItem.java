@@ -26,7 +26,7 @@ public class GuiItem {
 
     // Item default values
     private int defaultAmount;
-    private List<String> defaultDescription;
+    private List<String> defaultDescription = new ArrayList<>();
 
     // Player specific values
     private Map<Player, Integer> playerAmounts = new HashMap<>();
@@ -166,7 +166,7 @@ public class GuiItem {
 
     /**
      * Ajoute une description à l'item
-     * @param description ligne de la description.
+     * @param newRow ligne de la description.
      */
     public void addRowToDefaultDescription(final String newRow){
         this.defaultDescription.add(ChatFormatting.formatText(newRow));

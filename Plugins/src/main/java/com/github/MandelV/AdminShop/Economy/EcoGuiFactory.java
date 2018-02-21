@@ -68,7 +68,7 @@ public abstract class EcoGuiFactory {
         //Set Display Name
         iconItem.setName(nameIcon);
         //Set description
-        description.forEach(iconItem::addLineDescription);
+       iconItem.setDefaultDescription(description);
 
         //Ajout de l'item permettant d'aller au sous GUI
         parentGui.addItem(iconItem);
