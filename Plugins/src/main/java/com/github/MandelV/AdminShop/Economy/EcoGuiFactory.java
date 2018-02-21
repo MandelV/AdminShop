@@ -1,5 +1,6 @@
 package com.github.MandelV.AdminShop.Economy;
 
+import com.github.MandelV.AdminShop.AdminShop;
 import com.github.MandelV.AdminShop.GUI.*;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -78,7 +79,9 @@ public abstract class EcoGuiFactory {
         customNavbar.add(null);
         customNavbar.add(null);
         customNavbar.add(null);
-        customNavbar.add(new GuiItem(Material.BARRIER, 1, (short) 0, new GuiAction() {
+
+
+        GuiItem backtocategories = new GuiItem(Material.BARRIER, 1, (short) 0, new GuiAction() {
             @Override
             public boolean onRightClick(Player player) {
                 return false;
@@ -104,10 +107,14 @@ public abstract class EcoGuiFactory {
             public boolean onShiftRightClick(Player player) {
                 return false;
             }
-        }));
+        });
+        backtocategories.setName(AdminShop.getInstance().getMessage().getCustomConfig().getString("back_to_categories_name"));
+        backtocategories.addRowToDefaultDescription(AdminShop.getInstance().getMessage().getCustomConfig().getString("back_to_categories"));
+        customNavbar.add(backtocategories);
         customNavbar.add(null);
         customNavbar.add(null);
         customNavbar.add(null);
+
 
         childGui.setCustomNavbar(customNavbar);
 

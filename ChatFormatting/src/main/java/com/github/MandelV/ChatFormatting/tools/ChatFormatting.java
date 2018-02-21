@@ -51,13 +51,16 @@ public class ChatFormatting {
 
     public static String formatText(String txt) {
 
-        String finalString = txt;
+        if(txt != null){
+            String finalString = txt;
 
-        for (Map.Entry<String, ChatColor> element : tabChat.entrySet()) {
+            for (Map.Entry<String, ChatColor> element : tabChat.entrySet()) {
 
-            finalString = finalString.replace(element.getKey(), "" + element.getValue());
+                finalString = finalString.replace(element.getKey(), "" + element.getValue());
+            }
+            return finalString;
         }
-        return finalString;
-    }
 
+        return ChatColor.DARK_RED + "error string";
+    }
 }

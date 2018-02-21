@@ -6,6 +6,7 @@ no_categories: "&4Aucune catégories"
 next_page: "&ePage suivante"
 previous_page: "&ePage précédente"
 back_to_categories: "&cRevenir aux catégories"
+back_to_categories_name: "&cRetour"
 
 item_lore:
   - "&cprix achat : {BUY_PRICE}"
