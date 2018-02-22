@@ -8,7 +8,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
@@ -23,8 +22,8 @@ public  class Gui {
     private List<GuiItemPage> itemPages;
     private List<GuiItem> customNavbar;
 
-    Map<UUID, Integer> currentPlayersPage;
-    Map<UUID, Boolean> playerChangingPage;
+    private Map<UUID, Integer> currentPlayersPage;
+    private Map<UUID, Boolean> playerChangingPage;
 
     private GuiInvRow nbrLine;
     private String name;
@@ -218,7 +217,7 @@ public  class Gui {
     /**
      * Permet d'aller à la page suivante
      */
-    public void pageUp(Player player){
+    private void pageUp(Player player){
 
         int pageId = this.currentPlayersPage.get(player.getUniqueId());
 
@@ -232,15 +231,12 @@ public  class Gui {
     /**
      * Permet d'aller à la page précédente
      */
-    public void pageDown(Player player){
-
+    private void pageDown(Player player){
         int pageId = this.currentPlayersPage.get(player.getUniqueId());
-
         if(pageId > 0){
             this.currentPlayersPage.put(player.getUniqueId(), pageId - 1);
             this.render(player);
         }
-
     }
 
     /**
