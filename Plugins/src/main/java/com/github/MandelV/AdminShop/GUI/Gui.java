@@ -130,7 +130,11 @@ public  class Gui {
         if (prevNbrPages > this.itemPages.size()) {
             for (UUID uuid: this.currentPlayersPage.keySet()) {
                 if (this.currentPlayersPage.get(uuid) == prevNbrPages-1) {
-                    this.currentPlayersPage.put(uuid, this.itemPages.size()-1);
+                    int newIndex = this.itemPages.size()-1;
+                    if (newIndex < 0) {
+                        newIndex = 0;
+                    }
+                    this.currentPlayersPage.put(uuid, newIndex);
                 }
             }
         }
