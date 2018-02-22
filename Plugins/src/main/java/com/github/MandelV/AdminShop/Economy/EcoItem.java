@@ -118,7 +118,8 @@ public class EcoItem extends GuiItem {
             public boolean onShiftLeftClick(Player player) {
 
                 int amount = self.getPlayerAmount(player.getUniqueId());
-                amount += 15;
+                int x16 = amount / 16 + 1;
+                amount = 16 * x16;
                 if(amount < 64){
                     self.setPlayerAmount(player, amount);
                 }else{
