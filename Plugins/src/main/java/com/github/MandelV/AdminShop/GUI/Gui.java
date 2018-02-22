@@ -314,6 +314,13 @@ public  class Gui {
         return inventory;
     }
 
+    public void refreshAll() {
+        for (UUID uuid: this.currentPlayersPage.keySet()) {
+            Player player = AdminShop.getInstance().getServer().getPlayer(uuid);
+            this.render(player);
+        }
+    }
+
     public boolean hasPlayer(Player player) {
         return this.currentPlayersPage.get(player.getUniqueId()) != null;
     }

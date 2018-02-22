@@ -19,6 +19,12 @@ public class GuiManager implements Listener {
         GuiManager.guiList.add(gui);
     }
 
+    public static void refreshAll() {
+        for (Gui gui: GuiManager.guiList) {
+            gui.refreshAll();
+        }
+    }
+
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
 
