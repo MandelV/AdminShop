@@ -27,8 +27,7 @@ public class EcoItem extends GuiItem {
         super(type, amount, damage, true, null);
 
         EcoItem self = this;
-
-
+        
         this.setGuiAction(new GuiAction() {
             @Override
             public boolean onLeftClick(Player player) {
@@ -79,7 +78,6 @@ public class EcoItem extends GuiItem {
                 }
                 return true;
             }
-
             @Override
             public boolean onShiftRightClick(Player player) {
 
@@ -102,7 +100,6 @@ public class EcoItem extends GuiItem {
                 return true;
 
             }
-
             @Override
             public boolean onMiddleClick(Player player) {
                 int amount = self.getPlayerAmount(player);
@@ -114,7 +111,6 @@ public class EcoItem extends GuiItem {
                     self.setPlayerAmount(player, amount);
                 }
 
-                System.err.println(amount);
                 List<String> lore = new ArrayList<>();
                 AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
                    v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getPlayerAmount(player)));
@@ -124,7 +120,6 @@ public class EcoItem extends GuiItem {
                 setPlayerDescription(player, lore);
                 return true;
             }
-
             @Override
             public boolean onShiftLeftClick(Player player) {
 
@@ -136,22 +131,15 @@ public class EcoItem extends GuiItem {
                     amount = 64;
                     self.setPlayerAmount(player, amount);
                 }
-
-                System.err.println(amount);
                 List<String> lore = new ArrayList<>();
                 AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
                    v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getPlayerAmount(player)));
                     v = v.replace("{SELL_PRICE}", String.valueOf(sell_price * self.getPlayerAmount(player)));
                     lore.add(ChatFormatting.formatText(v));
                 });
-
                 setPlayerDescription(player, lore);
-
                 return true;
-
             }
-
-
         });
 
         this.buy_price = buy_price;
@@ -165,27 +153,28 @@ public class EcoItem extends GuiItem {
         });
 
         this.setDefaultDescription(lore);
-
     }
-
 
     public double getBuy_price() {
         return buy_price;
     }
+
     public double getSell_price() {
         return sell_price;
     }
+
     public ItemStatut getStatut() {
         return statut;
     }
 
-
     public void setBuy_price(double buy_price) {
         this.buy_price = buy_price;
     }
+
     public void setSell_price(double sell_price) {
         this.sell_price = sell_price;
     }
+
     public void setStatut(ItemStatut statut) {
         this.statut = statut;
     }
