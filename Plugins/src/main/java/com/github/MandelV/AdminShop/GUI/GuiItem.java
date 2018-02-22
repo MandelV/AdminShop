@@ -29,6 +29,7 @@ public class GuiItem {
     private GuiAction guiAction;
     private boolean oneByPlayer = false;
 
+
     /**
      *
      * @param type type of item
@@ -41,6 +42,7 @@ public class GuiItem {
         this.defaultAmount = defaultAmount;
         this.damage = damage;
         this.guiAction = guiAction;
+
     }
 
     public GuiItem(Material type, int defaultAmount, short damage, boolean oneByPlayer, GuiAction guiAction){

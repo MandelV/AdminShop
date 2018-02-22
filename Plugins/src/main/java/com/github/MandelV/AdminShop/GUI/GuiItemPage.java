@@ -35,22 +35,6 @@ public class GuiItemPage {
         }
     }
 
-    public void removeItem(String displayname){
-        for(int i = 0; i < this.itemList.size(); i++){
-            GuiItem rmItem = this.itemList.get(i);
-            if(rmItem !=null){
-                System.err.println(this.itemList.get(i).getDisplayName());
-                if(this.itemList.get(i).getDisplayName().equalsIgnoreCase(ChatFormatting.formatText(displayname))){
-                    System.err.println("REMOVE");
-                    this.itemList.remove(i);
-                    break;
-                }
-            }
-
-
-        }
-    }
-
     private int getNextAvailableIndex() {
         for (int i=0; i < this.itemList.size(); i++) {
             if (this.itemList.get(i) == null) {

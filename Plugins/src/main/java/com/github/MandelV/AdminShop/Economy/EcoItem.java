@@ -1,6 +1,7 @@
 package com.github.MandelV.AdminShop.Economy;
 
 import com.github.MandelV.AdminShop.AdminShop;
+import com.github.MandelV.AdminShop.GUI.Gui;
 import com.github.MandelV.AdminShop.GUI.GuiAction;
 import com.github.MandelV.AdminShop.GUI.GuiItem;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
@@ -15,8 +16,9 @@ public class EcoItem extends GuiItem {
     private double buy_price;
     private double sell_price;
     private ItemStatut statut;
+    private Gui parent;
 
-    public EcoItem(Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut){
+    public EcoItem(Gui parent, Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut){
 
         super(type, amount, damage, true, null);
 
@@ -96,6 +98,11 @@ public class EcoItem extends GuiItem {
             }
             @Override
             public boolean onMiddleClick(Player player) {
+                if(AdminShop.playerIsEditorMode(player) && player.hasPermission("adminshop.edit")){
+
+                    parent.removeItem(self);
+                    return true;
+                }
                 int amount = self.getPlayerAmount(player.getUniqueId());
                 amount++;
                 if(amount > 64){

@@ -45,6 +45,7 @@ public abstract class EcoGuiFactory {
 
         //Creation de l'icon permettant d'aller au sous Gui
         GuiItem iconItem = new GuiItem(icon, 1, (short) 0, new GuiAction() {
+
             @Override
             public boolean onRightClick(Player player) { return false; }
             @Override
@@ -59,7 +60,7 @@ public abstract class EcoGuiFactory {
                 if(AdminShop.playerIsEditorMode(player) && player.hasPermission("adminshop.edit")){
 
                     AdminShop.getInstance().categories.remove(childGui);
-                    AdminShop.getInstance().shop.removeItem(childGui.getDisplayName());
+                    //AdminShop.getInstance().shop.removeItem();
                     Request.removeCategorie(childGui.getName());
 
                     player.sendMessage("Categorie " + childGui.getName() + " supprimée");
@@ -77,6 +78,7 @@ public abstract class EcoGuiFactory {
                 return false;
             }
         });
+
 
         //Set Display Name
         iconItem.setName(nameIcon);

@@ -44,16 +44,12 @@ public class PlayerCmds extends Commands {
         } else if (args[0].equalsIgnoreCase("categorie") && (args.length > 1)) {
 
             if(args[1].equalsIgnoreCase("add")){
-
                 this.addCategorie(commandSender, args);
-
-            }else if(args[1].equalsIgnoreCase("remove")){
-
-                this.removeCategorie(commandSender, args);
-
             }
+
         }else if(args[0].equalsIgnoreCase("item") && (args.length > 1)){
             this.addItemIntoCategorie(commandSender, args);
+
         }else if(args[0].equalsIgnoreCase("editmode")){
             this.toggleEditMode(commandSender);
         }
@@ -124,30 +120,6 @@ public class PlayerCmds extends Commands {
         return true;
     }
 
-    @Deprecated
-    private boolean removeCategorie(CommandSender sender, String[] args){
-        if(!sender.hasPermission("adminshop.categorie.remove")){
-            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
-            return true;
-        }
-
-        if(args.length == 3){
-
-            Request.removeCategorie(args[2]);
-            String displayname = "unknown";
-            for(int i = 0; i < adminShop.categories.size(); i++) {
-                if (adminShop.categories.get(i).getName().equalsIgnoreCase(args[2])) {
-                    displayname = adminShop.categories.get(i).getDisplayName();
-                    adminShop.categories.remove(i);
-                    break;
-                }
-            }
-            adminShop.shop.removeItem(displayname);
-
-        }
-        return true;
-    }
-
     private boolean addItemIntoCategorie(CommandSender sender, String[] args){
         if(!sender.hasPermission("adminshop.item.add")){
             sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
@@ -177,7 +149,7 @@ public class PlayerCmds extends Commands {
                 if(catname != null){
                     for(int i = 0; i < adminShop.categories.size(); i++){
                         if(adminShop.categories.get(i).getName().equalsIgnoreCase(catname)){
-                            adminShop.categories.get(i).addItem(new EcoItem(itemHolder.getType(), 1, (short)itemHolder.getDurability(), buy_price, sell_price, statut));
+                            adminShop.categories.get(i).addItem(new EcoItem(adminShop.categories.get(i), itemHolder.getType(), 1, (short)itemHolder.getDurability(), buy_price, sell_price, statut));
                             break;
                         }
                     }
