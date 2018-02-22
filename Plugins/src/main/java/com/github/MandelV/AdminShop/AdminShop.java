@@ -123,7 +123,7 @@ public class AdminShop extends JavaPlugin{
             }
         });
     }
-    
+
     private boolean setupEconomy() {//Initialization economy method
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;

@@ -18,7 +18,6 @@ public abstract class Request {
 
     public static final List<Dao_Categorie> getCategories(){
 
-
         List<Dao_Categorie> categories = new ArrayList<>();
 
         result = Dao.getInstance().query("SELECT * FROM as_categorie");

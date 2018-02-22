@@ -8,11 +8,7 @@ import java.util.Map;
 public class ChatFormatting {
 
     public static Map<String, ChatColor> tabChat;
-
-
-
-
-
+    
     private ChatFormatting(){
 
         tabChat = new HashMap<>();
@@ -44,13 +40,10 @@ public class ChatFormatting {
     private static ChatFormatting chatFormatting = new ChatFormatting();
 
     public static ChatFormatting getInstance(){
-
         return chatFormatting;
     }
 
-
     public static String formatText(String txt) {
-
         if(txt != null){
             String finalString = txt;
 
@@ -60,7 +53,6 @@ public class ChatFormatting {
             }
             return finalString;
         }
-
         return ChatColor.DARK_RED + "error string";
     }
 }

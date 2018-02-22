@@ -40,7 +40,6 @@ public class Dao_Categorie {
         return id_item;
     }
 
-
     private void requestDescriptions() {
 
         this.descriptions.clear();
@@ -61,6 +60,7 @@ public class Dao_Categorie {
             e.printStackTrace();
         }
     }
+
     public List<Dao_item> getItems(){
         return this.items;
     }

@@ -95,6 +95,7 @@ public class Dao {
         }
         return dao_instance;
     }
+
     public static Dao getInstance(){
         if(dao_instance == null){
             synchronized(Dao.class){
@@ -125,7 +126,6 @@ public class Dao {
         this.bdd_username = bdd_username;
     }
 
-
     public void setBdd_port(int bdd_port) {
         this.bdd_port = bdd_port;
     }
@@ -134,21 +134,27 @@ public class Dao {
     public String getBdd_username() {
         return bdd_username;
     }
+
     public String getBdd_password() {
         return bdd_password;
     }
+
     public Connection getBdd_connection() {
         return bdd_connection;
     }
+
     public int getBdd_port() {
         return bdd_port;
     }
+
     public String getBdd_address() {
         return bdd_address;
     }
+
     public String getBdd_name() {
         return bdd_name;
     }
+
     public String getBdd_url_connection() {
         return bdd_url_connection;
     }
@@ -164,6 +170,7 @@ public class Dao {
             return null;
         }
     }
+
     public ResultSet query(final String sql) {
 
         Callable<ResultSet> callable = () -> {
@@ -178,8 +185,7 @@ public class Dao {
         }
     }
 
-    public void update(String request)
-    {
+    public void update(String request) {
 
         Runnable asyncUpdate = () -> {
             PreparedStatement myPreparedStatement;
