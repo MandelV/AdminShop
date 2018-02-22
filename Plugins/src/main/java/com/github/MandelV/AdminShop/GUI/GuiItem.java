@@ -4,13 +4,7 @@ import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Akitoshi
@@ -29,8 +23,8 @@ public class GuiItem {
     private List<String> defaultDescription = new ArrayList<>();
 
     // Player specific values
-    private Map<Player, Integer> playerAmounts = new HashMap<>();
-    private Map<Player, List<String>> playerDescriptions = new HashMap<>();
+    private Map<UUID, Integer> playerAmounts = new HashMap<>();
+    private Map<UUID, List<String>> playerDescriptions = new HashMap<>();
 
     private GuiAction guiAction;
     private boolean oneByPlayer = false;
@@ -57,7 +51,7 @@ public class GuiItem {
         this.guiAction = guiAction;
     }
 
-    public void setGuiAction(GuiAction guiAction) {
+    protected void setGuiAction(GuiAction guiAction) {
         this.guiAction = guiAction;
     }
 
@@ -89,9 +83,9 @@ public class GuiItem {
         this.defaultDescription = defaultDescription;
     }
 
-    public int getPlayerAmount(Player player) {
+    public int getPlayerAmount(UUID uuid) {
         if (this.oneByPlayer) {
-            Integer amount = this.playerAmounts.get(player);
+            Integer amount = this.playerAmounts.get(uuid);
             if (amount != null) {
                 return amount;
             }
@@ -102,13 +96,13 @@ public class GuiItem {
 
     public void setPlayerAmount(Player player, int amount) {
         if (this.oneByPlayer) {
-            this.playerAmounts.put(player, amount);
+            this.playerAmounts.put(player.getUniqueId(), amount);
         }
     }
 
-    public List<String> getPlayerDescription(Player player) {
+    public List<String> getPlayerDescription(UUID uuid) {
         if (this.oneByPlayer) {
-            List<String> description = this.playerDescriptions.get(player);
+            List<String> description = this.playerDescriptions.get(uuid);
             if (description != null && !description.isEmpty()) {
                 return description;
             }
@@ -119,7 +113,7 @@ public class GuiItem {
 
     public void setPlayerDescription(Player player, List<String> description) {
         if (this.oneByPlayer) {
-            this.playerDescriptions.put(player, description);
+            this.playerDescriptions.put(player.getUniqueId(), description);
         }
     }
 
@@ -161,8 +155,6 @@ public class GuiItem {
      */
     public void setName(String displayName){
         this.displayName = ChatFormatting.formatText(displayName);
-
-
     }
 
     /**
@@ -174,7 +166,7 @@ public class GuiItem {
     }
 
     public void addRowToDescription(Player player, final String newRow){
-        List<String> description = this.playerDescriptions.get(player);
+        List<String> description = this.playerDescriptions.get(player.getUniqueId());
 
         if (description == null) {
             description = new ArrayList<>();
@@ -186,7 +178,7 @@ public class GuiItem {
     }
 
     public void removePlayer(Player player) {
-        this.playerDescriptions.remove(player);
-        this.playerAmounts.remove(player);
+        this.playerDescriptions.remove(player.getUniqueId());
+        this.playerAmounts.remove(player.getUniqueId());
     }
 }

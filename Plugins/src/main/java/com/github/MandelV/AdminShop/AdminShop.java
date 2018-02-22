@@ -7,17 +7,16 @@ import com.github.MandelV.AdminShop.Commands.PlayerCmds;
 import com.github.MandelV.AdminShop.Economy.EcoGuiFactory;
 import com.github.MandelV.AdminShop.Economy.EcoItem;
 import com.github.MandelV.AdminShop.Economy.ItemStatut;
-import com.github.MandelV.AdminShop.GUI.*;
+import com.github.MandelV.AdminShop.GUI.Gui;
+import com.github.MandelV.AdminShop.GUI.GuiInvRow;
+import com.github.MandelV.AdminShop.GUI.GuiManager;
 import com.github.MandelV.AdminShop.config.ConfigFile;
 import com.github.MandelV.AdminShop.config.Message;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import java.util.ArrayList;
 import java.util.List;
 

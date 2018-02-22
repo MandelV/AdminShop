@@ -8,8 +8,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-
 import java.util.*;
 
 /**
@@ -23,8 +21,8 @@ public  class Gui {
     private List<GuiItemPage> itemPages;
     private List<GuiItem> customNavbar;
 
-    Map<Player, Integer> currentPlayersPage;
-    Map<Player, Boolean> playerChangingPage;
+    private Map<UUID, Integer> currentPlayersPage;
+    private Map<UUID, Boolean> playerChangingPage;
 
     private GuiInvRow nbrLine;
     private String name;
@@ -218,12 +216,12 @@ public  class Gui {
     /**
      * Permet d'aller à la page suivante
      */
-    public void pageUp(Player player){
+    private void pageUp(Player player){
 
-        int pageId = this.currentPlayersPage.get(player);
+        int pageId = this.currentPlayersPage.get(player.getUniqueId());
 
         if(pageId < (this.itemPages.size()-1)){
-            this.currentPlayersPage.put(player, pageId + 1);
+            this.currentPlayersPage.put(player.getUniqueId(), pageId + 1);
             this.render(player);
         }
 
@@ -232,15 +230,12 @@ public  class Gui {
     /**
      * Permet d'aller à la page précédente
      */
-    public void pageDown(Player player){
-
-        int pageId = this.currentPlayersPage.get(player);
-
+    private void pageDown(Player player){
+        int pageId = this.currentPlayersPage.get(player.getUniqueId());
         if(pageId > 0){
-            this.currentPlayersPage.put(player, pageId - 1);
+            this.currentPlayersPage.put(player.getUniqueId(), pageId - 1);
             this.render(player);
         }
-
     }
 
     /**
@@ -268,7 +263,7 @@ public  class Gui {
     }
 
     public void open(Player player, boolean isStart){
-        this.currentPlayersPage.put(player,0);
+        this.currentPlayersPage.put(player.getUniqueId(),0);
         if(!this.currentPlayersPage.isEmpty()){
             this.render(player, isStart);
             System.out.println("[AdminShop]" + player.getName() + " action : " + "OPEN");
@@ -286,7 +281,7 @@ public  class Gui {
             player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix") + AdminShop.getInstance().getMessage().getCustomConfig().getString("no_categories")));
         }else{
 
-            List<GuiItem> pageContent = this.itemPages.get(this.currentPlayersPage.get(player)).getPage();
+            List<GuiItem> pageContent = this.itemPages.get(this.currentPlayersPage.get(player.getUniqueId())).getPage();
 
             for(int i = 0; i < pageContent.size(); i++){
                 GuiItem item = pageContent.get(i);
@@ -296,9 +291,9 @@ public  class Gui {
             }
         }
         if (start) {
-            this.playerChangingPage.put(player, false);
+            this.playerChangingPage.put(player.getUniqueId(), false);
         } else {
-            this.playerChangingPage.put(player, true);
+            this.playerChangingPage.put(player.getUniqueId(), true);
         }
 
         player.openInventory(inventory);
@@ -307,14 +302,14 @@ public  class Gui {
     }
 
     public boolean hasPlayer(Player player) {
-        return this.currentPlayersPage.get(player) != null;
+        return this.currentPlayersPage.get(player.getUniqueId()) != null;
     }
 
     public void dispatchEvent(Player player, InventoryClickEvent event) {
 
         int slotId = event.getRawSlot();
 
-        int pageId = this.currentPlayersPage.get(player);
+        int pageId = this.currentPlayersPage.get(player.getUniqueId());
 
 
         if(!this.itemPages.isEmpty()){
@@ -336,11 +331,11 @@ public  class Gui {
     }
 
     public void exit(Player player) {
-        if (this.playerChangingPage.get(player)) {
-            this.playerChangingPage.put(player, false);
+        if (this.playerChangingPage.get(player.getUniqueId())) {
+            this.playerChangingPage.put(player.getUniqueId(), false);
         } else {
-            this.playerChangingPage.remove(player);
-            this.currentPlayersPage.remove(player);
+            this.playerChangingPage.remove(player.getUniqueId());
+            this.currentPlayersPage.remove(player.getUniqueId());
 
             for (GuiItemPage page: this.itemPages) {
                 for (GuiItem item: page.getPage()) {

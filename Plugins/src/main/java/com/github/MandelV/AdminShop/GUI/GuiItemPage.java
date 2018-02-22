@@ -1,9 +1,6 @@
 package com.github.MandelV.AdminShop.GUI;
 
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
-import javafx.scene.paint.Material;
-import org.bukkit.entity.Item;
-
 import java.util.ArrayList;
 import java.util.List;
 
