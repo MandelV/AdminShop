@@ -26,7 +26,7 @@ public abstract class Request {
         try {
             while(result.next()){
 
-                categories.add(new Dao_Categorie(result.getString(1),result.getString(2), result.getString(3)));
+                categories.add(new Dao_Categorie(result.getString(1),result.getString(2), result.getString(3), result.getShort(4)));
 
             }
             result.close();
@@ -54,7 +54,7 @@ public abstract class Request {
 
 
 
-            Dao.getInstance().createStatement("INSERT INTO as_categorie VALUE (?,?,?)",parameters).ifPresent(Dao::executeStatement);
+            Dao.getInstance().createStatement("INSERT INTO as_categorie VALUE (?,?,?,?)",parameters).ifPresent(Dao::executeStatement);
 
         }else{
             throw new NullPointerException();
@@ -86,16 +86,14 @@ public abstract class Request {
         Parameters<Double> buy_price = new Parameters<>(item.getBuy_price());
         Parameters<Double> sell_price = new Parameters<>(item.getSell_price());
         Parameters<String> type_vente = new Parameters<>(item.getStatut());
-
         parameters.add(nameCategorie);
         parameters.add(id_item);
         parameters.add(damage);
         parameters.add(buy_price);
         parameters.add(sell_price);
         parameters.add(type_vente);
-
+        
         Dao.getInstance().createStatement("INSERT INTO as_item(name_categorie, id_item, damage, prix_achat, prix_vente, type_vente) VALUE (?,?,?,?,?,?)", parameters).ifPresent(Dao::executeStatement);
-
     }
 
     public static void removeItemFromCategorie(String categorie, Dao_item item){

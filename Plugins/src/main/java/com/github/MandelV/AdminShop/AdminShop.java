@@ -109,7 +109,7 @@ public class AdminShop extends JavaPlugin{
         DAOcategories.forEach(cat -> {
             Material item = Material.getMaterial(cat.getId_item());
             if(item != null){
-                Gui temp = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, cat.getName(), cat.getDisplayName(),  self.shop, cat.getDescriptions(), item, cat.getDisplayName());
+                Gui temp = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, cat.getName(), cat.getDisplayName(),  self.shop, cat.getDescriptions(), item, cat.getDamage(), cat.getDisplayName());
 
                 for(int i = 0; i < cat.getItems().size(); i++){
 

@@ -12,17 +12,19 @@ public class Dao_Categorie {
     private String name;
     private String displayName;
     private String id_item;
+    private Short damage;
     private ResultSet result;
 
     private List<String> descriptions;
 
     private List<Dao_item> items;
 
-    public Dao_Categorie(final String name, final String displayName, final String id_item){
+    public Dao_Categorie(final String name, final String displayName, final String id_item, final Short damage){
 
         this.name = name;
         this.displayName = displayName;
         this.id_item = id_item;
+        this.damage = damage;
         this.descriptions = new ArrayList<>();
         this.items = new ArrayList<>();
 
@@ -97,5 +99,9 @@ public class Dao_Categorie {
 
     public String getDisplayName() {
         return displayName;
+    }
+    
+    public Short getDamage() {
+        return damage;
     }
 }

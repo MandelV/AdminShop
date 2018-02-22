@@ -90,31 +90,31 @@ public class PlayerCmds extends Commands {
             sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
             return true;
         }
-        if(args.length == 5){
-
-            Material itemcat = Material.getMaterial(args[4].toUpperCase());
-            if(itemcat != null){
-                sender.sendMessage("Ajout de : " + itemcat.toString());
-
+        if(args.length == 4){
+            ItemStack itemHolder = sender.getServer().getPlayer(sender.getName()).getInventory().getItemInMainHand();
+            sender.getServer().getPlayer(sender.getName()).getOpenInventory().getBottomInventory().remove(itemHolder);
+            if(itemHolder.getType() != Material.AIR){
                 String name = (!args[2].contains("&")) ? args[2] : null;
                 String displayname = args[3];
 
                 if(name != null){
 
-                    Gui gu = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, name, displayname, adminShop.shop, null, itemcat, displayname);
+                    Gui gu = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, name, displayname, adminShop.shop, null, itemHolder.getType(), itemHolder.getDurability(), displayname);
                     adminShop.categories.add(gu);
 
                     if(gu != null){
-                        Dao_Categorie prepareSqlCategorie = new Dao_Categorie(name, displayname, itemcat.toString());
+                        Dao_Categorie prepareSqlCategorie = new Dao_Categorie(name, displayname, itemHolder.getType().toString(), itemHolder.getDurability());
                         Request.addCategorie(prepareSqlCategorie);
                         AdminShop.getInstance().shop.refreshAll();
                     }
                 }else{
                     sender.sendMessage("&4Attention le nom d'une categorie est différent du nom affiché. ce nom ne doit contenir aucun '&'");
                 }
-            }else{
-                sender.sendMessage("Erreur item");
             }
+
+
+
+
         }else{
             this.command_help(sender);
         }
