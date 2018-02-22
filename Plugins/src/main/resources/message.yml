@@ -8,6 +8,11 @@ previous_page: "&ePage précédente"
 back_to_categories: "&cRevenir aux catégories"
 back_to_categories_name: "&cRetour"
 
+buy_message: "&aVous avez acheté &6{ITEM} &5x{AMOUNT} &aprix : &4{BUY_PRICE} Talys"
+sell_message: "&aVous avez vendu &6{ITEM} &5x{AMOUNT} &again : &2{BUY_PRICE} Talys"
+player_has_no_money: "&4Vous n'avez pas les fonds nécessaire"
+player_has_full_inventory: "&4Votre inventaire est plein"
+
 item_lore:
   - "&4prix achat : {BUY_PRICE}"
   - "&2prix vente : {SELL_PRICE}"
