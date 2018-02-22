@@ -310,7 +310,7 @@ public  class Gui {
 
         int slotId = event.getRawSlot();
 
-        int pageId = this.currentPlayersPage.get(player);
+        int pageId = this.currentPlayersPage.get(player.getUniqueId());
 
 
         if(!this.itemPages.isEmpty()){
