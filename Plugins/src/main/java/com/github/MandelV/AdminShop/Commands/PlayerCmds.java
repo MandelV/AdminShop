@@ -145,7 +145,6 @@ public class PlayerCmds extends Commands {
                     sender.sendMessage("Mauvais statut");
                     return false;
                 }
-                System.err.println(statut);
                 if(catname != null){
                     for(int i = 0; i < adminShop.categories.size(); i++){
                         if(adminShop.categories.get(i).getName().equalsIgnoreCase(catname)){

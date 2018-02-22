@@ -110,7 +110,6 @@ public  class Gui {
         this.itemPages.forEach(page -> {
             page.removeItem(item);
         });
-
     }
 
     private void addNavbar(GuiItemPage page) {
