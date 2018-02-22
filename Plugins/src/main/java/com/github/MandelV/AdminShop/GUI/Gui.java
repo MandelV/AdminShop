@@ -110,6 +110,46 @@ public  class Gui {
         this.itemPages.forEach(page -> {
             page.removeItem(item);
         });
+
+        int prevNbrPages = this.itemPages.size();
+        List<GuiItem> items = this.getAllItems();
+
+        this.itemPages.clear();
+
+        for (GuiItem itm: items) {
+            this.addItem(itm);
+        }
+
+        if (prevNbrPages > this.itemPages.size()) {
+            for (UUID uuid: this.currentPlayersPage.keySet()) {
+                if (this.currentPlayersPage.get(uuid) == prevNbrPages-1) {
+                    this.currentPlayersPage.put(uuid, this.itemPages.size()-1);
+                }
+            }
+        }
+
+        this.refreshAll();
+    }
+
+    public List<GuiItem> getAllItems() {
+        List<GuiItem> items = new ArrayList<>();
+
+        int iMax = this.nbrLine.getSize();
+
+        if (this.navbar) {
+            iMax -= 9;
+        }
+
+        for (GuiItemPage page: this.itemPages) {
+            for (int i = 0; i < iMax; i++) {
+                GuiItem item = page.getPage().get(i);
+                if (item != null) {
+                    items.add(item);
+                }
+            }
+        }
+
+        return items;
     }
 
     private void addNavbar(GuiItemPage page) {
