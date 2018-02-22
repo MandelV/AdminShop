@@ -36,7 +36,7 @@ public abstract class EcoGuiFactory {
      * @see Material
      * @see Gui
      */
-    public static Gui createSubGui(GuiInvRow nrgLine, String name, String displayName, Gui parentGui, List<String> description, Material icon, final String nameIcon){
+    public static Gui createSubGui(GuiInvRow nrgLine, String name, String displayName, Gui parentGui, List<String> description, Material icon, Short durability, final String nameIcon){
 
         if(nrgLine == null || name == null || displayName == null || parentGui == null || icon == null || nameIcon == null){
             return null;
@@ -44,7 +44,7 @@ public abstract class EcoGuiFactory {
         Gui childGui = new Gui(nrgLine, name, displayName);
 
         //Creation de l'icon permettant d'aller au sous Gui
-        GuiItem iconItem = new GuiItem(icon, 1, (short) 0, null);
+        GuiItem iconItem = new GuiItem(icon, 1, durability, null);
 
         GuiAction action = new GuiAction() {
 

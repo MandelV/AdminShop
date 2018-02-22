@@ -26,7 +26,7 @@ public abstract class Request {
         try {
             while(result.next()){
 
-                categories.add(new Dao_Categorie(result.getString(1),result.getString(2), result.getString(3)));
+                categories.add(new Dao_Categorie(result.getString(1),result.getString(2), result.getString(3), result.getShort(4)));
 
             }
             result.close();
@@ -54,7 +54,7 @@ public abstract class Request {
 
 
 
-            Dao.getInstance().createStatement("INSERT INTO as_categorie VALUE (?,?,?)",parameters).ifPresent(Dao::executeStatement);
+            Dao.getInstance().createStatement("INSERT INTO as_categorie VALUE (?,?,?,?)",parameters).ifPresent(Dao::executeStatement);
 
         }else{
             throw new NullPointerException();
