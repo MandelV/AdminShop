@@ -107,6 +107,7 @@ public class PlayerCmds extends Commands {
                     if(gu != null){
                         Dao_Categorie prepareSqlCategorie = new Dao_Categorie(name, displayname, itemcat.toString());
                         Request.addCategorie(prepareSqlCategorie);
+                        AdminShop.getInstance().shop.refreshAll();
                     }
                 }else{
                     sender.sendMessage("&4Attention le nom d'une categorie est différent du nom affiché. ce nom ne doit contenir aucun '&'");
@@ -145,7 +146,6 @@ public class PlayerCmds extends Commands {
                     sender.sendMessage("Mauvais statut");
                     return false;
                 }
-                System.err.println(statut);
                 if(catname != null){
                     for(int i = 0; i < adminShop.categories.size(); i++){
                         if(adminShop.categories.get(i).getName().equalsIgnoreCase(catname)){

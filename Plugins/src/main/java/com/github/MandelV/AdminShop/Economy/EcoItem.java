@@ -1,5 +1,7 @@
 package com.github.MandelV.AdminShop.Economy;
 
+import Dao.Dao_item;
+import Dao.Request;
 import com.github.MandelV.AdminShop.AdminShop;
 import com.github.MandelV.AdminShop.GUI.Gui;
 import com.github.MandelV.AdminShop.GUI.GuiAction;
@@ -94,13 +96,16 @@ public class EcoItem extends GuiItem {
                 });
                 setPlayerDescription(player, lore);
                 return true;
-
             }
             @Override
             public boolean onMiddleClick(Player player) {
                 if(AdminShop.playerIsEditorMode(player) && player.hasPermission("adminshop.edit")){
 
                     parent.removeItem(self);
+
+                    Dao_item requestItem = new Dao_item(self.getType().toString(), self.getDamage(), self.buy_price, self.sell_price, self.getStatut().getName());
+                    Request.removeItemFromCategorie(parent.getName(), requestItem);
+                    parent.refreshAll();
                     return true;
                 }
                 int amount = self.getPlayerAmount(player.getUniqueId());

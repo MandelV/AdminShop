@@ -53,7 +53,7 @@ public class GuiItem {
         this.guiAction = guiAction;
     }
 
-    protected void setGuiAction(GuiAction guiAction) {
+    public void setGuiAction(GuiAction guiAction) {
         this.guiAction = guiAction;
     }
 

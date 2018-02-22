@@ -97,6 +97,20 @@ public abstract class Request {
         Dao.getInstance().createStatement("INSERT INTO as_item(name_categorie, id_item, damage, prix_achat, prix_vente, type_vente) VALUE (?,?,?,?,?,?)", parameters).ifPresent(Dao::executeStatement);
 
     }
+
+    public static void removeItemFromCategorie(String categorie, Dao_item item){
+
+        ArrayList<Parameters> parameters = new ArrayList<>();
+
+        Parameters<String> nameCategorie = new Parameters<>(categorie);
+        Parameters<String> id_item = new Parameters<>(item.getId_item());
+        Parameters<Short> damage = new Parameters<>(item.getDurability());
+
+        parameters.add(nameCategorie);
+        parameters.add(id_item);
+        parameters.add(damage);
+        Dao.getInstance().createStatement("DELETE FROM as_item WHERE name_categorie=? AND id_item=? AND damage=?", parameters).ifPresent(Dao::executeStatement);
+    }
 }
 
 
