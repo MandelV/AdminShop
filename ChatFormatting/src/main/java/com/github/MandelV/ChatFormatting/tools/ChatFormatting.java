@@ -8,7 +8,8 @@ import java.util.Map;
 public class ChatFormatting {
 
     public static Map<String, ChatColor> tabChat;
-    
+    private static ChatFormatting chatFormatting = new ChatFormatting();
+
     private ChatFormatting(){
 
         tabChat = new HashMap<>();
@@ -36,8 +37,6 @@ public class ChatFormatting {
         tabChat.put("&o", ChatColor.ITALIC);
         tabChat.put("&r", ChatColor.RESET);
     }
-
-    private static ChatFormatting chatFormatting = new ChatFormatting();
 
     public static ChatFormatting getInstance(){
         return chatFormatting;
