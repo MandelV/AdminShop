@@ -89,7 +89,7 @@ public  class Gui {
      * @param item Item à ajouté
      * @see GuiItem
      */
-    public void addItem(GuiItem item) {
+    public void addItem(GuiItem item, boolean refresh) {
 
         GuiItemPage page;
 
@@ -104,7 +104,13 @@ public  class Gui {
                 this.addNavbar(page);
             }
         }
-        this.refreshAll();
+        if (refresh) {
+            this.refreshAll();
+        }
+    }
+
+    public void addItem(GuiItem item) {
+        this.addItem(item, true);
     }
 
     public void removeItem(GuiItem item){
@@ -118,7 +124,7 @@ public  class Gui {
         this.itemPages.clear();
 
         for (GuiItem itm: items) {
-            this.addItem(itm);
+            this.addItem(itm, false);
         }
 
         if (prevNbrPages > this.itemPages.size()) {
