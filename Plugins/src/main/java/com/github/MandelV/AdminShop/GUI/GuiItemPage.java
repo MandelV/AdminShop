@@ -60,8 +60,15 @@ public class GuiItemPage {
         return this.sizemax - count;
     }
 
-    public void removeItem(GuiItem item){
-        this.itemList.remove(item);
+    public boolean removeItem(GuiItem item){
+        int index = this.itemList.indexOf(item);
+
+        if (index == -1) {
+            return false;
+        } else {
+            this.itemList.set(index, null);
+            return true;
+        }
     }
 
     public void clearPage(){
