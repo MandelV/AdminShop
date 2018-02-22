@@ -104,6 +104,7 @@ public  class Gui {
                 this.addNavbar(page);
             }
         }
+        this.refreshAll();
     }
 
     public void removeItem(GuiItem item){

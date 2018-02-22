@@ -46,11 +46,14 @@ public abstract class Request {
 
             Parameters<String> catname = new Parameters<>(categorie.getName());
             Parameters<String> catdisplayName = new Parameters<>(categorie.getDisplayName());
-            Parameters<String> id_item = new Parameters<String>(categorie.getId_item());
+            Parameters<String> id_item = new Parameters<>(categorie.getId_item());
+            Parameters<Short> durability = new Parameters<Short>(categorie.getDamage());
+
 
             parameters.add(catname);
             parameters.add(catdisplayName);
             parameters.add(id_item);
+            parameters.add(durability);
 
 
 

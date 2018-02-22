@@ -247,10 +247,8 @@ public class Dao {
     }
 
     public static void executeStatement(final PreparedStatement statement){
-
         Runnable asyncStatement = () -> {
             try {
-                System.err.println("LOL");
                 statement.execute();
             } catch (SQLException e) {
                 e.printStackTrace();

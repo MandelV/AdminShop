@@ -67,7 +67,6 @@ public abstract class EcoGuiFactory {
 
                     player.sendMessage("Categorie " + childGui.getName() + " supprimée");
                 }
-                AdminShop.getInstance().shop.refreshAll();
                 return false;
             }
 

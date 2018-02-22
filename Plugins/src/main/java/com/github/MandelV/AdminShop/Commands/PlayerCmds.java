@@ -105,7 +105,6 @@ public class PlayerCmds extends Commands {
                     if(gu != null){
                         Dao_Categorie prepareSqlCategorie = new Dao_Categorie(name, displayname, itemHolder.getType().toString(), itemHolder.getDurability());
                         Request.addCategorie(prepareSqlCategorie);
-                        AdminShop.getInstance().shop.refreshAll();
                     }
                 }else{
                     sender.sendMessage("&4Attention le nom d'une categorie est différent du nom affiché. ce nom ne doit contenir aucun '&'");
@@ -128,7 +127,7 @@ public class PlayerCmds extends Commands {
         }
         if(args.length == 6){
             ItemStack itemHolder = sender.getServer().getPlayer(sender.getName()).getInventory().getItemInMainHand();
-            sender.getServer().getPlayer(sender.getName()).getOpenInventory().getBottomInventory().remove(itemHolder);
+           // sender.getServer().getPlayer(sender.getName()).getOpenInventory().getBottomInventory().remove(itemHolder);
             if(itemHolder.getType() != Material.AIR){
                 String catname = (!args[2].contains("&")) ? args[2] : null;
 
