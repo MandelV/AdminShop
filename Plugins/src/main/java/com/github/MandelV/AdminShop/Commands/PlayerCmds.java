@@ -124,6 +124,7 @@ public class PlayerCmds extends Commands {
         return true;
     }
 
+    @Deprecated
     private boolean removeCategorie(CommandSender sender, String[] args){
         if(!sender.hasPermission("adminshop.categorie.remove")){
             sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));

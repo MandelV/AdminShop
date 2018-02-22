@@ -1,5 +1,6 @@
 package com.github.MandelV.AdminShop.Economy;
 
+import Dao.Request;
 import com.github.MandelV.AdminShop.AdminShop;
 import com.github.MandelV.AdminShop.GUI.*;
 import org.bukkit.Material;
@@ -57,7 +58,11 @@ public abstract class EcoGuiFactory {
 
                 if(AdminShop.playerIsEditorMode(player) && player.hasPermission("adminshop.edit")){
 
-                    System.err.println("SALUT");
+                    AdminShop.getInstance().categories.remove(childGui);
+                    AdminShop.getInstance().shop.removeItem(childGui.getDisplayName());
+                    Request.removeCategorie(childGui.getName());
+
+                    player.sendMessage("Categorie " + childGui.getName() + " supprimée");
                 }
                 return true;
             }
