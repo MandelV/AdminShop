@@ -44,17 +44,44 @@ public class EcoItem extends GuiItem {
                 return false;
             }
             @Override
-            public boolean onShiftLeftClick(Player player) {
+            public boolean onRightClick(Player player) {
 
 
+                for(int i = 0; i < player.getInventory().getSize(); i++){
+                    if(player.getInventory().getItem(i) != null){
+                        if(player.getInventory().getItem(i).getType() == self.getType() && player.getInventory().getItem(i).getDurability() == self.getDamage()){
 
+                            int amount = self.getPlayerAmount(player);
+                            int invAmount = player.getInventory().getItem(i).getAmount();
+                            int newAmount = 0;
 
+                            if(amount > invAmount){
+                                newAmount = invAmount;
+                                self.setPlayerAmount(player, newAmount);
 
+                            }else if(amount < invAmount){
+                                newAmount = amount;
 
-                return false; }
+                            }else if(amount == invAmount){
+                                newAmount = invAmount;
+                            }
+                            invAmount -= newAmount;
+                            if(amount < 1){
+                                player.getInventory().clear(i);
+                            }else{
+                                player.getInventory().getItem(i).setAmount(invAmount);
+                            }
+                            player.sendMessage("Vous avez recu : " + self.getSell_price() * newAmount);
+                            AdminShop.getEcon().depositPlayer(player, self.getSell_price() * newAmount);
+                            break;
+                        }
+                    }
+                }
+                return true;
+            }
 
             @Override
-            public boolean onRightClick(Player player) {
+            public boolean onShiftRightClick(Player player) {
 
                 int amount = self.getPlayerAmount(player);
                 amount++;
@@ -99,7 +126,7 @@ public class EcoItem extends GuiItem {
             }
 
             @Override
-            public boolean onShiftRightClick(Player player) {
+            public boolean onShiftLeftClick(Player player) {
 
                 int amount = self.getPlayerAmount(player);
                 amount += 10;
@@ -114,7 +141,7 @@ public class EcoItem extends GuiItem {
                 List<String> lore = new ArrayList<>();
                 AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
                    v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getPlayerAmount(player)));
-                    v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
+                    v = v.replace("{SELL_PRICE}", String.valueOf(sell_price * self.getPlayerAmount(player)));
                     lore.add(ChatFormatting.formatText(v));
                 });
 
