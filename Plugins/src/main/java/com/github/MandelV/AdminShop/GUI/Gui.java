@@ -46,6 +46,7 @@ public  class Gui {
         for (int i=0; i < 7; i++) {
             this.customNavbar.add(null);
         }
+        this.itemPages.add(new GuiItemPage(nbrLine.getSize()));
 
         this.playerChangingPage = new HashMap<>();
         this.currentPlayersPage = new HashMap<>();
@@ -340,19 +341,16 @@ public  class Gui {
 
         Inventory inventory = Bukkit.createInventory(player, this.nbrLine.getSize(), ChatFormatting.formatText(this.displayName));
 
-        if(this.itemPages.isEmpty()){
-            player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix") + AdminShop.getInstance().getMessage().getCustomConfig().getString("no_categories")));
-        }else{
 
-            List<GuiItem> pageContent = this.itemPages.get(this.currentPlayersPage.get(player.getUniqueId())).getPage();
+        List<GuiItem> pageContent = this.itemPages.get(this.currentPlayersPage.get(player.getUniqueId())).getPage();
 
-            for(int i = 0; i < pageContent.size(); i++){
-                GuiItem item = pageContent.get(i);
-                if (item != null) {
-                    inventory.setItem(i, new GuiItemInstance(item, player));
-                }
+        for(int i = 0; i < pageContent.size(); i++){
+            GuiItem item = pageContent.get(i);
+            if (item != null) {
+                inventory.setItem(i, new GuiItemInstance(item, player));
             }
         }
+
         if (start) {
             this.playerChangingPage.put(player.getUniqueId(), false);
         } else {
