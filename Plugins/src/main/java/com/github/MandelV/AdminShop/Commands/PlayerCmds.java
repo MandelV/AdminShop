@@ -107,6 +107,7 @@ public class PlayerCmds extends Commands {
                     if(gu != null){
                         Dao_Categorie prepareSqlCategorie = new Dao_Categorie(name, displayname, itemcat.toString());
                         Request.addCategorie(prepareSqlCategorie);
+                        AdminShop.getInstance().shop.refreshAll();
                     }
                 }else{
                     sender.sendMessage("&4Attention le nom d'une categorie est différent du nom affiché. ce nom ne doit contenir aucun '&'");

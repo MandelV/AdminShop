@@ -101,6 +101,7 @@ public class EcoItem extends GuiItem {
                 if(AdminShop.playerIsEditorMode(player) && player.hasPermission("adminshop.edit")){
 
                     parent.removeItem(self);
+                    parent.refreshAll();
                     return true;
                 }
                 int amount = self.getPlayerAmount(player.getUniqueId());
