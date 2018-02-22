@@ -4,7 +4,6 @@ import com.github.MandelV.AdminShop.AdminShop;
 import com.github.MandelV.AdminShop.GUI.*;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 
