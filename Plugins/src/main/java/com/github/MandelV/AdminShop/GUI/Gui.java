@@ -271,9 +271,8 @@ public  class Gui {
         this.currentPlayersPage.put(player,0);
         if(!this.currentPlayersPage.isEmpty()){
             this.render(player, isStart);
-            System.out.println("[AdminShop]" + player.getName() + "action : " + "OPEN");
+            System.out.println("[AdminShop]" + player.getName() + " action : " + "OPEN");
         }
-
     }
 
     private Inventory render(Player player) {
@@ -351,7 +350,7 @@ public  class Gui {
                 }
             }
 
-            System.out.println("[AdminShop]" + player.getName() + "action : " + "EXIT");
+            System.out.println("[AdminShop]" + player.getName() + " action : " + "EXIT");
         }
     }
 

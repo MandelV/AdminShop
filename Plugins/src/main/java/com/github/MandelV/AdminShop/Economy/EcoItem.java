@@ -27,7 +27,7 @@ public class EcoItem extends GuiItem {
         super(type, amount, damage, true, null);
 
         EcoItem self = this;
-        
+
         this.setGuiAction(new GuiAction() {
             @Override
             public boolean onLeftClick(Player player) {

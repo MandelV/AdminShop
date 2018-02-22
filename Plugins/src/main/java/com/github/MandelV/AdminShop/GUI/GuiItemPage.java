@@ -37,6 +37,7 @@ public class GuiItemPage {
             }
         }
     }
+
     public void removeItem(String displayname){
         for(int i = 0; i < this.itemList.size(); i++){
             GuiItem rmItem = this.itemList.get(i);
@@ -66,8 +67,6 @@ public class GuiItemPage {
         return this.itemList.get(id);
     }
 
-
-
     public int availableSlots() {
         int count = 0;
         for (GuiItem item: this.itemList) {
@@ -83,6 +82,7 @@ public class GuiItemPage {
     public void removeItem(GuiItem item){
         this.itemList.remove(item);
     }
+
     public void clearPage(){
         this.itemList.clear();
     }

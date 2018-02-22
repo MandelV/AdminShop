@@ -34,13 +34,11 @@ public class AdminShop extends JavaPlugin{
     @Override
     public void onEnable() {
 
-
         adminShop = this;
         ChatFormatting.getInstance();
         this.shop = new Gui(GuiInvRow.ROW2, "adminshop",  "&4AdminShop &f- &eCategories");
         this.categories = new ArrayList<>();
         AdminShop self = this;
-
 
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &5By Akitoshi and Hougo13"));
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &5Version : 1.0-SNAPSHOT"));
@@ -73,11 +71,6 @@ public class AdminShop extends JavaPlugin{
         //INTIALISATION GUI
         this.initAdminShopGui();
 
-
-
-
-
-
         //INITIALIZATION ECONOMY (VAULT)
         //Init economy
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &aInitialisation : &eVaultAPI"));
@@ -88,7 +81,6 @@ public class AdminShop extends JavaPlugin{
         }
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &aInitialisation : &2FINI"));
 
-
         //INITIALISATION COMMANDE
         this.getCommand("adminshop").setExecutor(new PlayerCmds(this));
     }
@@ -96,7 +88,7 @@ public class AdminShop extends JavaPlugin{
     @Override
     public void onDisable() {
 
-
+        Dao.getInstance().closeConnection();
     }
 
     public static AdminShop getInstance(){
@@ -106,9 +98,7 @@ public class AdminShop extends JavaPlugin{
     private void initAdminShopGui(){
 
         AdminShop self = this;
-
         List<Dao_Categorie> DAOcategories = Request.getCategories();
-        //Gui.getInstance();
         getServer().getPluginManager().registerEvents(new GuiManager(), this);
 
         DAOcategories.forEach(cat -> {
@@ -131,10 +121,6 @@ public class AdminShop extends JavaPlugin{
             }else{
                 System.err.println("[AdminShop] Erreur ajout categorie (item) : " + cat.getName());
             }
-
-
-
-
         });
     }
 
@@ -154,9 +140,11 @@ public class AdminShop extends JavaPlugin{
     public ConfigFile getConf() {
         return config;
     }
+
     public static Economy getEcon() {
         return econ;
     }
+
     public Message getMessage() {
         return message;
     }

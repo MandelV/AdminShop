@@ -56,7 +56,6 @@ public class GuiItem {
         this.oneByPlayer = oneByPlayer;
         this.guiAction = guiAction;
     }
-    
 
     public void setGuiAction(GuiAction guiAction) {
         this.guiAction = guiAction;

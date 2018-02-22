@@ -34,6 +34,4 @@ public enum ItemStatut {
         }
         return null;
     }
-
-
 }
