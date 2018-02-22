@@ -14,7 +14,10 @@ import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.UUID;
 
 public class PlayerCmds extends Commands {
 
@@ -49,10 +52,10 @@ public class PlayerCmds extends Commands {
                 this.removeCategorie(commandSender, args);
 
             }
-
-
         }else if(args[0].equalsIgnoreCase("item") && (args.length > 1)){
             this.addItemIntoCategorie(commandSender, args);
+        }else if(args[0].equalsIgnoreCase("editmode")){
+            this.toggleEditMode(commandSender);
         }
 
         return true;
@@ -185,6 +188,21 @@ public class PlayerCmds extends Commands {
                     sender.sendMessage("Item Ajouté");
                 }
             }
+        }
+        return true;
+    }
+
+    private boolean toggleEditMode(CommandSender sender){
+        if(!sender.hasPermission("adminshop.edit")){
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
+            return true;
+        }
+        if(!AdminShop.playerIsEditorMode(((Player) sender))){
+            AdminShop.setPlayerEditionMode(((Player) sender));
+            sender.sendMessage("Mode edition activé");
+        }else{
+            AdminShop.removePlayerEditionMode(((Player) sender));
+            sender.sendMessage("Mode edition désactivé");
         }
         return true;
     }

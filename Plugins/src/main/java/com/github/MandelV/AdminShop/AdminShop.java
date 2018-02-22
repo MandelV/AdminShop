@@ -15,10 +15,12 @@ import com.github.MandelV.AdminShop.config.Message;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class AdminShop extends JavaPlugin{
 
@@ -28,6 +30,9 @@ public class AdminShop extends JavaPlugin{
     public List<Gui> categories;
     public Gui shop;
     private static AdminShop adminShop;
+
+    private static List<UUID> playerInEditionMode;
+
     public static Economy econ = null;
 
     @Override
@@ -37,6 +42,7 @@ public class AdminShop extends JavaPlugin{
         ChatFormatting.getInstance();
         this.shop = new Gui(GuiInvRow.ROW2, "adminshop",  "&4AdminShop &f- &eCategories");
         this.categories = new ArrayList<>();
+        playerInEditionMode =  new ArrayList<>();
         AdminShop self = this;
 
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &5By Akitoshi and Hougo13"));
@@ -147,4 +153,15 @@ public class AdminShop extends JavaPlugin{
         return message;
     }
 
+    public static Boolean playerIsEditorMode(Player player){
+        return playerInEditionMode.contains(player.getUniqueId());
+    }
+
+    public static void setPlayerEditionMode(Player player){
+        playerInEditionMode.add(player.getUniqueId());
+    }
+
+    public static void removePlayerEditionMode(Player player){
+        playerInEditionMode.remove(player.getUniqueId());
+    }
 }

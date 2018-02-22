@@ -35,5 +35,9 @@ permission:
     default: false
     description: remove item from categorie
 
+  adminshop.edit:
+    default: false
+    description: allow to edit adminshop
+
 
 

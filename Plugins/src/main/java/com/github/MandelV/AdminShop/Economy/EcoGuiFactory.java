@@ -53,7 +53,14 @@ public abstract class EcoGuiFactory {
             }
 
             @Override
-            public boolean onMiddleClick(Player player) { return false; }
+            public boolean onMiddleClick(Player player) {
+
+                if(AdminShop.playerIsEditorMode(player) && player.hasPermission("adminshop.edit")){
+
+                    System.err.println("SALUT");
+                }
+                return true;
+            }
 
             @Override
             public boolean onShiftLeftClick(Player player) {

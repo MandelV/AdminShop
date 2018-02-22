@@ -24,6 +24,7 @@ public  class Gui {
     private Map<UUID, Integer> currentPlayersPage;
     private Map<UUID, Boolean> playerChangingPage;
 
+
     private GuiInvRow nbrLine;
     private String name;
     private String displayName;
@@ -40,6 +41,7 @@ public  class Gui {
     public Gui(GuiInvRow nbrLine, String name, String displayName){
 
         this.itemPages = new ArrayList<>();
+
         this.customNavbar = new ArrayList<>();
         for (int i=0; i < 7; i++) {
             this.customNavbar.add(null);
@@ -55,6 +57,7 @@ public  class Gui {
 
         GuiManager.addGui(this);
     }
+
 
     public String getName(){
         return this.name;

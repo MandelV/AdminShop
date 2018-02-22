@@ -39,7 +39,6 @@ public class EcoItem extends GuiItem {
             @Override
             public boolean onRightClick(Player player) {
 
-
                 for(int i = 0; i < player.getInventory().getSize(); i++){
                     if(player.getInventory().getItem(i) != null){
                         if(player.getInventory().getItem(i).getType() == self.getType() && player.getInventory().getItem(i).getDurability() == self.getDamage()){
