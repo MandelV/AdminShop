@@ -127,7 +127,7 @@ public  class Gui {
 
         if (pageIndex > 0) {
             // Set previous button
-            page.getPage().add(new GuiItem(Material.PAPER, 1, (short) 0, new GuiAction() {
+            GuiItem prevButton = new GuiItem(Material.PAPER, 1, (short) 0, new GuiAction() {
                 @Override
                 public boolean onRightClick(Player player) {
 
@@ -156,10 +156,14 @@ public  class Gui {
                 public boolean onShiftRightClick(Player player) {
                     return false;
                 }
-            }));
+            });
+
+            prevButton.setName(ChatFormatting.formatText("&ePage précédente"));
+
+            page.getPage().add(prevButton);
 
             // Set next button on previous page
-            this.itemPages.get(pageIndex-1).getPage().add(new GuiItem(Material.PAPER, 1, (short) 0, new GuiAction() {
+            GuiItem nextButton = new GuiItem(Material.PAPER, 1, (short) 0, new GuiAction() {
                 @Override
                 public boolean onRightClick(Player player) {
                     return false;
@@ -187,7 +191,12 @@ public  class Gui {
                 public boolean onShiftRightClick(Player player) {
                     return false;
                 }
-            }));
+            });
+
+            nextButton.setName(ChatFormatting.formatText("&ePage suivante"));
+
+            this.itemPages.get(pageIndex-1).getPage().add(nextButton);
+
         } else {
             page.getPage().add(null);
         }
