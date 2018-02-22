@@ -76,11 +76,12 @@ public class EcoItem extends GuiItem {
             public boolean onShiftRightClick(Player player) {
 
                 int amount = self.getPlayerAmount(player.getUniqueId());
-                amount++;
-                if(amount < 64){
+                int x16 = amount / 16 - 1;
+                amount = 16 * x16;
+                if(amount < 1){
+                    amount = 1;
                     self.setPlayerAmount(player, amount);
                 }else{
-                    amount = 64;
                     self.setPlayerAmount(player, amount);
                 }
                 List<String> lore = new ArrayList<>();
@@ -97,11 +98,11 @@ public class EcoItem extends GuiItem {
             @Override
             public boolean onMiddleClick(Player player) {
                 int amount = self.getPlayerAmount(player.getUniqueId());
-                amount--;
-                if(amount > 0){
+                amount++;
+                if(amount > 64){
+                    amount = 64;
                     self.setPlayerAmount(player, amount);
                 }else{
-                    amount = 1;
                     self.setPlayerAmount(player, amount);
                 }
 

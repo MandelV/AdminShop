@@ -151,6 +151,7 @@ public class PlayerCmds extends Commands {
         }
         if(args.length == 6){
             ItemStack itemHolder = sender.getServer().getPlayer(sender.getName()).getInventory().getItemInMainHand();
+            sender.getServer().getPlayer(sender.getName()).getOpenInventory().getBottomInventory().remove(itemHolder);
             if(itemHolder.getType() != Material.AIR){
                 String catname = (!args[2].contains("&")) ? args[2] : null;
 
