@@ -3,6 +3,7 @@ package com.github.MandelV.AdminShop;
 import Dao.Dao;
 import Dao.Dao_Categorie;
 import Dao.Request;
+import com.github.MandelV.AdminShop.Commands.CmdsAutoComplet;
 import com.github.MandelV.AdminShop.Commands.PlayerCmds;
 import com.github.MandelV.AdminShop.Economy.EcoGuiFactory;
 import com.github.MandelV.AdminShop.Economy.EcoItem;
@@ -88,6 +89,7 @@ public class AdminShop extends JavaPlugin{
 
         //INITIALISATION COMMANDE
         this.getCommand("adminshop").setExecutor(new PlayerCmds(this));
+        this.getCommand("adminshop").setTabCompleter(new CmdsAutoComplet(this));
     }
 
     @Override

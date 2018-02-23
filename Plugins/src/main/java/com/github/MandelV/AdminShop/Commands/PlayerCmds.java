@@ -51,7 +51,10 @@ public class PlayerCmds extends Commands {
             }
 
         }else if(args[0].equalsIgnoreCase("item") && (args.length > 1)){
-            this.addItemIntoCategorie(commandSender, args);
+
+            if(args[1].equalsIgnoreCase("add")){
+                this.addItemIntoCategorie(commandSender, args);
+            }
 
         }else if(args[0].equalsIgnoreCase("editmode")){
             this.toggleEditMode(commandSender);
@@ -69,7 +72,8 @@ public class PlayerCmds extends Commands {
     private boolean openAdminShop(CommandSender sender){
 
         if(!sender.hasPermission("adminshop.open")){
-            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"))+
+                    ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
             return true;
         }
         adminShop.shop.open(((Player) sender));
@@ -79,7 +83,8 @@ public class PlayerCmds extends Commands {
 
     private boolean listCategorie(CommandSender sender){
         if(!sender.hasPermission("adminshop.categorie.listcategorie")){
-            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"))+
+                    ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
             return true;
         }
 
@@ -92,7 +97,8 @@ public class PlayerCmds extends Commands {
 
     private boolean addCategorie(CommandSender sender, String[] args){
         if(!sender.hasPermission("adminshop.categorie.add")){
-            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"))
+                    + ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
             return true;
         }
         if(args.length == 4){
@@ -102,13 +108,22 @@ public class PlayerCmds extends Commands {
             if(itemHolder.getType() != Material.AIR){
                 String name = (!args[2].contains("&")) ? args[2] : null;
                 String displayname = args[3];
+                Boolean ifCatExist = false;
 
-                if(name != null){
+                for(Gui cat : adminShop.categories){
+                    if(cat.getName().equalsIgnoreCase(name)){
+                        ifCatExist = true;
+                        break;
+                    }
+                }
+
+                if(name != null && !ifCatExist){
                     Gui gu = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, name, displayname, adminShop.shop, null, itemHolder.getType(), itemHolder.getDurability(), displayname);
                     if(gu != null){
                         Dao_Categorie prepareSqlCategorie = new Dao_Categorie(name, displayname, itemHolder.getType().toString(), itemHolder.getDurability());
-                        adminShop.categories.add(gu);
+
                         Request.addCategorie(prepareSqlCategorie);
+                        adminShop.categories.add(gu);
 
                         String successMessage = ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"));
 
@@ -130,7 +145,8 @@ public class PlayerCmds extends Commands {
 
     private boolean addItemIntoCategorie(CommandSender sender, String[] args){
         if(!sender.hasPermission("adminshop.item.add")){
-            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"))+
+                    ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
             return true;
         }
         if(args.length == 6){
@@ -189,22 +205,24 @@ public class PlayerCmds extends Commands {
 
     private boolean toggleEditMode(CommandSender sender){
         if(!sender.hasPermission("adminshop.edit")){
-            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"))+
+                    ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
             return true;
         }
         if(!AdminShop.playerIsEditorMode(((Player) sender))){
             AdminShop.setPlayerEditionMode(((Player) sender));
-            sender.sendMessage("Mode edition activé");
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("editor_mode_enable")));
         }else{
             AdminShop.removePlayerEditionMode(((Player) sender));
-            sender.sendMessage("Mode edition désactivé");
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("editor_mode_disable")));
         }
         return true;
     }
 
     private boolean reload(CommandSender sender){
         if(!sender.hasPermission("adminshop.reload")){
-            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"))+
+                    ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
             return true;
         }
         Runnable reloadConfig = () ->{
@@ -229,6 +247,7 @@ public class PlayerCmds extends Commands {
                 sender.sendMessage(this.prefix + ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("plugin_reload_failure")));
             }else{
                 sender.sendMessage(this.prefix + ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("plugin_reload_success")));
+
             }
         };
 

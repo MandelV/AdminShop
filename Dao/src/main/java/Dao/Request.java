@@ -38,7 +38,7 @@ public abstract class Request {
         return categories;
     }
 
-    public static void addCategorie(Dao_Categorie categorie) throws NullPointerException{
+    public static void addCategorie(Dao_Categorie categorie){
         if(categorie != null){
 
 
@@ -56,15 +56,12 @@ public abstract class Request {
             parameters.add(durability);
 
 
-
             Dao.getInstance().createStatement("INSERT INTO as_categorie VALUE (?,?,?,?)",parameters).ifPresent(Dao::executeStatement);
 
-        }else{
-            throw new NullPointerException();
         }
     }
 
-    public static void removeCategorie(String name) throws NullPointerException{
+    public static void removeCategorie(String name){
         if(name != null){
 
             ArrayList<Parameters> parameters = new ArrayList<>();
@@ -72,11 +69,6 @@ public abstract class Request {
             parameters.add(pname);
 
             Dao.getInstance().createStatement("DELETE FROM as_categorie WHERE name=?", parameters).ifPresent(Dao::executeStatement);
-
-
-
-        }else{
-            throw new NullPointerException();
         }
     }
 
