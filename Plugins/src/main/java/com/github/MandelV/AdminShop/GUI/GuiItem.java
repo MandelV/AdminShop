@@ -7,7 +7,7 @@ import org.bukkit.event.inventory.ClickType;
 import java.util.*;
 
 /**
- * @author Akitoshi
+ * @author MandelV, Hougo13
  * @version 0.1
  * Représente un item dans le GUI
  * L'item se voit ajouté une action.
@@ -48,38 +48,69 @@ public class GuiItem {
         this.guiAction = guiAction;
     }
 
+    /**
+     * @param guiAction add a new action
+     * @see GuiAction
+     */
     public void setGuiAction(GuiAction guiAction) {
         this.guiAction = guiAction;
     }
 
+    /**
+     * @return return the type of this item
+     * @see Material
+     */
     public Material getType() {
         return this.type;
     }
 
+    /**
+     * @return return durability
+     */
     public short getDamage() {
         return this.damage;
     }
 
+    /**
+     * @return return the displayName
+     */
     public String getDisplayName() {
         return displayName;
     }
 
+    /**
+     * @return return default amount
+     */
     public int getDefaultAmount() {
         return this.defaultAmount;
     }
 
+    /**
+     * @param defaultAmount set default amount
+     */
     public void setDefaultAmount(int defaultAmount) {
         this.defaultAmount = defaultAmount;
     }
 
+    /**
+     * @return the default description
+     */
     public List<String> getDefaultDescription() {
         return this.defaultDescription;
     }
 
+    /**
+     * @param defaultDescription set default description
+     */
     public void setDefaultDescription(List<String> defaultDescription) {
         this.defaultDescription = defaultDescription;
     }
 
+    /**
+     * @param uuid uuid of player
+     * @return return amount of item by player
+     * @see UUID
+     */
     public int getPlayerAmount(UUID uuid) {
         if (this.oneByPlayer) {
             Integer amount = this.playerAmounts.get(uuid);
@@ -90,12 +121,20 @@ public class GuiItem {
         return this.defaultAmount;
     }
 
+    /**
+     * @param player player which one you want change amount
+     * @param amount new amount
+     */
     public void setPlayerAmount(Player player, int amount) {
         if (this.oneByPlayer) {
             this.playerAmounts.put(player.getUniqueId(), amount);
         }
     }
 
+    /**
+     * @param uuid UUID of player
+     * @return list by uuid player
+     */
     public List<String> getPlayerDescription(UUID uuid) {
         if (this.oneByPlayer) {
             List<String> description = this.playerDescriptions.get(uuid);
@@ -106,12 +145,21 @@ public class GuiItem {
         return this.defaultDescription;
     }
 
+    /**
+     * @param player the player who will have the description
+     * @param description Add description per player
+     */
     public void setPlayerDescription(Player player, List<String> description) {
         if (this.oneByPlayer) {
             this.playerDescriptions.put(player.getUniqueId(), description);
         }
     }
 
+    /**
+     * @param player Who triggered the action?
+     * @param clickType Event triggered
+     * @return true to refresh render
+     */
     public boolean triggerAction(Player player, ClickType clickType) {
 
         if(this.guiAction != null){
@@ -159,6 +207,10 @@ public class GuiItem {
         this.defaultDescription.add(ChatFormatting.formatText(newRow));
     }
 
+    /**
+     * @param player Add a row to the player's description
+     * @param newRow the new row
+     */
     public void addRowToDescription(Player player, final String newRow){
         List<String> description = this.playerDescriptions.get(player.getUniqueId());
 
@@ -169,6 +221,9 @@ public class GuiItem {
         this.setPlayerDescription(player, description);
     }
 
+    /**
+     * @param player remove player of instance gui.
+     */
     public void removePlayer(Player player) {
         this.playerDescriptions.remove(player.getUniqueId());
         this.playerAmounts.remove(player.getUniqueId());

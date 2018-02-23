@@ -23,6 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Main class of AdminShop plugin
+ * @see JavaPlugin
+ * @see org.bukkit.Bukkit
+ */
 public class AdminShop extends JavaPlugin{
 
 
@@ -34,6 +39,9 @@ public class AdminShop extends JavaPlugin{
     private static List<UUID> playerInEditionMode;
     public static Economy econ = null;
 
+    /**
+     * When plugin is enable
+     */
     @Override
     public void onEnable() {
 
@@ -90,16 +98,25 @@ public class AdminShop extends JavaPlugin{
         this.getCommand("adminshop").setTabCompleter(new CmdsAutoComplet(this));
     }
 
+    /**
+     * When plugin is disable
+     */
     @Override
     public void onDisable() {
 
         Dao.getInstance().closeConnection();
     }
 
+    /**
+     * @return instance of adminshop
+     */
     public static AdminShop getInstance(){
         return adminShop;
     }
 
+    /**
+     * Init AdminShop GUI
+     */
     private void initAdminShopGui(){
 
         AdminShop self = this;
@@ -129,6 +146,10 @@ public class AdminShop extends JavaPlugin{
         });
     }
 
+    /**
+     * Setup economy
+     * @return true if success
+     */
     private boolean setupEconomy() {//Initialization economy method
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
@@ -141,26 +162,46 @@ public class AdminShop extends JavaPlugin{
         return econ != null;
     }
 
+    /**
+     * @return return config file
+     */
     public ConfigFile getConf() {
         return config;
     }
 
+    /**
+     * @return economy
+     * @see Economy
+     */
     public static Economy getEcon() {
         return econ;
     }
 
+    /**
+     * @return message file
+     */
     public Message getMessage() {
         return message;
     }
 
+    /**
+     * @param player test player
+     * @return if player is in editormode
+     */
     public static Boolean playerIsEditorMode(Player player){
         return playerInEditionMode.contains(player.getUniqueId());
     }
 
+    /**
+     * @param player add player in editor
+     */
     public static void setPlayerEditionMode(Player player){
         playerInEditionMode.add(player.getUniqueId());
     }
 
+    /**
+     * @param player remove player of editor
+     */
     public static void removePlayerEditionMode(Player player){
         playerInEditionMode.remove(player.getUniqueId());
     }

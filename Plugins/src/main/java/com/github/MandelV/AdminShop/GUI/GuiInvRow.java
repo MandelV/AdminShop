@@ -1,9 +1,9 @@
 package com.github.MandelV.AdminShop.GUI;
 
 /**
- * @author Akitoshi
+ * @author MandelV
  * @version 0.1
- * Enumeration représentant chaque ligne possible d'un inventaire
+ * Enumeration which represent each row in Gui
  */
 public enum GuiInvRow {
     ROW1( 9 ),
@@ -20,7 +20,7 @@ public enum GuiInvRow {
     }
 
     /**
-     * @return le nombre de slot total du coffre.
+     * @return le size of the row
      */
     public int getSize(){
         return size;

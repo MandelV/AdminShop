@@ -11,7 +11,7 @@ import org.bukkit.inventory.Inventory;
 import java.util.*;
 
 /**
- * @author Akitoshi
+ * @author MandelV, Hougo13
  * @version 0.1
  * Class principale de gestion des GUIs
  **/
@@ -28,7 +28,6 @@ public  class Gui {
     private boolean navbar = true;
 
     /***
-     *
      * @param nbrLine Enum definnissant le nombre de ligne dans le coffre de 1 à 6
      * @param name Nom de l'inventaire
      * @see GuiInvRow
@@ -53,21 +52,30 @@ public  class Gui {
         GuiManager.addGui(this);
     }
 
+    /**
+     * @return return name
+     */
     public String getName(){
         return this.name;
     }
 
+    /**
+     * @return return display name
+     */
     public String getDisplayName(){
         return this.displayName;
     }
 
+    /**
+     * @param b enable or disable navBar
+     */
     public void enableNavbar(boolean b) {
         this.navbar = b;
     }
 
     /**
-     *
      * @return l'UUID du GUI (identifiant Unique)
+     * @see UUID
      */
     public UUID getUuid() {
         return this.uuid;
@@ -103,10 +111,18 @@ public  class Gui {
         }
     }
 
+    /**
+     * @param item Add new item
+     * @see GuiItem
+     */
     public void addItem(GuiItem item) {
         this.addItem(item, true);
     }
 
+    /**
+     * @param item remove item
+     * @see GuiItem
+     */
     public void removeItem(GuiItem item){
         this.itemPages.forEach(page -> {
             page.removeItem(item);
@@ -136,6 +152,10 @@ public  class Gui {
         this.refreshAll();
     }
 
+    /**
+     * @return all items in Gui
+     * @see GuiItem
+     */
     public List<GuiItem> getAllItems() {
         List<GuiItem> items = new ArrayList<>();
 
@@ -157,6 +177,9 @@ public  class Gui {
         return items;
     }
 
+    /**
+     * @param page Add NavBar
+     */
     private void addNavbar(GuiItemPage page) {
         if (nbrLine.getSize() <= 9) {
             throw new Error("Cannot add navbar on small inventory");
@@ -234,6 +257,9 @@ public  class Gui {
         page.getPage().addAll(this.customNavbar);
     }
 
+    /**
+     * @return true if the gui has avaible slot
+     */
     private boolean hasAvailableSlot() {
         boolean result = false;
         int minSlots = 0;
@@ -278,7 +304,6 @@ public  class Gui {
     }
 
     /**
-     *
      * @return Retourne le nombre de page
      */
     public int getnbrPage(){
@@ -286,7 +311,6 @@ public  class Gui {
     }
 
     /**
-     *
      * @return Retourne la page actuellement affichée.
      */
     public int getCurrentPage(Player player){
@@ -309,6 +333,10 @@ public  class Gui {
         }
     }
 
+    /**
+     * @param player you render to player
+     * @return return a new inventory will opened by player
+     */
     private Inventory render(Player player) {
         return this.render(player, false);
     }
@@ -340,6 +368,9 @@ public  class Gui {
         return inventory;
     }
 
+    /**
+     * refresh
+     */
     public void refreshAll() {
         for (UUID uuid: this.currentPlayersPage.keySet()) {
             Player player = AdminShop.getInstance().getServer().getPlayer(uuid);
@@ -347,10 +378,18 @@ public  class Gui {
         }
     }
 
+    /**
+     * @param player player
+     * @return return true if gui has player
+     */
     public boolean hasPlayer(Player player) {
         return this.currentPlayersPage.get(player.getUniqueId()) != null;
     }
 
+    /**
+     * @param player player
+     * @param event dispatch event when player click
+     */
     public void dispatchEvent(Player player, InventoryClickEvent event) {
 
         int slotId = event.getRawSlot();
@@ -376,6 +415,9 @@ public  class Gui {
         }
     }
 
+    /**
+     * @param player exit gui
+     */
     public void exit(Player player) {
         if (this.playerChangingPage.get(player.getUniqueId())) {
             this.playerChangingPage.put(player.getUniqueId(), false);

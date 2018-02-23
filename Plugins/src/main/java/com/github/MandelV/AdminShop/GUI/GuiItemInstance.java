@@ -5,6 +5,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import java.util.UUID;
 
+/**
+ * @author Hougo13
+ * @version 1.0
+ * This class represents one instantiated item per player
+ */
 public class GuiItemInstance extends ItemStack{
 
     private GuiItem guiItem;
@@ -19,6 +24,9 @@ public class GuiItemInstance extends ItemStack{
         this.refreshMeta();
     }
 
+    /**
+     * Refresh the item's metaData
+     */
     public void refreshMeta() {
         ItemMeta meta = super.getItemMeta();
         meta.setDisplayName(this.guiItem.getDisplayName());
@@ -28,11 +36,17 @@ public class GuiItemInstance extends ItemStack{
         super.setItemMeta(meta);
     }
 
+    /**
+     * @return return the item's amount
+     */
     @Override
     public int getAmount() {
         return this.guiItem.getPlayerAmount(this.playerUUID);
     }
 
+    /**
+     * @return return the item's metadata
+     */
     @Override
     public ItemMeta getItemMeta() {
         this.refreshMeta();

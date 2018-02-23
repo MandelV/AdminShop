@@ -11,20 +11,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author Hougo13
+ * GuiManager, event listener
+ */
 public class GuiManager implements Listener {
 
     private static List<Gui> guiList = new ArrayList<>();
 
+    /**
+     * @param gui add Gui that will be managed
+     */
     public static void addGui(Gui gui) {
         GuiManager.guiList.add(gui);
     }
 
+    /**
+     * refresh all Gui
+     */
     public static void refreshAll() {
         for (Gui gui: GuiManager.guiList) {
             gui.refreshAll();
         }
     }
 
+    /**
+     * @param event When player click in inventory
+     */
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
 
@@ -41,6 +54,10 @@ public class GuiManager implements Listener {
             }
         }
     }
+
+    /**
+     * @param e when player close inventory
+     */
     @EventHandler
     public void onClose(InventoryCloseEvent e){
         Player player = (Player) e.getPlayer();
