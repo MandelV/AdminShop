@@ -30,25 +30,47 @@ public class EcoItem extends GuiItem {
             @Override
             public boolean onLeftClick(Player player) {
 
-                if(AdminShop.getEcon().has(player, self.buy_price * self.getPlayerAmount(player.getUniqueId()))){
+                if(AdminShop.getEcon().has(player, self.buy_price * self.getPlayerAmount(player.getUniqueId()))) {
 
 
-                    AdminShop.getEcon().withdrawPlayer(player, self.buy_price * self.getPlayerAmount(player.getUniqueId()));
+
 
                     ItemStack giveItem = new ItemStack(self.getType(), self.getPlayerAmount(player.getUniqueId()), self.getDamage());
 
-                    player.getInventory().addItem(giveItem);
-                    
 
 
-                    String successBuy = AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix");
-                    successBuy += AdminShop.getInstance().getMessage().getCustomConfig().getString("buy_message");
-                    successBuy = successBuy.replace("{ITEM}", self.getType().toString().toLowerCase());
-                    successBuy = successBuy.replace("{AMOUNT}", String.valueOf(self.getPlayerAmount(player.getUniqueId())));
-                    successBuy = successBuy.replace("{BUY_PRICE}", String.valueOf(self.buy_price * self.getPlayerAmount(player.getUniqueId())));
+                    int emptyInvSpace = 0;
+                    int availableItemSpace = 0;
+                    for(ItemStack item : player.getInventory().getStorageContents()){
+                        if(item == null){
+                            emptyInvSpace++;
+                            break;
+                        }else{
+                            if((item.getAmount() + giveItem.getAmount()) <= 64
+                                    && item.getType() == giveItem.getType()
+                                    && item.getDurability() == giveItem.getDurability()
+                                    && item.getEnchantments() == giveItem.getEnchantments()){
+                                availableItemSpace++;
+                                break;
+                            }
+                        }
+                    }
 
-                    player.sendMessage(ChatFormatting.formatText(successBuy));
+                    if(emptyInvSpace > 0 || availableItemSpace > 0){
+                        AdminShop.getEcon().withdrawPlayer(player, self.buy_price * self.getPlayerAmount(player.getUniqueId()));
+                        player.getInventory().addItem(giveItem);
+                        String successBuy = AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix");
+                        successBuy += AdminShop.getInstance().getMessage().getCustomConfig().getString("buy_message");
+                        successBuy = successBuy.replace("{ITEM}", self.getType().toString().toLowerCase());
+                        successBuy = successBuy.replace("{AMOUNT}", String.valueOf(self.getPlayerAmount(player.getUniqueId())));
+                        successBuy = successBuy.replace("{BUY_PRICE}", String.valueOf(self.buy_price * self.getPlayerAmount(player.getUniqueId())));
 
+                        player.sendMessage(ChatFormatting.formatText(successBuy));
+                    }else{
+                        player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix") +
+                        AdminShop.getInstance().getMessage().getCustomConfig().getString("player_has_full_inventory")));
+
+                    }
                 }else{
                     player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("player_has_no_money")));
                 }
