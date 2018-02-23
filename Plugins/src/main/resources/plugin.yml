@@ -39,5 +39,9 @@ permission:
     default: false
     description: allow to edit adminshop
 
+  adminshop.reload:
+    default: false
+    description: reload plugin
+
 
 

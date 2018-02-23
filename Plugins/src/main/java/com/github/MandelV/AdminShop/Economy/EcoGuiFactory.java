@@ -3,6 +3,7 @@ package com.github.MandelV.AdminShop.Economy;
 import Dao.Request;
 import com.github.MandelV.AdminShop.AdminShop;
 import com.github.MandelV.AdminShop.GUI.*;
+import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import java.util.ArrayList;
@@ -65,7 +66,10 @@ public abstract class EcoGuiFactory {
                     AdminShop.getInstance().shop.removeItem(iconItem);
                     Request.removeCategorie(childGui.getName());
 
-                    player.sendMessage("Categorie " + childGui.getName() + " supprimée");
+                    String success_delete = AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix");
+                    success_delete += AdminShop.getInstance().getMessage().getCustomConfig().getString("success_remove_categorie");
+                    success_delete = success_delete.replace("{CAT_NAME}", childGui.getName());
+                    player.sendMessage(ChatFormatting.formatText(success_delete));
                 }
                 return false;
             }

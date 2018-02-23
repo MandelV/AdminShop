@@ -1,6 +1,7 @@
 package com.github.MandelV.AdminShop.Commands;
 
 
+import Dao.Dao;
 import Dao.Dao_Categorie;
 import Dao.Dao_item;
 import Dao.Request;
@@ -17,7 +18,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.sql.ResultSet;
 import java.util.UUID;
+import java.util.concurrent.Callable;
 
 public class PlayerCmds extends Commands {
 
@@ -52,6 +55,8 @@ public class PlayerCmds extends Commands {
 
         }else if(args[0].equalsIgnoreCase("editmode")){
             this.toggleEditMode(commandSender);
+        }else if(args[0].equalsIgnoreCase("reload")){
+            this.reload(commandSender);
         }
 
         return true;
@@ -67,7 +72,7 @@ public class PlayerCmds extends Commands {
             sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
             return true;
         }
-        adminShop.shop.open(adminShop.getServer().getPlayer(sender.getName()));
+        adminShop.shop.open(((Player) sender));
 
         return true;
     }
@@ -91,29 +96,32 @@ public class PlayerCmds extends Commands {
             return true;
         }
         if(args.length == 4){
-            ItemStack itemHolder = sender.getServer().getPlayer(sender.getName()).getInventory().getItemInMainHand();
-            sender.getServer().getPlayer(sender.getName()).getOpenInventory().getBottomInventory().remove(itemHolder);
+            ItemStack itemHolder = ((Player) sender).getInventory().getItemInMainHand();
+            ((Player) sender).getOpenInventory().getBottomInventory().remove(itemHolder);
+
             if(itemHolder.getType() != Material.AIR){
                 String name = (!args[2].contains("&")) ? args[2] : null;
                 String displayname = args[3];
 
                 if(name != null){
-
                     Gui gu = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, name, displayname, adminShop.shop, null, itemHolder.getType(), itemHolder.getDurability(), displayname);
-                    adminShop.categories.add(gu);
-
                     if(gu != null){
                         Dao_Categorie prepareSqlCategorie = new Dao_Categorie(name, displayname, itemHolder.getType().toString(), itemHolder.getDurability());
+                        adminShop.categories.add(gu);
                         Request.addCategorie(prepareSqlCategorie);
+
+                        String successMessage = ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"));
+
+                        successMessage += adminShop.getMessage().getCustomConfig().getString("success_add_categorie");
+
+                        successMessage = successMessage.replace("{CAT_NAME}", gu.getName());
+                        sender.sendMessage(ChatFormatting.formatText(successMessage));
                     }
                 }else{
-                    sender.sendMessage("&4Attention le nom d'une categorie est différent du nom affiché. ce nom ne doit contenir aucun '&'");
+                    sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix")) +
+                            ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("error_add_categorie")));
                 }
             }
-
-
-
-
         }else{
             this.command_help(sender);
         }
@@ -126,7 +134,7 @@ public class PlayerCmds extends Commands {
             return true;
         }
         if(args.length == 6){
-            ItemStack itemHolder = sender.getServer().getPlayer(sender.getName()).getInventory().getItemInMainHand();
+            ItemStack itemHolder = ((Player) sender).getInventory().getItemInMainHand();
            // sender.getServer().getPlayer(sender.getName()).getOpenInventory().getBottomInventory().remove(itemHolder);
             if(itemHolder.getType() != Material.AIR){
                 String catname = (!args[2].contains("&")) ? args[2] : null;
@@ -176,6 +184,41 @@ public class PlayerCmds extends Commands {
             AdminShop.removePlayerEditionMode(((Player) sender));
             sender.sendMessage("Mode edition désactivé");
         }
+        return true;
+    }
+
+    private boolean reload(CommandSender sender){
+        if(!sender.hasPermission("adminshop.reload")){
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
+            return true;
+        }
+        Runnable reloadConfig = () ->{
+            //Reload config file
+            adminShop.getConf().reloadCustomConfig();
+            adminShop.getMessage().reloadCustomConfig();
+
+            //Reload database
+
+            if (Dao.getInstance() != null) {
+                Dao.getInstance().closeConnection();
+            }
+
+            Dao.getInstance().setBdd_address(adminShop.getConf().getCustomConfig().getString("Database.address"));
+            Dao.getInstance().setBdd_port(adminShop.getConf().getCustomConfig().getInt("Database.port"));
+            Dao.getInstance().setBdd_name(adminShop.getConf().getCustomConfig().getString("Database.name"));
+            Dao.getInstance().setBdd_username(adminShop.getConf().getCustomConfig().getString("Database.username"));
+            Dao.getInstance().setBdd_password(adminShop.getConf().getCustomConfig().getString("Database.password"));
+
+            Dao.getInstance().connection();
+            if(Dao.getInstance().getBdd_connection() == null){
+                sender.sendMessage(this.prefix + ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("plugin_reload_failure")));
+            }else{
+                sender.sendMessage(this.prefix + ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("plugin_reload_success")));
+            }
+        };
+
+        new Thread(reloadConfig).start();
+
         return true;
     }
 

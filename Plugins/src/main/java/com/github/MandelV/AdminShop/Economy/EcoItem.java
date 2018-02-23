@@ -31,12 +31,26 @@ public class EcoItem extends GuiItem {
             public boolean onLeftClick(Player player) {
 
                 if(AdminShop.getEcon().has(player, self.buy_price * self.getPlayerAmount(player.getUniqueId()))){
-                    player.sendMessage(ChatFormatting.formatText("&2Vous avez acheter :" + self.getType().toString()));
+
+
                     AdminShop.getEcon().withdrawPlayer(player, self.buy_price * self.getPlayerAmount(player.getUniqueId()));
+
                     ItemStack giveItem = new ItemStack(self.getType(), self.getPlayerAmount(player.getUniqueId()), self.getDamage());
+
                     player.getInventory().addItem(giveItem);
+                    
+
+
+                    String successBuy = AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix");
+                    successBuy += AdminShop.getInstance().getMessage().getCustomConfig().getString("buy_message");
+                    successBuy = successBuy.replace("{ITEM}", self.getType().toString().toLowerCase());
+                    successBuy = successBuy.replace("{AMOUNT}", String.valueOf(self.getPlayerAmount(player.getUniqueId())));
+                    successBuy = successBuy.replace("{BUY_PRICE}", String.valueOf(self.buy_price * self.getPlayerAmount(player.getUniqueId())));
+
+                    player.sendMessage(ChatFormatting.formatText(successBuy));
+
                 }else{
-                    player.sendMessage(ChatFormatting.formatText("&4Vous n'avez pas les fonds nécessaire"));
+                    player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("player_has_no_money")));
                 }
                 return false;
             }
@@ -67,8 +81,15 @@ public class EcoItem extends GuiItem {
                             }else{
                                 player.getInventory().getItem(i).setAmount(invAmount);
                             }
-                            player.sendMessage("Vous avez recu : " + self.getSell_price() * newAmount);
                             AdminShop.getEcon().depositPlayer(player, self.getSell_price() * newAmount);
+
+                            String successSell = AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix");
+                            successSell += AdminShop.getInstance().getMessage().getCustomConfig().getString("sell_message");
+                            successSell = successSell.replace("{ITEM}", self.getType().toString().toLowerCase());
+                            successSell = successSell.replace("{AMOUNT}", String.valueOf(self.getPlayerAmount(player.getUniqueId())));
+                            successSell = successSell.replace("{SELL_PRICE}", String.valueOf(self.sell_price * self.getPlayerAmount(player.getUniqueId())));
+                            player.sendMessage(ChatFormatting.formatText(successSell));
+
                             break;
                         }
                     }
@@ -105,6 +126,12 @@ public class EcoItem extends GuiItem {
 
                     Dao_item requestItem = new Dao_item(self.getType().toString(), self.getDamage(), self.buy_price, self.sell_price, self.getStatut().getName());
                     Request.removeItemFromCategorie(parent.getName(), requestItem);
+                    //success_remove_item
+                    String successRemoveItem = AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix");
+                    successRemoveItem += AdminShop.getInstance().getMessage().getCustomConfig().getString("success_remove_item");
+                    successRemoveItem = successRemoveItem.replace("{ITEM}", self.getType().toString());
+                    successRemoveItem = successRemoveItem.replace("{CAT}", parent.getName());
+                    player.sendMessage(ChatFormatting.formatText(successRemoveItem.toLowerCase()));
                     parent.refreshAll();
                     return true;
                 }

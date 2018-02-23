@@ -1,17 +1,37 @@
 prefix: "&f[ &6AdminShop &f] "
 permission_deny: "&4Vous n'avez pas accès à cette commande."
 plugin_reload_success: "&areload fait."
-no_categories: "&4Aucune catégories"
+no_categories: "&4Aucun item présent dans cet interface."
+
+
+plugin_reload_failure: "&4erreur reload."
+plugin_reload_success: "&areload fait."
 
 next_page: "&ePage suivante"
 previous_page: "&ePage précédente"
 back_to_categories: "&cRevenir aux catégories"
 back_to_categories_name: "&cRetour"
 
-buy_message: "&aVous avez acheté &6{ITEM} &5x{AMOUNT} &aprix : &4{BUY_PRICE} Talys"
-sell_message: "&aVous avez vendu &6{ITEM} &5x{AMOUNT} &again : &2{BUY_PRICE} Talys"
-player_has_no_money: "&4Vous n'avez pas les fonds nécessaire"
-player_has_full_inventory: "&4Votre inventaire est plein"
+buy_message: "&aVous avez acheté &6{ITEM} &5x{AMOUNT} &aprix : &4{BUY_PRICE} Talys&a."
+
+sell_message: "&aVous avez vendu &6{ITEM} &5x{AMOUNT} &again : &2{SELL_PRICE} Talys&a."
+player_has_no_money: " &4Vous n'avez pas les fonds nécessaire."
+player_has_full_inventory: "&4Votre inventaire est plein."
+
+
+error_add_categorie: "&4Erreur lors de l'ajout d'une categorie."
+success_add_categorie: "&aLa catégorie &6{CAT_NAME} &aà bien été ajoutée."
+
+
+
+
+success_add_item: "&aL'item &6{ITEM} &aà bien été ajouté dans la categorie &5{CAT}&a."
+add_item_buy_error: "&4Le prix d'achat est incorrect."
+add_item_sell_error: "&4Le prix de vente est incorrect."
+success_remove_item: "&aL'item &6{ITEM} &aà bien été supprimé de la categorie &5{CAT}&a."
+
+error_remove_categorie: " &4Erreur lors de la suppressions de la catégorie &6{CAT_NAME}&4."
+success_remove_categorie: "&aVous avez bien supprimé la catégorie &6{CAT_NAME}&a."
 
 item_lore:
   - "&4prix achat : {BUY_PRICE}"

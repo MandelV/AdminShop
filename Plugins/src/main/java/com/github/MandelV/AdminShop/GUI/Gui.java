@@ -46,7 +46,6 @@ public  class Gui {
         for (int i=0; i < 7; i++) {
             this.customNavbar.add(null);
         }
-        this.itemPages.add(new GuiItemPage(nbrLine.getSize()));
 
         this.playerChangingPage = new HashMap<>();
         this.currentPlayersPage = new HashMap<>();
@@ -168,32 +167,22 @@ public  class Gui {
         if (nbrLine.getSize() <= 9) {
             throw new Error("Cannot add navbar on small inventory");
         }
-
         int pageIndex = this.itemPages.indexOf(page);
-
         // Fill of null until the navbar
         for (int i = page.getPage().size(); i < this.nbrLine.getSize()-9; i++) {
             page.getPage().add(null);
-
         }
-
-
         Gui self = this;
-
         if (pageIndex > 0) {
             // Set previous button
             GuiItem prevButton = new GuiItem(Material.PAPER, 1, (short) 0, new GuiAction() {
                 @Override
                 public boolean onRightClick(Player player) {
-
                     return false;
-
                 }
-
                 @Override
                 public boolean onLeftClick(Player player) {
                     self.pageDown(player);
-
                     return false;
                 }
 
@@ -213,7 +202,7 @@ public  class Gui {
                 }
             });
 
-            prevButton.setName(ChatFormatting.formatText("&ePage précédente"));
+            prevButton.setName(AdminShop.getInstance().getMessage().getCustomConfig().getString("next_page"));
 
             page.getPage().add(prevButton);
 
@@ -222,40 +211,32 @@ public  class Gui {
                 @Override
                 public boolean onRightClick(Player player) {
                     return false;
-
                 }
-
                 @Override
                 public boolean onLeftClick(Player player) {
                     self.pageUp(player);
-
                     return false;
                 }
-
                 @Override
                 public boolean onMiddleClick(Player player) {
                     return false;
                 }
-
                 @Override
                 public boolean onShiftLeftClick(Player player) {
                     return false;
                 }
-
                 @Override
                 public boolean onShiftRightClick(Player player) {
                     return false;
                 }
             });
 
-            nextButton.setName(ChatFormatting.formatText("&ePage suivante"));
-
+            nextButton.setName(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("previous_page")));
             this.itemPages.get(pageIndex-1).getPage().add(nextButton);
 
         } else {
             page.getPage().add(null);
         }
-
         page.getPage().addAll(this.customNavbar);
     }
 
