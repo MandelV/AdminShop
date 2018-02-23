@@ -38,6 +38,9 @@ permission:
   adminshop.edit:
     default: false
     description: allow to edit adminshop
+  adminshop.total:
+    default: false
+    description: allow to edit adminshop
 
   adminshop.reload:
     default: false

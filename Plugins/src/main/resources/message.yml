@@ -22,6 +22,10 @@ player_has_full_inventory: "&4Votre inventaire est plein."
 error_add_categorie: "&4Erreur lors de l'ajout d'une categorie."
 success_add_categorie: "&aLa catégorie &6{CAT_NAME} &aà bien été ajoutée."
 
+
+total_buy: "&aTotal des sorties d'argent : &4- &7{OUT} Talys"
+total_sell: "&2Total des entrés d'argent : &a+ &7{IN} Talys"
+
 editor_mode_enable: "&6Mode d'édition &2activé&6."
 editor_mode_disable: "&6Mode d'édition &cdésactivé&6."
 

@@ -1,6 +1,8 @@
 package Dao;
 
 
+
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,13 +17,12 @@ import java.util.List;
 public abstract class Request {
 
     public static ResultSet result = null;
-    public static Date currentTime = new Date();
 
     /**
      * @return a list of categorie found in database
      * @see Dao_Categorie
      */
-    public static final List<Dao_Categorie> getCategories(){
+    public static final List<Dao_Categorie> getCategories() {
 
         List<Dao_Categorie> categories = new ArrayList<>();
 
@@ -29,14 +30,14 @@ public abstract class Request {
 
         //GET CATEGORIE
         try {
-            while(result.next()){
+            while (result.next()) {
 
-                categories.add(new Dao_Categorie(result.getString(1),result.getString(2), result.getString(3), result.getShort(4)));
+                categories.add(new Dao_Categorie(result.getString(1), result.getString(2), result.getString(3), result.getShort(4)));
 
             }
             result.close();
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println("[GET CATEGORIE]");
             e.printStackTrace();
         }
@@ -47,8 +48,8 @@ public abstract class Request {
      * @param categorie add categorie in database
      * @see Dao_Categorie
      */
-    public static void addCategorie(Dao_Categorie categorie){
-        if(categorie != null){
+    public static void addCategorie(Dao_Categorie categorie) {
+        if (categorie != null) {
 
 
             ArrayList<Parameters> parameters = new ArrayList<>();
@@ -65,7 +66,7 @@ public abstract class Request {
             parameters.add(durability);
 
 
-            Dao.getInstance().createStatement("INSERT INTO as_categorie VALUE (?,?,?,?)",parameters).ifPresent(Dao::executeStatement);
+            Dao.getInstance().createStatement("INSERT INTO as_categorie VALUE (?,?,?,?)", parameters).ifPresent(Dao::executeStatement);
 
         }
     }
@@ -73,8 +74,8 @@ public abstract class Request {
     /**
      * @param name remove categorie from database
      */
-    public static void removeCategorie(String name){
-        if(name != null){
+    public static void removeCategorie(String name) {
+        if (name != null) {
 
             ArrayList<Parameters> parameters = new ArrayList<>();
             Parameters<String> pname = new Parameters<String>(name);
@@ -86,10 +87,10 @@ public abstract class Request {
 
     /**
      * @param categorie name of categorie where you want add the new item
-     * @param item item which you want add
+     * @param item      item which you want add
      * @see Dao_item
      */
-    public static void addItemIntoCategorie(String categorie, Dao_item item){
+    public static void addItemIntoCategorie(String categorie, Dao_item item) {
 
         ArrayList<Parameters> parameters = new ArrayList<>();
         Parameters<String> nameCategorie = new Parameters<>(categorie);
@@ -104,15 +105,15 @@ public abstract class Request {
         parameters.add(buy_price);
         parameters.add(sell_price);
         parameters.add(type_vente);
-        
+
         Dao.getInstance().createStatement("INSERT INTO as_item(name_categorie, id_item, damage, prix_achat, prix_vente, type_vente) VALUE (?,?,?,?,?,?)", parameters).ifPresent(Dao::executeStatement);
     }
 
     /**
      * @param categorie name of categorie which contain the item
-     * @param item item which you want remove
+     * @param item      item which you want remove
      */
-    public static void removeItemFromCategorie(String categorie, Dao_item item){
+    public static void removeItemFromCategorie(String categorie, Dao_item item) {
 
         ArrayList<Parameters> parameters = new ArrayList<>();
 
@@ -125,6 +126,41 @@ public abstract class Request {
         parameters.add(damage);
         Dao.getInstance().createStatement("DELETE FROM as_item WHERE name_categorie=? AND id_item=? AND damage=?", parameters).ifPresent(Dao::executeStatement);
     }
+
+    public static void addEntryHistory(String pseudoPlayer, String material, int amount, String statut) {
+
+        ArrayList<Parameters> parameters = new ArrayList<>();
+
+        Parameters<String> pseudo = new Parameters<>(pseudoPlayer);
+        Parameters<String> id_item = new Parameters<>(material);
+        Parameters<Integer> quantity = new Parameters<>(amount);
+        Parameters<String> statutitem = new Parameters<>(statut);
+
+
+        parameters.add(pseudo);
+        parameters.add(id_item);
+        parameters.add(quantity);
+        parameters.add(statutitem);
+
+        Dao.getInstance().createStatement("INSERT INTO as_history(pseudo_joueur, id_item, quantity, action, date) VALUE (?,?,?,?, NOW() )", parameters).ifPresent(Dao::executeStatement);
+    }
+
+    public static Double getTotalEco(String action) {
+
+        Double total = null;
+        result = Dao.getInstance().query("SELECT SUM(total_per) FROM (SELECT (SUM(prix_achat) * quantity) as total_per FROM as_item, (SELECT id_item, SUM(quantity) as quantity FROM as_history WHERE action = '" + action + "' GROUP BY as_history.id_item) as hist WHERE as_item.id_item = hist.id_item GROUP BY hist.id_item) as hist_per");
+        try {
+            if (result.next()) {
+                total = result.getDouble(1);
+            }
+            result.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return total;
+    }
 }
+
 
 

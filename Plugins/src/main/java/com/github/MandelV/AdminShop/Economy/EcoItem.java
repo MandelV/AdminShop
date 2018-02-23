@@ -69,6 +69,10 @@ public class EcoItem extends GuiItem {
                     if(emptyInvSpace > 0 || availableItemSpace > 0){
                         AdminShop.getEcon().withdrawPlayer(player, self.buy_price * self.getPlayerAmount(player.getUniqueId()));
                         player.getInventory().addItem(giveItem);
+
+                        //History
+                        Request.addEntryHistory(player.getName(), giveItem.getType().name(), self.getPlayerAmount(player.getUniqueId()), "BUY");
+
                         String successBuy = AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix");
                         successBuy += AdminShop.getInstance().getMessage().getCustomConfig().getString("buy_message");
                         successBuy = successBuy.replace("{ITEM}", self.getType().toString().toLowerCase());
@@ -109,9 +113,13 @@ public class EcoItem extends GuiItem {
                             }
                             invAmount -= newAmount;
                             if(amount < 1){
+                                Request.addEntryHistory(player.getName(), player.getInventory().getItem(i).getType().name(), newAmount, "SELL");
                                 player.getInventory().clear(i);
+
                             }else{
+                                Request.addEntryHistory(player.getName(), player.getInventory().getItem(i).getType().name(), newAmount, "SELL");
                                 player.getInventory().getItem(i).setAmount(invAmount);
+
                             }
                             AdminShop.getEcon().depositPlayer(player, self.getSell_price() * newAmount);
 
