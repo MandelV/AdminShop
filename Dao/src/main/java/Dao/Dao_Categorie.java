@@ -1,7 +1,6 @@
 package Dao;
 
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,9 +13,7 @@ public class Dao_Categorie {
     private String id_item;
     private Short damage;
     private ResultSet result;
-
     private List<String> descriptions;
-
     private List<Dao_item> items;
 
     public Dao_Categorie(final String name, final String displayName, final String id_item, final Short damage){
@@ -100,7 +97,7 @@ public class Dao_Categorie {
     public String getDisplayName() {
         return displayName;
     }
-    
+
     public Short getDamage() {
         return damage;
     }

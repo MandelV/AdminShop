@@ -23,7 +23,6 @@ public class EcoItem extends GuiItem {
     public EcoItem(Gui parent, Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut){
 
         super(type, amount, damage, true, null);
-
         EcoItem self = this;
 
         this.setGuiAction(new GuiAction() {
@@ -32,13 +31,7 @@ public class EcoItem extends GuiItem {
 
                 if(AdminShop.getEcon().has(player, self.buy_price * self.getPlayerAmount(player.getUniqueId()))) {
 
-
-
-
                     ItemStack giveItem = new ItemStack(self.getType(), self.getPlayerAmount(player.getUniqueId()), self.getDamage());
-
-
-
                     int emptyInvSpace = 0;
                     int availableItemSpace = 0;
                     for(ItemStack item : player.getInventory().getStorageContents()){
@@ -202,6 +195,7 @@ public class EcoItem extends GuiItem {
         this.sell_price = sell_price;
         this.statut = statut;
         List<String> lore = new ArrayList<>();
+
         AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
            v = v.replace("{BUY_PRICE}", String.valueOf(buy_price));
             v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));

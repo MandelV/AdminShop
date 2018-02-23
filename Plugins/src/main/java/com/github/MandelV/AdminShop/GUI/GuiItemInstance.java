@@ -16,7 +16,6 @@ public class GuiItemInstance extends ItemStack{
         this.guiItem = guiItem;
         this.playerUUID = player.getUniqueId();
         this.setDurability(this.guiItem.getDamage());
-
         this.refreshMeta();
     }
 
@@ -26,7 +25,6 @@ public class GuiItemInstance extends ItemStack{
         meta.setLore(this.guiItem.getPlayerDescription(this.playerUUID));
 
         this.setDurability(this.guiItem.getDamage());
-
         super.setItemMeta(meta);
     }
 

@@ -1,6 +1,7 @@
 package Dao;
 
 /**
+ * @author Vaubourg Mandel
  *Represente Parameters which used by CallStatement
  * the paramters with stocked routines can be IN OUT or INOUT
  * it is a generic Class

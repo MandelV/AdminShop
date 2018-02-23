@@ -18,10 +18,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.sql.ResultSet;
-import java.util.UUID;
-import java.util.concurrent.Callable;
-
 public class PlayerCmds extends Commands {
 
 

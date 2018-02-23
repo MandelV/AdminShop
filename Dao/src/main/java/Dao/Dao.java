@@ -22,9 +22,7 @@ public class Dao {
     private String bdd_password = "root";
     private String ssl = "";
 
-    //exemple jdbc:mysql://localhost:3306/boulderdash?autoReconnect=true&useSSL=false
     private String bdd_url_connection;
-
 
     private static Dao dao_instance = null;
 
@@ -158,7 +156,6 @@ public class Dao {
     public String getBdd_url_connection() {
         return bdd_url_connection;
     }
-
 
     private synchronized ResultSet requestQuery(final String sql){
         try {

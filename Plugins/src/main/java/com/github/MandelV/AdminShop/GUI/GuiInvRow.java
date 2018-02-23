@@ -20,7 +20,6 @@ public enum GuiInvRow {
     }
 
     /**
-     *
      * @return le nombre de slot total du coffre.
      */
     public int getSize(){

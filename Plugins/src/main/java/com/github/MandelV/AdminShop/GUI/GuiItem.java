@@ -17,18 +17,14 @@ public class GuiItem {
     private Material type;
     private short damage;
     private String displayName;
-
     // Item default values
     private int defaultAmount;
     private List<String> defaultDescription = new ArrayList<>();
-
     // Player specific values
     private Map<UUID, Integer> playerAmounts = new HashMap<>();
     private Map<UUID, List<String>> playerDescriptions = new HashMap<>();
-
     private GuiAction guiAction;
     private boolean oneByPlayer = false;
-
 
     /**
      *
@@ -42,7 +38,6 @@ public class GuiItem {
         this.defaultAmount = defaultAmount;
         this.damage = damage;
         this.guiAction = guiAction;
-
     }
 
     public GuiItem(Material type, int defaultAmount, short damage, boolean oneByPlayer, GuiAction guiAction){
@@ -92,7 +87,6 @@ public class GuiItem {
                 return amount;
             }
         }
-
         return this.defaultAmount;
     }
 
@@ -109,7 +103,6 @@ public class GuiItem {
                 return description;
             }
         }
-
         return this.defaultDescription;
     }
 
@@ -150,7 +143,6 @@ public class GuiItem {
         return false;
     }
 
-
     /**
      * Ajoute un nom à l'item
      * @param displayName Nom a afficher
@@ -173,9 +165,7 @@ public class GuiItem {
         if (description == null) {
             description = new ArrayList<>();
         }
-
         description.add(ChatFormatting.formatText(newRow));
-
         this.setPlayerDescription(player, description);
     }
 

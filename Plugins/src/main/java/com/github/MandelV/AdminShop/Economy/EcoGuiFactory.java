@@ -10,10 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class EcoGuiFactory {
-
-
     /**
-     *
      * @param nbrLine Enum qui représente chaque ligne possible 6 max
      * @param name le nom de l'inventaire
      * @return le nouveau Gui

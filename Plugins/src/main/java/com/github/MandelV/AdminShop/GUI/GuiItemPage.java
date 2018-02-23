@@ -18,8 +18,8 @@ public class GuiItemPage {
 
         this.sizemax = sizeMax;
         this.itemList = new ArrayList<>();
-
     }
+
     public List<GuiItem> getPage() {
         return itemList;
     }
@@ -56,7 +56,6 @@ public class GuiItemPage {
             }
             count++;
         }
-
         return this.sizemax - count;
     }
 

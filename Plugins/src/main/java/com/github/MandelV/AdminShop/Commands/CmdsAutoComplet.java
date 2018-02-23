@@ -4,10 +4,8 @@ import com.github.MandelV.AdminShop.AdminShop;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.configuration.ConfigurationSection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class CmdsAutoComplet implements TabCompleter {
 
@@ -30,13 +28,8 @@ public class CmdsAutoComplet implements TabCompleter {
 
         List<String> completion = new ArrayList<>();
 
-
         if(args.length < 2){
-
-
         }
-
-
         return completion;
     }
 }

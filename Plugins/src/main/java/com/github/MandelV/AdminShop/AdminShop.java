@@ -31,9 +31,7 @@ public class AdminShop extends JavaPlugin{
     public List<Gui> categories;
     public Gui shop;
     private static AdminShop adminShop;
-
     private static List<UUID> playerInEditionMode;
-
     public static Economy econ = null;
 
     @Override

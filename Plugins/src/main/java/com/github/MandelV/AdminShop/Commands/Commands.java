@@ -7,10 +7,8 @@ import org.bukkit.command.CommandSender;
 
 public abstract class Commands implements CommandExecutor {
 
-
-
-    protected AdminShop adminShop;
-    protected String prefix;
+    public AdminShop adminShop;
+    public String prefix;
 
 
     protected Commands(AdminShop adminShop){
@@ -19,7 +17,5 @@ public abstract class Commands implements CommandExecutor {
         this.prefix = ChatFormatting.formatText(this.adminShop.getMessage().getCustomConfig().getString("prefix"));
     }
 
-
     protected abstract boolean command_help(CommandSender sender);
-
 }
