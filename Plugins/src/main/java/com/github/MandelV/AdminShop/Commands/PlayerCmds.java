@@ -245,10 +245,12 @@ public class PlayerCmds extends Commands {
         }
         if (!AdminShop.playerIsEditorMode(((Player) sender))) {
             AdminShop.setPlayerEditionMode(((Player) sender));
-            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("editor_mode_enable")));
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"))
+                    +ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("editor_mode_enable")));
         } else {
             AdminShop.removePlayerEditionMode(((Player) sender));
-            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("editor_mode_disable")));
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"))
+                    + ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("editor_mode_disable")));
         }
         return true;
     }
