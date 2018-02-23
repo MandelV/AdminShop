@@ -4,6 +4,10 @@ import org.bukkit.ChatColor;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author MandelV
+ * Converting format color,etc.. ingame minecraft to java.
+ */
 public class ChatFormatting {
 
     public static Map<String, ChatColor> tabChat;
@@ -41,12 +45,14 @@ public class ChatFormatting {
         return chatFormatting;
     }
 
+    /**
+     * @param txt String will be converting
+     * @return String converting
+     */
     public static String formatText(String txt) {
         if(txt != null){
             String finalString = txt;
-
             for (Map.Entry<String, ChatColor> element : tabChat.entrySet()) {
-
                 finalString = finalString.replace(element.getKey(), "" + element.getValue());
             }
             return finalString;

@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.concurrent.Callable;
 
 /**
- * @author Vaubourg Mandel
- * @version 0.1
+ * @author MandelV
+ * @version 0.2
  * It is a SingleTon Class used for instanciate one time the connexion to the database.
  */
 public class Dao {
@@ -93,7 +93,6 @@ public class Dao {
         }
         return dao_instance;
     }
-
     public static Dao getInstance(){
         if(dao_instance == null){
             synchronized(Dao.class){
@@ -104,59 +103,97 @@ public class Dao {
         return dao_instance;
     }
 
+    /**
+     * @param bdd_address set a database address
+     */
     public void setBdd_address(String bdd_address) {
         this.bdd_address = bdd_address;
     }
 
+    /**
+     * @param bdd_connection set a Connection
+     * @see Connection
+     */
     public void setBdd_connection(Connection bdd_connection) {
         this.bdd_connection = bdd_connection;
     }
 
+    /**
+     * @param bdd_name set database name
+     */
     public void setBdd_name(String bdd_name) {
         this.bdd_name = bdd_name;
     }
-
+    /**
+     * @param bdd_password set database password
+     */
     public void setBdd_password(String bdd_password) {
         this.bdd_password = bdd_password;
     }
 
+    /**
+     * @param bdd_username set database username
+     */
     public void setBdd_username(String bdd_username) {
         this.bdd_username = bdd_username;
     }
 
+    /**
+     * @param bdd_port set database port
+     */
     public void setBdd_port(int bdd_port) {
         this.bdd_port = bdd_port;
     }
 
     //GETTERS
+
+    /**
+     * @return username
+     */
     public String getBdd_username() {
         return bdd_username;
     }
-
+    /**
+     * @return password
+     */
     public String getBdd_password() {
         return bdd_password;
     }
-
+    /**
+     * @return connection
+     * @see Connection
+     */
     public Connection getBdd_connection() {
         return bdd_connection;
     }
-
+    /**
+     * @return port
+     */
     public int getBdd_port() {
         return bdd_port;
     }
-
+    /**
+     * @return database address
+     */
     public String getBdd_address() {
         return bdd_address;
     }
-
+    /**
+     * @return database name
+     */
     public String getBdd_name() {
         return bdd_name;
     }
-
+    /**
+     * @return url connection
+     */
     public String getBdd_url_connection() {
         return bdd_url_connection;
     }
-
+    /**
+     * @return ResultSet which represent your request
+     * @see ResultSet
+     */
     private synchronized ResultSet requestQuery(final String sql){
         try {
             PreparedStatement preparedStatement = (PreparedStatement) dao_instance.getBdd_connection().prepareStatement(sql);
@@ -167,7 +204,10 @@ public class Dao {
             return null;
         }
     }
-
+    /**
+     * @return a ResultSet which represente your request
+     * @see ResultSet
+     */
     public ResultSet query(final String sql) {
 
         Callable<ResultSet> callable = () -> {
@@ -182,6 +222,9 @@ public class Dao {
         }
     }
 
+    /**
+     * @param request allow to execute update request
+     */
     public void update(String request) {
 
         Runnable asyncUpdate = () -> {
@@ -202,6 +245,13 @@ public class Dao {
 
     }
 
+    /**
+     * @param sql you sql request
+     * @param parameters the parameters of this request
+     * @return PreparedStatement which represente your request encapsulate in Optional
+     * @see PreparedStatement
+     * @see Optional
+     */
     public final Optional<PreparedStatement> createStatement(String sql, final ArrayList<Parameters> parameters) {
 
         int i = 1;
@@ -243,6 +293,9 @@ public class Dao {
         }
     }
 
+    /**
+     * @param statement your request
+     */
     public static void executeStatement(final PreparedStatement statement){
         Runnable asyncStatement = () -> {
             try {

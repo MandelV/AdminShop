@@ -1,14 +1,25 @@
 package Dao;
 
+/**
+ * @author MandelV
+ * Represente Item in dataBase
+ */
 public class Dao_item {
 
     private String id_item;
-    private Double buy_price;//achat
-    private Double sell_price;//vente
+    private Double buy_price;
+    private Double sell_price;
     private Short durability;
     private String statut;
 
 
+    /**
+     * @param id_item id of item
+     * @param durability Its durability
+     * @param buy_price Its buy price
+     * @param sell_price Its sell price
+     * @param statut Its statut
+     */
     public Dao_item(final String id_item, final Short durability, final double buy_price, final double sell_price, final String statut){
 
         this.id_item = id_item;
@@ -18,22 +29,33 @@ public class Dao_item {
         this.statut = statut;
     }
 
+    /**
+     * @return Its sell price
+     */
     public Double getSell_price() {
         return sell_price;
     }
-
+    /**
+     * @return Its buy price
+     */
     public Double getBuy_price() {
         return buy_price;
     }
-
+    /**
+     * @return Its durability
+     */
     public Short getDurability() {
         return durability;
     }
-
+    /**
+     * @return Its id
+     */
     public String getId_item() {
         return id_item;
     }
-
+    /**
+     * @return Its statut
+     */
     public String getStatut() {
         return statut;
     }

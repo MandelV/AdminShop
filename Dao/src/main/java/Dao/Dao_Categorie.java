@@ -6,6 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author MandelV
+ * @version 0.1
+ * Represente a categorie in database.
+ */
 public class Dao_Categorie {
 
     private String name;
@@ -16,6 +21,12 @@ public class Dao_Categorie {
     private List<String> descriptions;
     private List<Dao_item> items;
 
+    /**
+     * @param name Categorie's name
+     * @param displayName Categorie's displayName
+     * @param id_item Item id
+     * @param damage Item durability
+     */
     public Dao_Categorie(final String name, final String displayName, final String id_item, final Short damage){
 
         this.name = name;
@@ -31,14 +42,23 @@ public class Dao_Categorie {
 
     }
 
+    /**
+     * @param desc Add a String row to description
+     */
     public void addDescriptions(String desc) {
         this.descriptions.add(desc);
     }
 
+    /**
+     * @return id of item
+     */
     public String getId_item() {
         return id_item;
     }
 
+    /**
+     * Get a description of this description
+     */
     private void requestDescriptions() {
 
         this.descriptions.clear();
@@ -60,10 +80,17 @@ public class Dao_Categorie {
         }
     }
 
+    /**
+     * @return List of Dao_Item which represente each item in categorie
+     * @see Dao_item
+     */
     public List<Dao_item> getItems(){
         return this.items;
     }
 
+    /**
+     * Request all item which match with this categorie
+     */
     private void requestItemCategorie(){
 
         this.result = Dao.getInstance().query("SELECT * FROM as_item WHERE as_item.name_categorie ='" + this.name + "'");
@@ -86,18 +113,30 @@ public class Dao_Categorie {
         }
     }
 
+    /**
+     * @return The Categorie's description
+     */
     public List<String> getDescriptions(){
         return this.descriptions;
     }
 
+    /**
+     * @return The name's description
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * @return The description's DisplayName
+     */
     public String getDisplayName() {
         return displayName;
     }
 
+    /**
+     * @return Item's durability of this Categorie
+     */
     public Short getDamage() {
         return damage;
     }

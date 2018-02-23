@@ -1,21 +1,26 @@
 package Dao;
 
 
-import javax.lang.model.type.NullType;
-import java.lang.reflect.Parameter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author MandelV
+ * @version 0.2
+ * This class allow to make different request to database.
+ */
 public abstract class Request {
 
     public static ResultSet result = null;
     public static Date currentTime = new Date();
 
-
-
+    /**
+     * @return a list of categorie found in database
+     * @see Dao_Categorie
+     */
     public static final List<Dao_Categorie> getCategories(){
 
         List<Dao_Categorie> categories = new ArrayList<>();
@@ -38,6 +43,10 @@ public abstract class Request {
         return categories;
     }
 
+    /**
+     * @param categorie add categorie in database
+     * @see Dao_Categorie
+     */
     public static void addCategorie(Dao_Categorie categorie){
         if(categorie != null){
 
@@ -61,6 +70,9 @@ public abstract class Request {
         }
     }
 
+    /**
+     * @param name remove categorie from database
+     */
     public static void removeCategorie(String name){
         if(name != null){
 
@@ -72,6 +84,11 @@ public abstract class Request {
         }
     }
 
+    /**
+     * @param categorie name of categorie where you want add the new item
+     * @param item item which you want add
+     * @see Dao_item
+     */
     public static void addItemIntoCategorie(String categorie, Dao_item item){
 
         ArrayList<Parameters> parameters = new ArrayList<>();
@@ -91,6 +108,10 @@ public abstract class Request {
         Dao.getInstance().createStatement("INSERT INTO as_item(name_categorie, id_item, damage, prix_achat, prix_vente, type_vente) VALUE (?,?,?,?,?,?)", parameters).ifPresent(Dao::executeStatement);
     }
 
+    /**
+     * @param categorie name of categorie which contain the item
+     * @param item item which you want remove
+     */
     public static void removeItemFromCategorie(String categorie, Dao_item item){
 
         ArrayList<Parameters> parameters = new ArrayList<>();
