@@ -9,11 +9,16 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author MandelV, Hougo13
+ * @version 1.0
+ * Fatory for buil gui and sub-gui
+ */
 public abstract class EcoGuiFactory {
     /**
-     * @param nbrLine Enum qui représente chaque ligne possible 6 max
-     * @param name le nom de l'inventaire
-     * @return le nouveau Gui
+     * @param nbrLine Enum which represente each row in inventory
+     * @param name inventorie's name
+     * @return the gui
      * @see GuiInvRow
      * @see Gui
      */
@@ -22,14 +27,14 @@ public abstract class EcoGuiFactory {
     }
 
     /**
-     *Permet de rajouter à un Gui un sous Gui.
-     * @param nrgLine Nombre de ligne du GUI enfant
-     * @param name Nom du sous-Gui
+     *Allow to add a sub-gui to gui.
+     * @param nrgLine Number of row in sub-gui
+     * @param name sub-gui's name
      * @param parentGui Gui parent
-     * @param description Description de l'item permettant d'acceder au GUI enfant (Dans le parent)
-     * @param icon Icon (ItemGui) qui représentera le sous GUI dans le parent
-     * @param nameIcon Nom de l'icon.
-     * @return Le sous gui
+     * @param description Description of categorie on item in parent
+     * @param icon Icon (ItemGui)
+     * @param nameIcon Name icon.
+     * @return sub-gui
      * @see GuiInvRow
      * @see Material
      * @see Gui

@@ -7,6 +7,11 @@ import org.bukkit.command.TabCompleter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author MandelV
+ * @version 0.1
+ * This class allow to auto complete command.
+ */
 public class CmdsAutoComplet implements TabCompleter {
 
     private AdminShop grade;
@@ -23,6 +28,13 @@ public class CmdsAutoComplet implements TabCompleter {
         this.arg1.add("editmode");
     }
 
+    /**
+     * @param commandSender Sender of the tabulation
+     * @param command Command used while tabulation
+     * @param s .
+     * @param args Command's arguments
+     * @return List to help autocompletion
+     */
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
 

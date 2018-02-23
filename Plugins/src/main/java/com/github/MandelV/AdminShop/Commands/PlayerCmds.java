@@ -18,44 +18,56 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * @author MandelV
+ * @version 1.0
+ * Represente all command of plugin AdminShop
+ * @see Commands
+ */
 public class PlayerCmds extends Commands {
-
 
     private boolean return_cmd = false;
 
     public PlayerCmds(AdminShop adminShop) {
         super(adminShop);
-
     }
 
+    /**
+     * @param commandSender Sender command
+     * @param command command
+     * @param s .
+     * @param args Command's argument
+     * @return if the command is correctly executed
+     */
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
 
         if (command.getName().equalsIgnoreCase("adminshop") && args.length == 0) {
 
-            this.openAdminShop(commandSender);
+            return this.openAdminShop(commandSender);
 
 
         } else if (args[0].equalsIgnoreCase("listcategorie")) {
 
-            this.listCategorie(commandSender);
+            return this.listCategorie(commandSender);
 
         } else if (args[0].equalsIgnoreCase("categorie") && (args.length > 1)) {
 
             if(args[1].equalsIgnoreCase("add")){
-                this.addCategorie(commandSender, args);
+                return this.addCategorie(commandSender, args);
             }
 
         }else if(args[0].equalsIgnoreCase("item") && (args.length > 1)){
 
             if(args[1].equalsIgnoreCase("add")){
-                this.addItemIntoCategorie(commandSender, args);
+                return this.addItemIntoCategorie(commandSender, args);
             }
 
         }else if(args[0].equalsIgnoreCase("editmode")){
-            this.toggleEditMode(commandSender);
+            return this.toggleEditMode(commandSender);
+
         }else if(args[0].equalsIgnoreCase("reload")){
-            this.reload(commandSender);
+            return this.reload(commandSender);
         }
 
         return true;
@@ -65,6 +77,10 @@ public class PlayerCmds extends Commands {
         return false;
     }
 
+    /**
+     * @param sender Command Sender
+     * @return if command is correctly executed
+     */
     private boolean openAdminShop(CommandSender sender){
 
         if(!sender.hasPermission("adminshop.open")){
@@ -77,6 +93,10 @@ public class PlayerCmds extends Commands {
         return true;
     }
 
+    /**
+     * @param sender Command Sender
+     * @return if command is correctly executed
+     */
     private boolean listCategorie(CommandSender sender){
         if(!sender.hasPermission("adminshop.categorie.listcategorie")){
             sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"))+
@@ -85,12 +105,15 @@ public class PlayerCmds extends Commands {
         }
 
         sender.sendMessage(ChatFormatting.formatText("[&6AdminShop&f] &2Nombre de categorie : &6" + adminShop.categories.size()));
-        adminShop.categories.forEach(cat ->{
-            sender.sendMessage(ChatFormatting.formatText("&6"+ cat.getName()));
-        });
+        adminShop.categories.forEach(cat -> sender.sendMessage(ChatFormatting.formatText("&6"+ cat.getName())));
         return true;
     }
 
+    /**
+     * @param sender Command Sender
+     * @param args Command arguments
+     * @return if command is correctly executed
+     */
     private boolean addCategorie(CommandSender sender, String[] args){
         if(!sender.hasPermission("adminshop.categorie.add")){
             sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"))
@@ -139,6 +162,11 @@ public class PlayerCmds extends Commands {
         return true;
     }
 
+    /**
+     * @param sender Command Sender
+     * @param args Command arguments
+     * @return if command is correctly executed
+     */
     private boolean addItemIntoCategorie(CommandSender sender, String[] args){
         if(!sender.hasPermission("adminshop.item.add")){
             sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"))+
@@ -199,6 +227,10 @@ public class PlayerCmds extends Commands {
         return true;
     }
 
+    /**
+     * @param sender Command Sender
+     * @return if command is correctly executed
+     */
     private boolean toggleEditMode(CommandSender sender){
         if(!sender.hasPermission("adminshop.edit")){
             sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"))+
@@ -215,6 +247,10 @@ public class PlayerCmds extends Commands {
         return true;
     }
 
+    /**
+     * @param sender Command Sender
+     * @return if command is correctly executed
+     */
     private boolean reload(CommandSender sender){
         if(!sender.hasPermission("adminshop.reload")){
             sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix"))+

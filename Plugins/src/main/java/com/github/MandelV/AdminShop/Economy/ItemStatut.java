@@ -1,15 +1,14 @@
 package com.github.MandelV.AdminShop.Economy;
 
 /**
- * @author Akitoshi
- * @version 0.1
- * Représente le statut economique d'un item
- * Si vendable, achetable ou les deux.
+ * @author MandelV
+ * @version 1.0
+ * Represent the Economic statut of an item.
  */
 public enum ItemStatut {
-    SELL("SELL"), //vendable
-    BUY("BUY"), //Achetable
-    BOTH("BOTH"); //Les deux
+    SELL("SELL"),
+    BUY("BUY"),
+    BOTH("BOTH");
 
     private String  statut;
 
@@ -18,13 +17,17 @@ public enum ItemStatut {
     }
 
     /**
-     *
-     * @return le nombre de slot total du coffre.
+     * @return the name of Enum's elements
      */
     public String getName(){
         return statut;
     }
 
+    /**
+     * get ItemStatut by String
+     * @param name name of statut
+     * @return ItemStatut
+     */
     public static ItemStatut getStatut(String name){
         name = name.toUpperCase();
         for (ItemStatut statut : ItemStatut.values()) {

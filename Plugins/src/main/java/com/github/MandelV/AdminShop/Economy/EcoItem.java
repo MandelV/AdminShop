@@ -13,6 +13,11 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author MandelV, Hougo13
+ * @version 1.0
+ * Representation of Economic item
+ */
 public class EcoItem extends GuiItem {
 
     private double buy_price;
@@ -20,6 +25,18 @@ public class EcoItem extends GuiItem {
     private ItemStatut statut;
     private Gui parent;
 
+    /**
+     * @param parent Gui parent of this item
+     * @param type item's type
+     * @param amount amount
+     * @param damage (sub-id for block and damage for item)
+     * @param buy_price .
+     * @param sell_price .
+     * @param statut {sell, buy, both}
+     * @see Material
+     * @see ItemStack
+     * @see ItemStatut
+     */
     public EcoItem(Gui parent, Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut){
 
         super(type, amount, damage, true, null);
@@ -205,26 +222,46 @@ public class EcoItem extends GuiItem {
         this.setDefaultDescription(lore);
     }
 
+    /**
+     * @return buy price
+     */
     public double getBuy_price() {
         return buy_price;
     }
 
+    /**
+     * @return sell price
+     */
     public double getSell_price() {
         return sell_price;
     }
 
+    /**
+     * @return statut
+     * @see ItemStatut
+     */
     public ItemStatut getStatut() {
         return statut;
     }
 
+    /**
+     * @param buy_price set buy price
+     */
     public void setBuy_price(double buy_price) {
         this.buy_price = buy_price;
     }
 
+    /**
+     * @param sell_price set sell price
+     */
     public void setSell_price(double sell_price) {
         this.sell_price = sell_price;
     }
 
+    /**
+     * @param statut set statut
+     * @see ItemStatut
+     */
     public void setStatut(ItemStatut statut) {
         this.statut = statut;
     }
