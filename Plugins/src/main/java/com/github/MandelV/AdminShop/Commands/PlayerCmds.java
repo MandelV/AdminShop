@@ -11,12 +11,15 @@ import com.github.MandelV.AdminShop.Economy.EcoItem;
 import com.github.MandelV.AdminShop.Economy.ItemStatut;
 import com.github.MandelV.AdminShop.GUI.Gui;
 import com.github.MandelV.AdminShop.GUI.GuiInvRow;
+import com.github.MandelV.AdminShop.GUI.GuiManager;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
 
 /**
  * @author MandelV
@@ -278,6 +281,13 @@ public class PlayerCmds extends Commands {
             if(Dao.getInstance().getBdd_connection() == null){
                 sender.sendMessage(this.prefix + ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("plugin_reload_failure")));
             }else{
+                GuiManager.getGuis().clear();
+                adminShop.shop = new Gui(GuiInvRow.ROW3, "adminshop",  "&4AdminShop &f- &eCategories");
+                adminShop.categories = new ArrayList<>();
+
+
+                adminShop.initAdminShopGui();
+
                 sender.sendMessage(this.prefix + ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("plugin_reload_success")));
 
             }

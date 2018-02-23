@@ -26,6 +26,10 @@ public class GuiManager implements Listener {
         GuiManager.guiList.add(gui);
     }
 
+    public static List<Gui> getGuis(){
+        return guiList;
+    }
+
     /**
      * refresh all Gui
      */

@@ -47,7 +47,7 @@ public class AdminShop extends JavaPlugin{
 
         adminShop = this;
         ChatFormatting.getInstance();
-        this.shop = new Gui(GuiInvRow.ROW2, "adminshop",  "&4AdminShop &f- &eCategories");
+        this.shop = new Gui(GuiInvRow.ROW3, "adminshop",  "&4AdminShop &f- &eCategories");
         this.categories = new ArrayList<>();
         playerInEditionMode =  new ArrayList<>();
         AdminShop self = this;
@@ -81,6 +81,7 @@ public class AdminShop extends JavaPlugin{
         }
 
         //INTIALISATION GUI
+        getServer().getPluginManager().registerEvents(new GuiManager(), this);
         this.initAdminShopGui();
 
         //INITIALIZATION ECONOMY (VAULT)
@@ -117,12 +118,10 @@ public class AdminShop extends JavaPlugin{
     /**
      * Init AdminShop GUI
      */
-    private void initAdminShopGui(){
+    public void initAdminShopGui(){
 
         AdminShop self = this;
         List<Dao_Categorie> DAOcategories = Request.getCategories();
-        getServer().getPluginManager().registerEvents(new GuiManager(), this);
-
         DAOcategories.forEach(cat -> {
             Material item = Material.getMaterial(cat.getId_item());
             if(item != null){
