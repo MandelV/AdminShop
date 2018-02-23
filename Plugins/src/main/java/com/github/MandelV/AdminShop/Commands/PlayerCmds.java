@@ -281,9 +281,15 @@ public class PlayerCmds extends Commands {
             if(Dao.getInstance().getBdd_connection() == null){
                 sender.sendMessage(this.prefix + ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("plugin_reload_failure")));
             }else{
+                adminShop.shop.exitAll();
+                for(Gui cat : adminShop.categories){
+                    cat.exitAll();
+                }
                 GuiManager.getGuis().clear();
                 adminShop.shop = new Gui(GuiInvRow.ROW3, "adminshop",  "&4AdminShop &f- &eCategories");
                 adminShop.categories = new ArrayList<>();
+
+
 
 
                 adminShop.initAdminShopGui();

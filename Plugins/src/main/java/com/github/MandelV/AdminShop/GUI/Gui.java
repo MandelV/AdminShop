@@ -437,6 +437,14 @@ public  class Gui {
         }
     }
 
+    public void exitAll(){
+
+        for (UUID uuid: this.currentPlayersPage.keySet()) {
+            Player player = AdminShop.getInstance().getServer().getPlayer(uuid);
+            this.exit(player);
+            player.closeInventory();
+        }
+    }
 }
 
 
