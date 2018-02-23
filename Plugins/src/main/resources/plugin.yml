@@ -42,6 +42,10 @@ permission:
     default: false
     description: allow to edit adminshop
 
+  adminshop.bypass.world:
+    default: true
+    description: allow to bypass world restriction
+
   adminshop.reload:
     default: false
     description: reload plugin

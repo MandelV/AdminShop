@@ -108,7 +108,7 @@ public class PlayerCmds extends Commands {
             }
         }
 
-        if(isInAvailableWorld){
+        if(isInAvailableWorld || sender.hasPermission(" adminshop.bypass.world")){
             adminShop.shop.open(((Player) sender));
         }else{
             sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix")) +
