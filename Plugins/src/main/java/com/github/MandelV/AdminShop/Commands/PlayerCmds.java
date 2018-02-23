@@ -14,12 +14,15 @@ import com.github.MandelV.AdminShop.GUI.GuiInvRow;
 import com.github.MandelV.AdminShop.GUI.GuiManager;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author MandelV
@@ -89,12 +92,30 @@ public class PlayerCmds extends Commands {
      */
     private boolean openAdminShop(CommandSender sender) {
 
+        Boolean isInAvailableWorld = true;
         if (!sender.hasPermission("adminshop.open")) {
             sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix")) +
                     ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("permission_deny")));
             return true;
         }
-        adminShop.shop.open(((Player) sender));
+
+        World actualWorld = ((Player) sender).getWorld();
+
+        List<String> world = adminShop.getConf().getCustomConfig().getStringList("forbidden_world");
+        for(String forbiddenWorld : world){
+            if(actualWorld.getName().equalsIgnoreCase(forbiddenWorld)){
+                isInAvailableWorld = false;
+            }
+        }
+
+        if(isInAvailableWorld){
+            adminShop.shop.open(((Player) sender));
+        }else{
+            sender.sendMessage(ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("prefix")) +
+                    ChatFormatting.formatText(adminShop.getMessage().getCustomConfig().getString("forbiddenworld")));
+        }
+
+
 
         return true;
     }
