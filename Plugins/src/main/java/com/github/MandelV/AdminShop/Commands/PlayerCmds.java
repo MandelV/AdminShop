@@ -145,12 +145,23 @@ public class PlayerCmds extends Commands {
                     buy_price = Double.valueOf(args[3]);
                     sell_price = Double.valueOf(args[4]);
                 }catch (NumberFormatException e){
-                    sender.sendMessage("Prix incorrect");
+                    String errorPrice = adminShop.getMessage().getCustomConfig().getString("prefix");
+                    errorPrice += adminShop.getMessage().getCustomConfig().getString("error_add_item");
+                    errorPrice = errorPrice.replace("{ITEM}", itemHolder.getType().toString().toLowerCase());
+                    errorPrice = errorPrice.replace("{CAT}", catname);
+                    errorPrice += adminShop.getMessage().getCustomConfig().getString("add_item_buysell_error");
+                    sender.sendMessage(ChatFormatting.formatText(errorPrice));
                     return false;
                 }
                 ItemStatut statut = ItemStatut.getStatut(args[5]);
                 if(statut == null){
-                    sender.sendMessage("Mauvais statut");
+
+                    String errorStatut = adminShop.getMessage().getCustomConfig().getString("prefix");
+                    errorStatut += adminShop.getMessage().getCustomConfig().getString("error_add_item");
+                    errorStatut = errorStatut.replace("{ITEM}", itemHolder.getType().toString().toLowerCase());
+                    errorStatut = errorStatut.replace("{CAT}", catname);
+                    errorStatut += adminShop.getMessage().getCustomConfig().getString("add_item_wrong_statut");
+                    sender.sendMessage(ChatFormatting.formatText(errorStatut));
                     return false;
                 }
                 if(catname != null){
@@ -165,7 +176,11 @@ public class PlayerCmds extends Commands {
 
                     Request.addItemIntoCategorie(catname, sqlitem);
 
-                    sender.sendMessage("Item Ajouté");
+                    String addSuccess = adminShop.getMessage().getCustomConfig().getString("prefix");
+                    addSuccess += adminShop.getMessage().getCustomConfig().getString("success_add_item");
+                    addSuccess = addSuccess.replace("{ITEM}", itemHolder.getType().toString().toLowerCase());
+                    addSuccess = addSuccess.replace("{CAT}", catname);
+                    sender.sendMessage(ChatFormatting.formatText(addSuccess));
                 }
             }
         }
