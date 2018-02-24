@@ -17,16 +17,9 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Egg;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.SpectralArrow;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SpawnEggMeta;
-import org.bukkit.material.SpawnEgg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -245,18 +238,9 @@ public class PlayerCmds extends Commands {
                             break;
                         }
                     }
-                    short durability = itemHolder.getDurability();
-                    if(itemHolder.getType() == Material.MONSTER_EGG) {
-                        SpawnEggMeta eggMeta = (SpawnEggMeta) itemHolder.getItemMeta();
-                        durability = eggMeta.getSpawnedType().getTypeId();
-                    }
 
-
-
-
-
-                    Dao_item sqlitem = new Dao_item(itemHolder.getType().toString(), durability, buy_price, sell_price, statut.getName());
-
+                   String serial = AdminShop.itemSerialization(itemHolder);
+                    Dao_item sqlitem = new Dao_item(itemHolder.getType().toString(), itemHolder.getDurability(), serial, buy_price, sell_price, statut.getName());
                     Request.addItemIntoCategorie(catname, sqlitem);
 
                     String addSuccess = adminShop.getMessage().getCustomConfig().getString("prefix");

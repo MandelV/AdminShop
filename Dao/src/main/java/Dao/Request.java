@@ -95,17 +95,20 @@ public abstract class Request {
         Parameters<String> nameCategorie = new Parameters<>(categorie);
         Parameters<String> id_item = new Parameters<>(item.getId_item());
         Parameters<Short> damage = new Parameters<>(item.getDurability());
+        Parameters<String> serial = new Parameters<>(item.getItem_serial());
         Parameters<Double> buy_price = new Parameters<>(item.getBuy_price());
         Parameters<Double> sell_price = new Parameters<>(item.getSell_price());
         Parameters<String> type_vente = new Parameters<>(item.getStatut());
         parameters.add(nameCategorie);
         parameters.add(id_item);
         parameters.add(damage);
+        parameters.add(serial);
         parameters.add(buy_price);
         parameters.add(sell_price);
         parameters.add(type_vente);
 
-        Dao.getInstance().createStatement("INSERT INTO as_item(name_categorie, id_item, damage, prix_achat, prix_vente, type_vente) VALUE (?,?,?,?,?,?)", parameters).ifPresent(Dao::executeStatement);
+
+        Dao.getInstance().createStatement("INSERT INTO as_item(name_categorie, id_item, damage, item_serialized, prix_achat, prix_vente, type_vente) VALUE (?,?,?,?,?,?,?)", parameters).ifPresent(Dao::executeStatement);
     }
 
     /**

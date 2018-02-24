@@ -103,15 +103,11 @@ public class EcoItem extends GuiItem {
                 for(int i = 0; i < player.getInventory().getSize(); i++){
                     if(player.getInventory().getItem(i) != null){
 
-                        short durability = player.getInventory().getItem(i).getDurability();
-                        if(player.getInventory().getItem(i).getType() == Material.MONSTER_EGG){
 
-                            SpawnEggMeta eggMeta = (SpawnEggMeta) player.getInventory().getItem(i).getItemMeta();
-                            durability = eggMeta.getSpawnedType().getTypeId();
-                        }
 
                         if(player.getInventory().getItem(i).getType() == self.getType()
-                                && durability == self.getDamage()){
+                                && player.getInventory().getItem(i).getDurability() == self.getDamage()
+                                && player.getInventory().getItem(i).getItemMeta().toString().equalsIgnoreCase(self.getMeta().toString())){
 
                             int amount = self.getPlayerAmount(player.getUniqueId());
                             int invAmount = player.getInventory().getItem(i).getAmount();
@@ -180,7 +176,7 @@ public class EcoItem extends GuiItem {
 
                     parent.removeItem(self);
 
-                    Dao_item requestItem = new Dao_item(self.getType().toString(), self.getDamage(), self.buy_price, self.sell_price, self.getStatut().getName());
+                    Dao_item requestItem = new Dao_item(self.getType().toString(), self.getDamage(), null, self.buy_price, self.sell_price, self.getStatut().getName());
                     Request.removeItemFromCategorie(parent.getName(), requestItem);
                     //success_remove_item
                     String successRemoveItem = AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix");

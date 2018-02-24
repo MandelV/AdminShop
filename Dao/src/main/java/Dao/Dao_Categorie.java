@@ -102,9 +102,10 @@ public class Dao_Categorie {
                 this.items.add(new Dao_item(
                         this.result.getString(3),
                         this.result.getShort(4),
-                        this.result.getDouble(5),
+                        this.result.getString(5),
                         this.result.getDouble(6),
-                        this.result.getString(7)));
+                        this.result.getDouble(7),
+                        this.result.getString(8)));
             }
 
             this.result.close();

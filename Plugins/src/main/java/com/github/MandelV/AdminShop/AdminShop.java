@@ -16,7 +16,9 @@ import com.github.MandelV.AdminShop.config.Message;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
@@ -130,8 +132,9 @@ public class AdminShop extends JavaPlugin{
                 for(int i = 0; i < cat.getItems().size(); i++){
 
                     Material ecoitemtype = Material.getMaterial(cat.getItems().get(i).getId_item());
+                    ItemStack item_serial = AdminShop.itemDeserialization(cat.getItems().get(i).getItem_serial());
                     if(ecoitemtype != null){
-                        temp.addItem(new EcoItem(temp, ecoitemtype, 1, cat.getItems().get(i).getDurability(), null, cat.getItems().get(i).getBuy_price(),  cat.getItems().get(i).getSell_price(), ItemStatut.BOTH));
+                        temp.addItem(new EcoItem(temp, ecoitemtype, 1, cat.getItems().get(i).getDurability(), item_serial.getItemMeta(), cat.getItems().get(i).getBuy_price(),  cat.getItems().get(i).getSell_price(), ItemStatut.BOTH));
                         temp.addItem(null);
                     }else{
                         System.err.println("[AdminShop] Erreur ajout item (id incorrect) : " + cat.getItems().get(i).getId_item());
@@ -203,5 +206,21 @@ public class AdminShop extends JavaPlugin{
      */
     public static void removePlayerEditionMode(Player player){
         playerInEditionMode.remove(player.getUniqueId());
+    }
+
+    public static String itemSerialization(ItemStack itemStack) {
+        YamlConfiguration config = new YamlConfiguration();
+        config.set("i", itemStack);
+        return config.saveToString();
+    }
+    public static ItemStack itemDeserialization(String stringBlob) {
+        YamlConfiguration config = new YamlConfiguration();
+        try {
+            config.loadFromString(stringBlob);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return config.getItemStack("i", null);
     }
 }

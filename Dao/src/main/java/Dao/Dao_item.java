@@ -7,6 +7,7 @@ package Dao;
 public class Dao_item {
 
     private String id_item;
+    private String item_serial;
     private Double buy_price;
     private Double sell_price;
     private Short durability;
@@ -20,13 +21,18 @@ public class Dao_item {
      * @param sell_price Its sell price
      * @param statut Its statut
      */
-    public Dao_item(final String id_item, final Short durability, final double buy_price, final double sell_price, final String statut){
+    public Dao_item(final String id_item, final Short durability, String item_serial, final double buy_price, final double sell_price, final String statut){
 
         this.id_item = id_item;
         this.durability = durability;
         this.buy_price = buy_price;
         this.sell_price = sell_price;
         this.statut = statut;
+        this.item_serial = item_serial;
+    }
+
+    public String getItem_serial() {
+        return item_serial;
     }
 
     /**
