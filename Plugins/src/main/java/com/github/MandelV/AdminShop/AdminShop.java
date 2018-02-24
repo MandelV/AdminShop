@@ -134,7 +134,10 @@ public class AdminShop extends JavaPlugin{
                     Material ecoitemtype = Material.getMaterial(cat.getItems().get(i).getId_item());
                     ItemStack item_serial = AdminShop.itemDeserialization(cat.getItems().get(i).getItem_serial());
                     if(ecoitemtype != null){
-                        temp.addItem(new EcoItem(temp, ecoitemtype, 1, cat.getItems().get(i).getDurability(), item_serial.getItemMeta(), cat.getItems().get(i).getBuy_price(),  cat.getItems().get(i).getSell_price(), ItemStatut.BOTH));
+                        temp.addItem(new EcoItem(temp, ecoitemtype, 1, cat.getItems().get(i).getDurability(),
+                                item_serial.getItemMeta(), cat.getItems().get(i).getBuy_price(),  cat.getItems().get(i).getSell_price(),
+                                ItemStatut.getStatut(cat.getItems().get(i).getStatut())));
+
                         temp.addItem(null);
                     }else{
                         System.err.println("[AdminShop] Erreur ajout item (id incorrect) : " + cat.getItems().get(i).getId_item());

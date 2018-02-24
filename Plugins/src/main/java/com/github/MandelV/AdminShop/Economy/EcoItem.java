@@ -52,100 +52,115 @@ public class EcoItem extends GuiItem {
             @Override
             public boolean onLeftClick(Player player) {
 
-                if(AdminShop.getEcon().has(player, self.buy_price * self.getPlayerAmount(player.getUniqueId()))) {
+                if(self.getStatut() == ItemStatut.BUY || self.getStatut() == ItemStatut.BOTH){
+                    if(AdminShop.getEcon().has(player, self.buy_price * self.getPlayerAmount(player.getUniqueId()))) {
 
-                    ItemStack giveItem = new ItemStack(self.getType(), self.getPlayerAmount(player.getUniqueId()), self.getDamage());
-                    giveItem.setItemMeta(self.getMeta());
-                    int emptyInvSpace = 0;
-                    int availableItemSpace = 0;
-                    for(ItemStack item : player.getInventory().getStorageContents()){
-                        if(item == null){
-                            emptyInvSpace++;
-                            break;
-                        }else{
-                            if((item.getAmount() + giveItem.getAmount()) <= 64
-                                    && item.getType() == giveItem.getType()
-                                    && item.getDurability() == giveItem.getDurability()
-                                    && item.getEnchantments() == giveItem.getEnchantments()){
-                                availableItemSpace++;
+                        ItemStack giveItem = new ItemStack(self.getType(), self.getPlayerAmount(player.getUniqueId()), self.getDamage());
+                        giveItem.setItemMeta(self.getMeta());
+                        int emptyInvSpace = 0;
+                        int availableItemSpace = 0;
+                        for(ItemStack item : player.getInventory().getStorageContents()){
+                            if(item == null){
+                                emptyInvSpace++;
                                 break;
+                            }else{
+                                if((item.getAmount() + giveItem.getAmount()) <= 64
+                                        && item.getType() == giveItem.getType()
+                                        && item.getDurability() == giveItem.getDurability()
+                                        && item.getEnchantments() == giveItem.getEnchantments()){
+                                    availableItemSpace++;
+                                    break;
+                                }
                             }
                         }
-                    }
 
-                    if(emptyInvSpace > 0 || availableItemSpace > 0){
-                        AdminShop.getEcon().withdrawPlayer(player, self.buy_price * self.getPlayerAmount(player.getUniqueId()));
-                        player.getInventory().addItem(giveItem);
+                        if(emptyInvSpace > 0 || availableItemSpace > 0){
+                            AdminShop.getEcon().withdrawPlayer(player, self.buy_price * self.getPlayerAmount(player.getUniqueId()));
+                            player.getInventory().addItem(giveItem);
 
-                        //History
-                        Request.addEntryHistory(player.getName(), giveItem.getType().name(), self.getPlayerAmount(player.getUniqueId()), "BUY");
+                            //History
+                            Request.addEntryHistory(player.getName(), giveItem.getType().name(), self.getPlayerAmount(player.getUniqueId()), "BUY");
 
-                        String successBuy = AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix");
-                        successBuy += AdminShop.getInstance().getMessage().getCustomConfig().getString("buy_message");
-                        successBuy = successBuy.replace("{ITEM}", self.getType().toString().toLowerCase());
-                        successBuy = successBuy.replace("{AMOUNT}", String.valueOf(self.getPlayerAmount(player.getUniqueId())));
-                        successBuy = successBuy.replace("{BUY_PRICE}", String.valueOf(self.buy_price * self.getPlayerAmount(player.getUniqueId())));
+                            String successBuy = AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix");
+                            successBuy += AdminShop.getInstance().getMessage().getCustomConfig().getString("buy_message");
+                            successBuy = successBuy.replace("{ITEM}", self.getType().toString().toLowerCase());
+                            successBuy = successBuy.replace("{AMOUNT}", String.valueOf(self.getPlayerAmount(player.getUniqueId())));
+                            successBuy = successBuy.replace("{BUY_PRICE}", String.valueOf(self.buy_price * self.getPlayerAmount(player.getUniqueId())));
 
-                        player.sendMessage(ChatFormatting.formatText(successBuy));
+                            player.sendMessage(ChatFormatting.formatText(successBuy));
+                        }else{
+                            player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix") +
+                                    AdminShop.getInstance().getMessage().getCustomConfig().getString("player_has_full_inventory")));
+
+                        }
                     }else{
                         player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix") +
-                        AdminShop.getInstance().getMessage().getCustomConfig().getString("player_has_full_inventory")));
-
+                                AdminShop.getInstance().getMessage().getCustomConfig().getString("player_has_no_money")));
                     }
+
                 }else{
-                    player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("player_has_no_money")));
+
+                    player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix") +
+                            AdminShop.getInstance().getMessage().getCustomConfig().getString("player_cannot_buy")));
                 }
+
                 return false;
             }
             @Override
             public boolean onRightClick(Player player) {
 
-                for(int i = 0; i < player.getInventory().getSize(); i++){
-                    if(player.getInventory().getItem(i) != null){
+                if(self.getStatut() == ItemStatut.SELL || self.getStatut() == ItemStatut.BOTH){
+                    for(int i = 0; i < player.getInventory().getSize(); i++){
+                        if(player.getInventory().getItem(i) != null){
 
 
 
-                        if(player.getInventory().getItem(i).getType() == self.getType()
-                                && player.getInventory().getItem(i).getDurability() == self.getDamage()
-                                && player.getInventory().getItem(i).getItemMeta().toString().equalsIgnoreCase(self.getMeta().toString())){
+                            if(player.getInventory().getItem(i).getType() == self.getType()
+                                    && player.getInventory().getItem(i).getDurability() == self.getDamage()
+                                    && player.getInventory().getItem(i).getItemMeta().toString().equalsIgnoreCase(self.getMeta().toString())){
 
-                            int amount = self.getPlayerAmount(player.getUniqueId());
-                            int invAmount = player.getInventory().getItem(i).getAmount();
-                            int newAmount = 0;
+                                int amount = self.getPlayerAmount(player.getUniqueId());
+                                int invAmount = player.getInventory().getItem(i).getAmount();
+                                int newAmount = 0;
 
-                            if(amount > invAmount){
-                                newAmount = invAmount;
-                                self.setPlayerAmount(player, newAmount);
+                                if(amount > invAmount){
+                                    newAmount = invAmount;
+                                    self.setPlayerAmount(player, newAmount);
 
-                            }else if(amount < invAmount){
-                                newAmount = amount;
+                                }else if(amount < invAmount){
+                                    newAmount = amount;
 
-                            }else if(amount == invAmount){
-                                newAmount = invAmount;
+                                }else if(amount == invAmount){
+                                    newAmount = invAmount;
+                                }
+                                invAmount -= newAmount;
+                                if(amount < 1){
+                                    Request.addEntryHistory(player.getName(), player.getInventory().getItem(i).getType().name(), newAmount, "SELL");
+                                    player.getInventory().clear(i);
+
+                                }else{
+                                    Request.addEntryHistory(player.getName(), player.getInventory().getItem(i).getType().name(), newAmount, "SELL");
+                                    player.getInventory().getItem(i).setAmount(invAmount);
+
+                                }
+                                AdminShop.getEcon().depositPlayer(player, self.getSell_price() * newAmount);
+
+                                String successSell = AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix");
+                                successSell += AdminShop.getInstance().getMessage().getCustomConfig().getString("sell_message");
+                                successSell = successSell.replace("{ITEM}", self.getType().toString().toLowerCase());
+                                successSell = successSell.replace("{AMOUNT}", String.valueOf(self.getPlayerAmount(player.getUniqueId())));
+                                successSell = successSell.replace("{SELL_PRICE}", String.valueOf(self.sell_price * self.getPlayerAmount(player.getUniqueId())));
+                                player.sendMessage(ChatFormatting.formatText(successSell));
+
+                                break;
                             }
-                            invAmount -= newAmount;
-                            if(amount < 1){
-                                Request.addEntryHistory(player.getName(), player.getInventory().getItem(i).getType().name(), newAmount, "SELL");
-                                player.getInventory().clear(i);
-
-                            }else{
-                                Request.addEntryHistory(player.getName(), player.getInventory().getItem(i).getType().name(), newAmount, "SELL");
-                                player.getInventory().getItem(i).setAmount(invAmount);
-
-                            }
-                            AdminShop.getEcon().depositPlayer(player, self.getSell_price() * newAmount);
-
-                            String successSell = AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix");
-                            successSell += AdminShop.getInstance().getMessage().getCustomConfig().getString("sell_message");
-                            successSell = successSell.replace("{ITEM}", self.getType().toString().toLowerCase());
-                            successSell = successSell.replace("{AMOUNT}", String.valueOf(self.getPlayerAmount(player.getUniqueId())));
-                            successSell = successSell.replace("{SELL_PRICE}", String.valueOf(self.sell_price * self.getPlayerAmount(player.getUniqueId())));
-                            player.sendMessage(ChatFormatting.formatText(successSell));
-
-                            break;
                         }
                     }
+                }else {
+                    player.sendMessage(ChatFormatting.formatText(AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix") +
+                            AdminShop.getInstance().getMessage().getCustomConfig().getString("player_cannot_sell")));
                 }
+
                 return true;
             }
             @Override
@@ -163,8 +178,17 @@ public class EcoItem extends GuiItem {
                 List<String> lore = new ArrayList<>();
 
                AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
-                   v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getPlayerAmount(player.getUniqueId())));
-                   v = v.replace("{SELL_PRICE}", String.valueOf(sell_price * self.getPlayerAmount(player.getUniqueId())));
+                   if(self.getStatut() == ItemStatut.BUY || self.getStatut() == ItemStatut.BOTH){
+                       v = v.replace("{BUY_PRICE}", String.valueOf(buy_price));
+                   }else{
+                       v = v.replace("{BUY_PRICE}", "&cNon achetable");
+                   }
+
+                   if(self.getStatut() == ItemStatut.SELL || self.getStatut() == ItemStatut.BOTH){
+                       v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
+                   }else{
+                       v = v.replace("{SELL_PRICE}", "&cNon vendable");
+                   }
                    lore.add(ChatFormatting.formatText(v));
                 });
                 setPlayerDescription(player, lore);
@@ -198,8 +222,17 @@ public class EcoItem extends GuiItem {
 
                 List<String> lore = new ArrayList<>();
                 AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
-                   v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getPlayerAmount(player.getUniqueId())));
-                    v = v.replace("{SELL_PRICE}", String.valueOf(sell_price * self.getPlayerAmount(player.getUniqueId())));
+                    if(self.getStatut() == ItemStatut.BUY || self.getStatut() == ItemStatut.BOTH){
+                        v = v.replace("{BUY_PRICE}", String.valueOf(buy_price));
+                    }else{
+                        v = v.replace("{BUY_PRICE}", "&cNon achetable");
+                    }
+
+                    if(self.getStatut() == ItemStatut.SELL || self.getStatut() == ItemStatut.BOTH){
+                        v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
+                    }else{
+                        v = v.replace("{SELL_PRICE}", "&cNon vendable");
+                    }
                     lore.add(ChatFormatting.formatText(v));
                 });
                 setPlayerDescription(player, lore);
@@ -219,8 +252,17 @@ public class EcoItem extends GuiItem {
                 }
                 List<String> lore = new ArrayList<>();
                 AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
-                   v = v.replace("{BUY_PRICE}", String.valueOf(buy_price * self.getPlayerAmount(player.getUniqueId())));
-                    v = v.replace("{SELL_PRICE}", String.valueOf(sell_price * self.getPlayerAmount(player.getUniqueId())));
+                    if(self.getStatut() == ItemStatut.BUY || self.getStatut() == ItemStatut.BOTH){
+                        v = v.replace("{BUY_PRICE}", String.valueOf(buy_price));
+                    }else{
+                        v = v.replace("{BUY_PRICE}", "&cNon achetable");
+                    }
+
+                    if(self.getStatut() == ItemStatut.SELL || self.getStatut() == ItemStatut.BOTH){
+                        v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
+                    }else{
+                        v = v.replace("{SELL_PRICE}", "&cNon vendable");
+                    }
                     lore.add(ChatFormatting.formatText(v));
                 });
                 setPlayerDescription(player, lore);
@@ -234,8 +276,19 @@ public class EcoItem extends GuiItem {
         List<String> lore = new ArrayList<>();
 
         AdminShop.getInstance().getMessage().getCustomConfig().getStringList("item_lore").forEach(v ->{
-           v = v.replace("{BUY_PRICE}", String.valueOf(buy_price));
-            v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
+
+            if(this.getStatut() == ItemStatut.BUY || this.getStatut() == ItemStatut.BOTH){
+                v = v.replace("{BUY_PRICE}", String.valueOf(buy_price));
+            }else{
+                v = v.replace("{BUY_PRICE}", "Non achetable");
+            }
+
+           if(this.getStatut() == ItemStatut.SELL || this.getStatut() == ItemStatut.BOTH){
+               v = v.replace("{SELL_PRICE}", String.valueOf(sell_price));
+           }else{
+               v = v.replace("{SELL_PRICE}", "Non vendable");
+           }
+
             lore.add(ChatFormatting.formatText(v));
         });
 

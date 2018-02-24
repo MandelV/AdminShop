@@ -20,6 +20,10 @@ player_has_no_money: " &4Vous n'avez pas les fonds nécessaire."
 player_has_full_inventory: "&4Votre inventaire est plein."
 
 
+player_cannot_sell: "&4Vous ne pouvez pas vendre cet item"
+player_cannot_buy: "&4Vous ne pouvez pas acheter cet item"
+
+
 error_add_categorie: "&4Erreur lors de l'ajout d'une categorie."
 success_add_categorie: "&aLa catégorie &6{CAT_NAME} &aà bien été ajoutée."
 
