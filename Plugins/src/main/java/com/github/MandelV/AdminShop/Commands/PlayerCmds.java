@@ -18,8 +18,15 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Egg;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.SpectralArrow;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.inventory.meta.SpawnEggMeta;
+import org.bukkit.material.SpawnEgg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -234,12 +241,21 @@ public class PlayerCmds extends Commands {
                 if (catname != null) {
                     for (int i = 0; i < adminShop.categories.size(); i++) {
                         if (adminShop.categories.get(i).getName().equalsIgnoreCase(catname)) {
-                            adminShop.categories.get(i).addItem(new EcoItem(adminShop.categories.get(i), itemHolder.getType(), 1, (short) itemHolder.getDurability(), buy_price, sell_price, statut));
+                            adminShop.categories.get(i).addItem(new EcoItem(adminShop.categories.get(i), itemHolder.getType(), 1, itemHolder.getDurability(), itemHolder.getItemMeta(), buy_price, sell_price, statut));
                             break;
                         }
                     }
+                    short durability = itemHolder.getDurability();
+                    if(itemHolder.getType() == Material.MONSTER_EGG) {
+                        SpawnEggMeta eggMeta = (SpawnEggMeta) itemHolder.getItemMeta();
+                        durability = eggMeta.getSpawnedType().getTypeId();
+                    }
 
-                    Dao_item sqlitem = new Dao_item(itemHolder.getType().toString(), itemHolder.getDurability(), buy_price, sell_price, statut.getName());
+
+
+
+
+                    Dao_item sqlitem = new Dao_item(itemHolder.getType().toString(), durability, buy_price, sell_price, statut.getName());
 
                     Request.addItemIntoCategorie(catname, sqlitem);
 

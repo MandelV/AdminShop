@@ -20,6 +20,7 @@ public class GuiItemInstance extends ItemStack{
 
         this.guiItem = guiItem;
         this.playerUUID = player.getUniqueId();
+        this.setItemMeta(guiItem.getMeta());
         this.setDurability(this.guiItem.getDamage());
         this.refreshMeta();
     }

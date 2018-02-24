@@ -118,7 +118,7 @@ public class AdminShop extends JavaPlugin{
     /**
      * Init AdminShop GUI
      */
-    public void initAdminShopGui(){
+    public synchronized void initAdminShopGui(){
 
         AdminShop self = this;
         List<Dao_Categorie> DAOcategories = Request.getCategories();
@@ -131,7 +131,7 @@ public class AdminShop extends JavaPlugin{
 
                     Material ecoitemtype = Material.getMaterial(cat.getItems().get(i).getId_item());
                     if(ecoitemtype != null){
-                        temp.addItem(new EcoItem(temp, ecoitemtype, 1, cat.getItems().get(i).getDurability(), cat.getItems().get(i).getBuy_price(),  cat.getItems().get(i).getSell_price(), ItemStatut.BOTH));
+                        temp.addItem(new EcoItem(temp, ecoitemtype, 1, cat.getItems().get(i).getDurability(), null, cat.getItems().get(i).getBuy_price(),  cat.getItems().get(i).getSell_price(), ItemStatut.BOTH));
                         temp.addItem(null);
                     }else{
                         System.err.println("[AdminShop] Erreur ajout item (id incorrect) : " + cat.getItems().get(i).getId_item());

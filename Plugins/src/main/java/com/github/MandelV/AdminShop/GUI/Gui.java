@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author MandelV, Hougo13
@@ -20,8 +21,8 @@ public  class Gui {
     private UUID uuid;
     private List<GuiItemPage> itemPages;
     private List<GuiItem> customNavbar;
-    private Map<UUID, Integer> currentPlayersPage;
-    private Map<UUID, Boolean> playerChangingPage;
+    private ConcurrentHashMap<UUID, Integer> currentPlayersPage;
+    private ConcurrentHashMap<UUID, Boolean> playerChangingPage;
     private GuiInvRow nbrLine;
     private String name;
     private String displayName;
@@ -41,8 +42,8 @@ public  class Gui {
             this.customNavbar.add(null);
         }
 
-        this.playerChangingPage = new HashMap<>();
-        this.currentPlayersPage = new HashMap<>();
+        this.playerChangingPage = new ConcurrentHashMap<>();
+        this.currentPlayersPage = new ConcurrentHashMap<>();
 
         this.uuid = UUID.randomUUID();
         this.nbrLine = nbrLine;
@@ -192,7 +193,7 @@ public  class Gui {
         Gui self = this;
         if (pageIndex > 0) {
             // Set previous button
-            GuiItem prevButton = new GuiItem(Material.PAPER, 1, (short) 0, new GuiAction() {
+            GuiItem prevButton = new GuiItem(Material.PAPER, 1, (short) 0, null, new GuiAction() {
                 @Override
                 public boolean onRightClick(Player player) {
                     return false;
@@ -224,7 +225,7 @@ public  class Gui {
             page.getPage().add(prevButton);
 
             // Set next button on previous page
-            GuiItem nextButton = new GuiItem(Material.PAPER, 1, (short) 0, new GuiAction() {
+            GuiItem nextButton = new GuiItem(Material.PAPER, 1, (short) 0, null, new GuiAction() {
                 @Override
                 public boolean onRightClick(Player player) {
                     return false;
@@ -418,7 +419,7 @@ public  class Gui {
     /**
      * @param player exit gui
      */
-    public void exit(Player player) {
+    public synchronized void exit(Player player) {
         if (this.playerChangingPage.get(player.getUniqueId())) {
             this.playerChangingPage.put(player.getUniqueId(), false);
         } else {
@@ -432,7 +433,6 @@ public  class Gui {
                     }
                 }
             }
-
             System.out.println("[AdminShop]" + player.getName() + " action : " + "EXIT");
         }
     }

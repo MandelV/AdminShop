@@ -4,6 +4,8 @@ import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.inventory.meta.ItemMeta;
+
 import java.util.*;
 
 /**
@@ -23,29 +25,35 @@ public class GuiItem {
     // Player specific values
     private Map<UUID, Integer> playerAmounts = new HashMap<>();
     private Map<UUID, List<String>> playerDescriptions = new HashMap<>();
+    private ItemMeta meta;
     private GuiAction guiAction;
     private boolean oneByPlayer = false;
 
     /**
-     *
      * @param type type of item
      * @param defaultAmount amount of this item in inventory
      * @param damage damage value
      * @param guiAction action when item is clicked
      */
-    public GuiItem(Material type, int defaultAmount, short damage, GuiAction guiAction){
+    public GuiItem(Material type, int defaultAmount, short damage, ItemMeta meta, GuiAction guiAction){
         this.type = type;
         this.defaultAmount = defaultAmount;
         this.damage = damage;
         this.guiAction = guiAction;
+        this.meta = meta;
     }
 
-    public GuiItem(Material type, int defaultAmount, short damage, boolean oneByPlayer, GuiAction guiAction){
+    public GuiItem(Material type, int defaultAmount, short damage, ItemMeta meta, boolean oneByPlayer, GuiAction guiAction){
         this.type = type;
         this.defaultAmount = defaultAmount;
         this.damage = damage;
         this.oneByPlayer = oneByPlayer;
         this.guiAction = guiAction;
+        this.meta = meta;
+    }
+
+    public ItemMeta getMeta(){
+        return this.meta;
     }
 
     /**

@@ -47,7 +47,7 @@ public abstract class EcoGuiFactory {
         Gui childGui = new Gui(nrgLine, name, displayName);
 
         //Creation de l'icon permettant d'aller au sous Gui
-        GuiItem iconItem = new GuiItem(icon, 1, durability, null);
+        GuiItem iconItem = new GuiItem(icon, 1, durability, null, null);
 
         GuiAction action = new GuiAction() {
 
@@ -107,7 +107,7 @@ public abstract class EcoGuiFactory {
         customNavbar.add(null);
 
 
-        GuiItem backtocategories = new GuiItem(Material.BARRIER, 1, (short) 0, new GuiAction() {
+        GuiItem backtocategories = new GuiItem(Material.BARRIER, 1, (short) 0, null, new GuiAction() {
             @Override
             public boolean onRightClick(Player player) {
                 return false;

@@ -8,8 +8,14 @@ import com.github.MandelV.AdminShop.GUI.GuiAction;
 import com.github.MandelV.AdminShop.GUI.GuiItem;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SpawnEggMeta;
+import org.bukkit.material.MonsterEggs;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +43,9 @@ public class EcoItem extends GuiItem {
      * @see ItemStack
      * @see ItemStatut
      */
-    public EcoItem(Gui parent, Material type, int amount, short damage, final double buy_price, final double sell_price, ItemStatut statut){
+    public EcoItem(Gui parent, Material type, int amount, short damage, ItemMeta meta, final double buy_price, final double sell_price, ItemStatut statut){
 
-        super(type, amount, damage, true, null);
+        super(type, amount, damage, meta, true, null);
         EcoItem self = this;
 
         this.setGuiAction(new GuiAction() {
@@ -49,6 +55,7 @@ public class EcoItem extends GuiItem {
                 if(AdminShop.getEcon().has(player, self.buy_price * self.getPlayerAmount(player.getUniqueId()))) {
 
                     ItemStack giveItem = new ItemStack(self.getType(), self.getPlayerAmount(player.getUniqueId()), self.getDamage());
+                    giveItem.setItemMeta(self.getMeta());
                     int emptyInvSpace = 0;
                     int availableItemSpace = 0;
                     for(ItemStack item : player.getInventory().getStorageContents()){
@@ -95,7 +102,16 @@ public class EcoItem extends GuiItem {
 
                 for(int i = 0; i < player.getInventory().getSize(); i++){
                     if(player.getInventory().getItem(i) != null){
-                        if(player.getInventory().getItem(i).getType() == self.getType() && player.getInventory().getItem(i).getDurability() == self.getDamage()){
+
+                        short durability = player.getInventory().getItem(i).getDurability();
+                        if(player.getInventory().getItem(i).getType() == Material.MONSTER_EGG){
+
+                            SpawnEggMeta eggMeta = (SpawnEggMeta) player.getInventory().getItem(i).getItemMeta();
+                            durability = eggMeta.getSpawnedType().getTypeId();
+                        }
+
+                        if(player.getInventory().getItem(i).getType() == self.getType()
+                                && durability == self.getDamage()){
 
                             int amount = self.getPlayerAmount(player.getUniqueId());
                             int invAmount = player.getInventory().getItem(i).getAmount();
