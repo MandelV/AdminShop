@@ -10,15 +10,18 @@ import com.github.MandelV.AdminShop.Economy.EcoItem;
 import com.github.MandelV.AdminShop.Economy.ItemStatut;
 import com.github.MandelV.AdminShop.GUI.Gui;
 import com.github.MandelV.AdminShop.GUI.GuiInvRow;
+import com.github.MandelV.AdminShop.GUI.GuiItem;
 import com.github.MandelV.AdminShop.GUI.GuiManager;
 import com.github.MandelV.AdminShop.config.ConfigFile;
 import com.github.MandelV.AdminShop.config.Message;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
+import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
@@ -59,6 +62,10 @@ public class AdminShop extends JavaPlugin{
         this.getServer().getConsoleSender().sendMessage("");
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &aInitialisation : &dconfig.yml"));
 
+
+        if(!this.getServer().getVersion().contains("1.12.2")){
+            getServer().getPluginManager().disablePlugin(this);
+        }
         //INITIALIZATION CONFIG FILES
         this.config = new ConfigFile(this);
         config.reloadCustomConfig();
@@ -123,6 +130,23 @@ public class AdminShop extends JavaPlugin{
     public synchronized void initAdminShopGui(){
 
         AdminShop self = this;
+        List<GuiItem> items = new ArrayList<>();
+        items.add(null);
+        items.add(null);
+        items.add(null);
+        GuiItem iteminfo = new GuiItem(Material.REDSTONE_TORCH_ON, 1, (short)0, null, null );
+        iteminfo.setName("" + ChatFormatting.formatText("&eplugin created by :"));
+        List<String> copyright = new ArrayList<>();
+        copyright.add(ChatFormatting.formatText("&4Akitoshi"));
+        copyright.add(ChatFormatting.formatText("&4Hougo13"));
+
+        iteminfo.setDefaultDescription(copyright);
+
+        items.add(iteminfo);
+        items.add(null);
+        items.add(null);
+        items.add(null);
+        this.shop.setCustomNavbar(items);
         List<Dao_Categorie> DAOcategories = Request.getCategories();
         DAOcategories.forEach(cat -> {
             Material item = Material.getMaterial(cat.getId_item());
@@ -143,6 +167,8 @@ public class AdminShop extends JavaPlugin{
                         System.err.println("[AdminShop] Erreur ajout item (id incorrect) : " + cat.getItems().get(i).getId_item());
                     }
                 }
+
+
 
                 this.categories.add(temp);
             }else{

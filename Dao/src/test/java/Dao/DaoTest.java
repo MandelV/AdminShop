@@ -16,7 +16,7 @@ public class DaoTest {
     public static void initDaoTest(){
 
         System.out.println("[TEST-unit] init Dao");
-        dao = Dao.getInstance("localhost", 3306, "addrank", "admin", "admin", false);
+        dao = Dao.getInstance("localhost", 1306, "adminshop", "root", "root", false);
         if(dao == null){
             fail("[TEST-unit][FAIL] : instanciate DAO");
         }
