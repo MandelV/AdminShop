@@ -120,13 +120,12 @@ public abstract class Request {
         ArrayList<Parameters> parameters = new ArrayList<>();
 
         Parameters<String> nameCategorie = new Parameters<>(categorie);
-        Parameters<String> id_item = new Parameters<>(item.getId_item());
+        Parameters<String> item_serial = new Parameters<>(item.getItem_serial());
         Parameters<Short> damage = new Parameters<>(item.getDurability());
 
         parameters.add(nameCategorie);
-        parameters.add(id_item);
-        parameters.add(damage);
-        Dao.getInstance().createStatement("DELETE FROM as_item WHERE name_categorie=? AND id_item=? AND damage=?", parameters).ifPresent(Dao::executeStatement);
+        parameters.add(item_serial);
+        Dao.getInstance().createStatement("DELETE FROM as_item WHERE name_categorie=? AND item_serialized=?", parameters).ifPresent(Dao::executeStatement);
     }
 
     public static void addEntryHistory(String pseudoPlayer, String material, int amount, String statut) {

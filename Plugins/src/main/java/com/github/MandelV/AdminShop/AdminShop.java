@@ -255,24 +255,6 @@ public class AdminShop extends JavaPlugin{
      * @return Serialize item
      *
      */
-    @Deprecated
-    public static String _itemSerialization(ItemStack itemStack) {
-        YamlConfiguration config = new YamlConfiguration();
-        config.set("i", itemStack);
-        return config.saveToString();
-    }
-    @Deprecated
-    public static ItemStack _itemDeserialization(String stringBlob) {
-        YamlConfiguration config = new YamlConfiguration();
-        try {
-            config.loadFromString(stringBlob);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return config.getItemStack("i", null);
-    }
-
     public static String itemSerialization(ItemStack itemStack)  throws IllegalStateException{
 
         try{
@@ -287,7 +269,6 @@ public class AdminShop extends JavaPlugin{
             throw new IllegalStateException("itemSerialization() - Unable to serialize itemstack : ", e);
         }
     }
-
     public static ItemStack itemDeserialization(String base64Item) throws IOException {
         try{
             ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(base64Item));

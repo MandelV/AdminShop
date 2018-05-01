@@ -1,9 +1,13 @@
 package com.github.MandelV.AdminShop.GUI;
 
+import com.github.MandelV.AdminShop.AdminShop;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
@@ -29,6 +33,7 @@ public class GuiItem {
     private GuiAction guiAction;
     private boolean oneByPlayer = false;
 
+
     /**
      * @param type type of item
      * @param defaultAmount amount of this item in inventory
@@ -41,6 +46,8 @@ public class GuiItem {
         this.damage = damage;
         this.guiAction = guiAction;
         this.meta = meta;
+
+
     }
 
     public GuiItem(Material type, int defaultAmount, short damage, ItemMeta meta, boolean oneByPlayer, GuiAction guiAction){
@@ -50,6 +57,13 @@ public class GuiItem {
         this.oneByPlayer = oneByPlayer;
         this.guiAction = guiAction;
         this.meta = meta;
+    }
+
+    public ItemStack getItemStack(){
+        ItemStack item = new ItemStack(this.type);
+        item.setDurability(this.damage);
+        item.setItemMeta(this.meta);
+        return item;
     }
 
     public ItemMeta getMeta(){
