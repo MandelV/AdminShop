@@ -199,6 +199,7 @@ public class EcoItem extends GuiItem {
                 if(AdminShop.playerIsEditorMode(player) && player.hasPermission("adminshop.edit")){
 
                     parent.removeItem(self);
+
                     
                     Dao_item requestItem = new Dao_item(self.getType().toString(), self.getDamage(), AdminShop.itemSerialization(self.getItemStack()), self.buy_price, self.sell_price, self.getStatut().getName());
                     Request.removeItemFromCategorie(parent.getName(), requestItem);
