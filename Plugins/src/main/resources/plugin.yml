@@ -1,0 +1,54 @@
+author: MandelV
+name: AdminShop
+version: 1.0-SNAPSHOT
+main: com.github.MandelV.AdminShop.AdminShop
+depend: [Vault]
+
+
+commands:
+  adminshop:
+    description: main commands
+
+
+permission:
+
+  adminshop.open:
+    default: true
+    description: Permission to open adminshop gui
+
+  adminshop.categorie.listcategorie:
+    default: false
+    description: List all categorie in adminshop
+
+  adminshop.categorie.add:
+    default: false
+    description: add a new categorie
+  adminshop.categorie.remove:
+    default: false
+    description: remove a categorie
+
+  adminshop.item.add:
+    default: false
+    description: add item into categorie
+
+  adminshop.item.remove:
+    default: false
+    description: remove item from categorie
+
+  adminshop.edit:
+    default: false
+    description: allow to edit adminshop
+  adminshop.total:
+    default: false
+    description: allow to edit adminshop
+
+  adminshop.bypass.world:
+    default: true
+    description: allow to bypass world restriction
+
+  adminshop.reload:
+    default: false
+    description: reload plugin
+
+
+

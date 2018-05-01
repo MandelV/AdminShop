@@ -1,0 +1,57 @@
+prefix: "&f[ &6AdminShop &f] "
+permission_deny: "&4Vous n'avez pas accès à cette commande."
+forbiddenworld: "&4Vous êtes dans un monde interdit."
+plugin_reload_success: "&areload fait."
+no_categories: "&4Aucun item présent dans cet interface."
+
+
+plugin_reload_failure: "&4erreur reload."
+plugin_reload_success: "&areload fait."
+
+next_page: "&ePage suivante"
+previous_page: "&ePage précédente"
+back_to_categories: "&cRevenir aux catégories"
+back_to_categories_name: "&cRetour"
+
+buy_message: "&aVous avez acheté &6{ITEM} &5x{AMOUNT} &aprix : &4{BUY_PRICE} Talys&a."
+
+sell_message: "&aVous avez vendu &6{ITEM} &5x{AMOUNT} &again : &2{SELL_PRICE} Talys&a."
+player_has_no_money: " &4Vous n'avez pas les fonds nécessaire."
+player_has_full_inventory: "&4Votre inventaire est plein."
+
+
+player_cannot_sell: "&4Vous ne pouvez pas vendre cet item"
+player_cannot_buy: "&4Vous ne pouvez pas acheter cet item"
+
+
+error_add_categorie: "&4Erreur lors de l'ajout d'une categorie."
+success_add_categorie: "&aLa catégorie &6{CAT_NAME} &aà bien été ajoutée."
+
+
+total_buy: "&aTotal des sorties d'argent : &4- &7{OUT} Talys"
+total_sell: "&2Total des entrés d'argent : &a+ &7{IN} Talys"
+
+editor_mode_enable: "&6Mode d'édition &2activé&6."
+editor_mode_disable: "&6Mode d'édition &cdésactivé&6."
+
+success_add_item: "&aL'item &6{ITEM} &aa bien été ajouté dans la catégorie &5{CAT}&a."
+error_add_item: "&4L'item &6{ITEM} &4n'a pas été ajouté dans la catégorie &5{CAT}&4 : "
+add_item_buysell_error: "&4Le prix d'achat/vente est incorrect."
+
+add_item_wrong_statut: "&4Mauvais statut. {sell, buy, both}"
+
+success_remove_item: "&aL'item &6{ITEM} &aa bien été supprimé de la categorie &5{CAT}&a."
+
+error_remove_categorie: " &4Erreur lors de la suppressions de la catégorie &6{CAT_NAME}&4."
+success_remove_categorie: "&aVous avez bien supprimé la catégorie &6{CAT_NAME}&a."
+
+item_lore:
+  - "&4prix achat : {BUY_PRICE}"
+  - "&2prix vente : {SELL_PRICE}"
+  - ""
+  - "&4&lClic gauche &4pour acheter"
+  - "&2&lClic droit &2pour vendre"
+  - ""
+  - "&6&lMAJ+Clic gauche &6pour augmenter de 16"
+  - "&a&lMAJ+Clic droit &6pour diminuer de 16"
+  - "&b&lClic molette &6pour augmenter de 1"

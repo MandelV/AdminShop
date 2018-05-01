@@ -1,0 +1,20 @@
+#=========================================================
+#
+#AdminShop, created by Akitoshi
+#
+#=========================================================
+
+Database:
+  address: localhost
+  port: 3306
+  useSSL: false
+  username: root
+  password: root
+  name: adminshop
+
+Economy:
+  nameMonnaie: " Coin"
+  symbole: "C"
+
+forbidden_world:
+  - creatif
