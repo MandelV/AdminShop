@@ -24,7 +24,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.io.BukkitObjectInputStream;
+import org.bukkit.util.io.BukkitObjectOutputStream;
+import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -76,17 +84,17 @@ public class AdminShop extends JavaPlugin{
 
         //INITIALIZATION DAO
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &aInitialisation : &bBase de donnée"));
-        Dao.getInstance(
+        if(Dao.getInstance(
                 this.config.getCustomConfig().getString("Database.address"),
                 this.config.getCustomConfig().getInt("Database.port"),
                 this.config.getCustomConfig().getString("Database.name"),
                 this.config.getCustomConfig().getString("Database.username"),
                 this.config.getCustomConfig().getString("Database.password"),
-                this.config.getCustomConfig().getBoolean("Database.useSSL"));
-
-        if(Dao.getInstance().getBdd_connection() == null){
+                this.config.getCustomConfig().getBoolean("Database.useSSL")
+        ).getBdd_connection() == null){
             this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &aInitialisation : &bBase de données &f: &4ERREUR !"));
             getServer().getPluginManager().disablePlugin(this);
+            return;
         }
 
         //INTIALISATION GUI
@@ -154,17 +162,21 @@ public class AdminShop extends JavaPlugin{
                 Gui temp = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, cat.getName(), cat.getDisplayName(),  self.shop, cat.getDescriptions(), item, cat.getDamage(), cat.getDisplayName());
 
                 for(int i = 0; i < cat.getItems().size(); i++){
-
                     Material ecoitemtype = Material.getMaterial(cat.getItems().get(i).getId_item());
-                    ItemStack item_serial = AdminShop.itemDeserialization(cat.getItems().get(i).getItem_serial());
-                    if(ecoitemtype != null){
-                        temp.addItem(new EcoItem(temp, ecoitemtype, 1, cat.getItems().get(i).getDurability(),
-                                item_serial.getItemMeta(), cat.getItems().get(i).getBuy_price(),  cat.getItems().get(i).getSell_price(),
-                                ItemStatut.getStatut(cat.getItems().get(i).getStatut())));
+                    try{
+                        ItemStack item_serial = AdminShop.itemDeserialization(cat.getItems().get(i).getItem_serial());
+                        if(ecoitemtype != null){
+                            temp.addItem(new EcoItem(temp, ecoitemtype, 1, cat.getItems().get(i).getDurability(),
+                                    item_serial.getItemMeta(), cat.getItems().get(i).getBuy_price(),  cat.getItems().get(i).getSell_price(),
+                                    ItemStatut.getStatut(cat.getItems().get(i).getStatut())));
 
-                        temp.addItem(null);
-                    }else{
-                        System.err.println("[AdminShop] Erreur ajout item (id incorrect) : " + cat.getItems().get(i).getId_item());
+                            temp.addItem(null);
+                        }else{
+                            System.err.println("[AdminShop] Erreur ajout item (id incorrect) : " + cat.getItems().get(i).getId_item());
+                        }
+
+                    }catch (Exception e){
+                        System.out.println("" + e);
                     }
                 }
 
@@ -237,12 +249,20 @@ public class AdminShop extends JavaPlugin{
         playerInEditionMode.remove(player.getUniqueId());
     }
 
-    public static String itemSerialization(ItemStack itemStack) {
+    /**
+     *
+     * @param itemStack
+     * @return Serialize item
+     *
+     */
+    @Deprecated
+    public static String _itemSerialization(ItemStack itemStack) {
         YamlConfiguration config = new YamlConfiguration();
         config.set("i", itemStack);
         return config.saveToString();
     }
-    public static ItemStack itemDeserialization(String stringBlob) {
+    @Deprecated
+    public static ItemStack _itemDeserialization(String stringBlob) {
         YamlConfiguration config = new YamlConfiguration();
         try {
             config.loadFromString(stringBlob);
@@ -251,5 +271,34 @@ public class AdminShop extends JavaPlugin{
             return null;
         }
         return config.getItemStack("i", null);
+    }
+
+    public static String itemSerialization(ItemStack itemStack)  throws IllegalStateException{
+
+        try{
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
+
+            dataOutput.writeObject(itemStack);
+            dataOutput.close();
+            return Base64Coder.encodeLines(outputStream.toByteArray());
+
+        }catch (Exception e){
+            throw new IllegalStateException("itemSerialization() - Unable to serialize itemstack : ", e);
+        }
+    }
+
+    public static ItemStack itemDeserialization(String base64Item) throws IOException {
+        try{
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(base64Item));
+            BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
+
+            ItemStack retriveItemStack =  (ItemStack)dataInput.readObject();
+            dataInput.close();
+            return retriveItemStack;
+
+        }catch (Exception e){
+            throw new IOException("ItemDeserialization() - Unable to retrive itemstack : ", e);
+        }
     }
 }

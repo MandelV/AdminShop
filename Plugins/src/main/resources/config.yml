@@ -8,13 +8,13 @@ Database:
   address: localhost
   port: 3306
   useSSL: false
-  username: admin
-  password: admin
-  name: minecraft
+  username: root
+  password: root
+  name: adminshop
 
 Economy:
-  nameMonnaie: " Talys"
-  symbole: "T"
+  nameMonnaie: " Coin"
+  symbole: "C"
 
 forbidden_world:
   - creatif

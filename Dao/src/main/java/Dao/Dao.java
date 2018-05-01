@@ -1,7 +1,6 @@
 package Dao;
 
 import java.sql.*;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.concurrent.Callable;
@@ -30,23 +29,20 @@ public class Dao {
 
     private Dao(final String bdd_address, final int bdd_port, final String bdd_name, final String bdd_username, final String bdd_password, final boolean useSSL){
 
-        this.bdd_address = bdd_address;
-        this.bdd_port = bdd_port;
-        this.bdd_name = bdd_name;
-        this.bdd_username = bdd_username;
-        this.bdd_password = bdd_password;
-        this.ssl = (useSSL) ? "true" : "false";
-
-
+            this.bdd_address = bdd_address;
+            this.bdd_port = bdd_port;
+            this.bdd_name = bdd_name;
+            this.bdd_username = bdd_username;
+            this.bdd_password = bdd_password;
+            this.ssl = (useSSL) ? "true" : "false";
 
         //Create url database connection
         this.connection();
-
-
-
     }
 
     public void connection() {
+
+
 
 
         this.bdd_url_connection = "jdbc:mysql://"
@@ -54,7 +50,9 @@ public class Dao {
                 + String.valueOf(this.bdd_port)
                 + "/" + this.bdd_name + "?"
                 + "autoReconnect=true&useSSL=" + ssl;
+
         try {
+
             this.bdd_connection = DriverManager.getConnection(this.bdd_url_connection, this.bdd_username, this.bdd_password);
 
         } catch (SQLException e) {

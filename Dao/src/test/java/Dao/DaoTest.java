@@ -1,10 +1,7 @@
 package Dao;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.File;
-import java.sql.Connection;
 import static org.junit.Assert.fail;
 
 public class DaoTest {
@@ -12,24 +9,20 @@ public class DaoTest {
     private static Dao dao = null;
 
 
-    @BeforeClass
-    public static void initDaoTest(){
+    @Test
+    public void initDaoTest(){
 
         System.out.println("[TEST-unit] init Dao");
-        dao = Dao.getInstance("localhost", 1306, "adminshop", "root", "root", false);
+
+        dao = Dao.getInstance("localhost", 3306, "minecraft", "root", "root", false);
+        System.out.println(dao.getBdd_url_connection() + " " + dao.getBdd_username() + " " + dao.getBdd_password());
         if(dao == null){
             fail("[TEST-unit][FAIL] : instanciate DAO");
-        }
-    }
+        }else{
 
-    @Test
-    public void daoTestConnection(){
-
-        System.out.println("[TEST-unit] test connection");
-        Connection connection = dao.getBdd_connection();
-        if(connection == null){
-            fail("[TEST-unit][FAIL] : connection null");
+            dao.closeConnection();
         }
+
 
     }
 }
