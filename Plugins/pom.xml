@@ -16,6 +16,14 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+        <repository>
+            <id>ChatFormatting-mvn-repo</id>
+            <url>https://raw.github.com/MandelV/ChatFormatting/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -30,7 +38,7 @@
             <groupId>com.github.MandelV</groupId>
             <artifactId>ChatFormatting</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.MandelV</groupId>
@@ -39,13 +47,13 @@
             <scope>compile</scope>
         </dependency>
 
-            <dependency>
-                <groupId>net.milkbowl.vault</groupId>
-                <artifactId>Vault</artifactId>
-                <version>1.6.1</version>
-                <scope>system</scope>
-                <systemPath>${project.basedir}/../dependancy/Vault.jar</systemPath>
-            </dependency>
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>Vault</artifactId>
+            <version>1.6.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../dependancy/Vault.jar</systemPath>
+        </dependency>
     </dependencies>
 
 
