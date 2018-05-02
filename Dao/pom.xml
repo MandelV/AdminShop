@@ -9,6 +9,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <repositories>
+        <repository>
+            <id>ChatFormatting-mvn-repo</id>
+            <url>https://raw.github.com/MandelV/ChatFormatting/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
     <artifactId>Dao</artifactId>
     <dependencies>
         <dependency>
