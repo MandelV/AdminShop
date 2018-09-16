@@ -15,7 +15,7 @@ public class DaoTest {
         System.out.println("[TEST-unit] init Dao");
 
         dao = Dao.getInstance("localhost", 3306, "minecraft", "root", "root", false);
-        System.out.println(dao.getBdd_url_connection() + " " + dao.getBdd_username() + " " + dao.getBdd_password());
+        System.out.println(dao.getBddUrlConnection() + " " + dao.getBddUsername() + " " + dao.getBddPassword());
         if(dao == null){
             fail("[TEST-unit][FAIL] : instanciate DAO");
         }else{

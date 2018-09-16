@@ -9,12 +9,12 @@ import java.io.File;
 public class ConfigLoader {
 
     private FileConfiguration fc;
-    private FileConfiguration fileConfiguration;
+    //private FileConfiguration fileConfiguration;
     private File f;
     private AdminShop adminShop;
     private String filename;
 
-    public ConfigLoader(AdminShop adminShop, String filename){
+    ConfigLoader(AdminShop adminShop, String filename){
         this.adminShop = adminShop;
         this.filename = filename;
         this.f = new File(this.adminShop.getDataFolder(), this.filename + ".yml");
@@ -34,9 +34,9 @@ public class ConfigLoader {
         return this.fc;
     }
 
-    public File getF(){
+   /* public File getF(){
         return f;
-    }
+    }*/
 
 
 }

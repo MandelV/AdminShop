@@ -22,7 +22,7 @@ public class GuiManager implements Listener {
     /**
      * @param gui add Gui that will be managed
      */
-    public static void addGui(Gui gui) {
+    static void addGui(Gui gui) {
         GuiManager.guiList.add(gui);
     }
 

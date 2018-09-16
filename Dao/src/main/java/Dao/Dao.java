@@ -12,28 +12,28 @@ import java.util.concurrent.Callable;
  */
 public class Dao {
 
-    private String bdd_address = "localhost"; //loopback address
-    private int bdd_port = 3306;//default Mysql Port
-    private String bdd_name = "minecraft";//database name
+    private String bddAddress = "localhost"; //loopback address
+    private int bddPort = 3306;//default Mysql Port
+    private String bddName = "minecraft";//database name
 
     //default logging
-    private String bdd_username = "root";
-    private String bdd_password = "root";
+    private String bddUsername = "root";
+    private String bddPassword = "root";
     private String ssl = "";
 
-    private String bdd_url_connection;
+    private String bddUrlConnection;
 
-    private static Dao dao_instance = null;
+    private static Dao daoInstance = null;
 
-    private Connection bdd_connection = null;
+    private Connection bddConnection = null;
 
-    private Dao(final String bdd_address, final int bdd_port, final String bdd_name, final String bdd_username, final String bdd_password, final boolean useSSL){
+    private Dao(final String bddAddress, final int bddPort, final String bddName, final String bddUsername, final String bddPassword, final boolean useSSL){
 
-            this.bdd_address = bdd_address;
-            this.bdd_port = bdd_port;
-            this.bdd_name = bdd_name;
-            this.bdd_username = bdd_username;
-            this.bdd_password = bdd_password;
+            this.bddAddress = bddAddress;
+            this.bddPort = bddPort;
+            this.bddName = bddName;
+            this.bddUsername = bddUsername;
+            this.bddPassword = bddPassword;
             this.ssl = (useSSL) ? "true" : "false";
 
         //Create url database connection
@@ -45,27 +45,27 @@ public class Dao {
 
 
 
-        this.bdd_url_connection = "jdbc:mysql://"
-                + this.bdd_address + ":"
-                + String.valueOf(this.bdd_port)
-                + "/" + this.bdd_name + "?"
+        this.bddUrlConnection = "jdbc:mysql://"
+                + this.bddAddress + ":"
+                + String.valueOf(this.bddPort)
+                + "/" + this.bddName + "?"
                 + "autoReconnect=true&useSSL=" + ssl;
 
         try {
 
-            this.bdd_connection = DriverManager.getConnection(this.bdd_url_connection, this.bdd_username, this.bdd_password);
+            this.bddConnection = DriverManager.getConnection(this.bddUrlConnection, this.bddUsername, this.bddPassword);
 
         } catch (SQLException e) {
             System.err.println("PLEASE VERIFY THE PARAMETERS CONNECTION !");
             e.printStackTrace();
-            this.bdd_connection = null;
+            this.bddConnection = null;
         }
     }
 
     public void closeConnection(){
-        if(this.bdd_connection != null){
+        if(this.bddConnection != null){
             try {
-                this.bdd_connection.close();
+                this.bddConnection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -83,64 +83,64 @@ public class Dao {
      * @return Instance of Dao
      */
     public static Dao getInstance(final String bdd_address, final int bdd_port, final String bdd_name, final String bdd_username, final String bdd_password, final boolean useSSL){
-        if(dao_instance == null){
+        if(daoInstance == null){
             synchronized(Dao.class){
-                if(dao_instance == null)
-                    dao_instance = new Dao(bdd_address, bdd_port, bdd_name, bdd_username, bdd_password, useSSL);
+                if(daoInstance == null)
+                    daoInstance = new Dao(bdd_address, bdd_port, bdd_name, bdd_username, bdd_password, useSSL);
             }
         }
-        return dao_instance;
+        return daoInstance;
     }
     public static Dao getInstance(){
-        if(dao_instance == null){
+        if(daoInstance == null){
             synchronized(Dao.class){
-                if(dao_instance == null)
+                if(daoInstance == null)
                     return null;
             }
         }
-        return dao_instance;
+        return daoInstance;
     }
 
     /**
      * @param bdd_address set a database address
      */
-    public void setBdd_address(String bdd_address) {
-        this.bdd_address = bdd_address;
+    public void setBddAddress(String bdd_address) {
+        this.bddAddress = bdd_address;
     }
 
     /**
      * @param bdd_connection set a Connection
      * @see Connection
      */
-    public void setBdd_connection(Connection bdd_connection) {
-        this.bdd_connection = bdd_connection;
+    public void setBddConnection(Connection bdd_connection) {
+        this.bddConnection = bdd_connection;
     }
 
     /**
      * @param bdd_name set database name
      */
-    public void setBdd_name(String bdd_name) {
-        this.bdd_name = bdd_name;
+    public void setBddName(String bdd_name) {
+        this.bddName = bdd_name;
     }
     /**
      * @param bdd_password set database password
      */
-    public void setBdd_password(String bdd_password) {
-        this.bdd_password = bdd_password;
+    public void setBddPassword(String bdd_password) {
+        this.bddPassword = bdd_password;
     }
 
     /**
-     * @param bdd_username set database username
+     * @param bddUsername set database username
      */
-    public void setBdd_username(String bdd_username) {
-        this.bdd_username = bdd_username;
+    public void setBddUsername(String bddUsername) {
+        this.bddUsername = bddUsername;
     }
 
     /**
-     * @param bdd_port set database port
+     * @param bddPort set database port
      */
-    public void setBdd_port(int bdd_port) {
-        this.bdd_port = bdd_port;
+    public void setBddPort(int bddPort) {
+        this.bddPort = bddPort;
     }
 
     //GETTERS
@@ -148,45 +148,45 @@ public class Dao {
     /**
      * @return username
      */
-    public String getBdd_username() {
-        return bdd_username;
+    public String getBddUsername() {
+        return bddUsername;
     }
     /**
      * @return password
      */
-    public String getBdd_password() {
-        return bdd_password;
+    public String getBddPassword() {
+        return bddPassword;
     }
     /**
      * @return connection
      * @see Connection
      */
-    public Connection getBdd_connection() {
-        return bdd_connection;
+    public Connection getBddConnection() {
+        return bddConnection;
     }
     /**
      * @return port
      */
-    public int getBdd_port() {
-        return bdd_port;
+    public int getBddPort() {
+        return bddPort;
     }
     /**
      * @return database address
      */
-    public String getBdd_address() {
-        return bdd_address;
+    public String getBddAddress() {
+        return bddAddress;
     }
     /**
      * @return database name
      */
-    public String getBdd_name() {
-        return bdd_name;
+    public String getBddName() {
+        return bddName;
     }
     /**
      * @return url connection
      */
-    public String getBdd_url_connection() {
-        return bdd_url_connection;
+    public String getBddUrlConnection() {
+        return bddUrlConnection;
     }
     /**
      * @return ResultSet which represent your request
@@ -194,7 +194,7 @@ public class Dao {
      */
     private synchronized ResultSet requestQuery(final String sql){
         try {
-            PreparedStatement preparedStatement = (PreparedStatement) dao_instance.getBdd_connection().prepareStatement(sql);
+            PreparedStatement preparedStatement = (PreparedStatement) daoInstance.getBddConnection().prepareStatement(sql);
             return preparedStatement.executeQuery();
 
         } catch (SQLException e) {
@@ -228,7 +228,7 @@ public class Dao {
         Runnable asyncUpdate = () -> {
             PreparedStatement myPreparedStatement;
             try {
-                myPreparedStatement = dao_instance.getBdd_connection().prepareStatement(request);
+                myPreparedStatement = daoInstance.getBddConnection().prepareStatement(request);
                 myPreparedStatement.executeUpdate();
 
 
@@ -255,7 +255,7 @@ public class Dao {
         int i = 1;
         try{
 
-            PreparedStatement preparedStatement = dao_instance.getBdd_connection().prepareStatement(sql);
+            PreparedStatement preparedStatement = daoInstance.getBddConnection().prepareStatement(sql);
             for(Parameters parameter : parameters){
 
                 if(parameter.getParameter() instanceof String){

@@ -1,6 +1,6 @@
 package com.github.MandelV.AdminShop.Economy;
 
-import Dao.Dao_item;
+import Dao.DaoItem;
 import Dao.Request;
 import com.github.MandelV.AdminShop.AdminShop;
 import com.github.MandelV.AdminShop.GUI.Gui;
@@ -8,13 +8,9 @@ import com.github.MandelV.AdminShop.GUI.GuiAction;
 import com.github.MandelV.AdminShop.GUI.GuiItem;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SpawnEggMeta;
-import org.bukkit.material.MonsterEggs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,7 +197,7 @@ public class EcoItem extends GuiItem {
                     parent.removeItem(self);
 
                     
-                    Dao_item requestItem = new Dao_item(self.getType().toString(), self.getDamage(), AdminShop.itemSerialization(self.getItemStack()), self.buy_price, self.sell_price, self.getStatut().getName());
+                    DaoItem requestItem = new DaoItem(self.getType().toString(), self.getDamage(), AdminShop.itemSerialization(self.getItemStack()), self.buy_price, self.sell_price, self.getStatut().getName());
                     Request.removeItemFromCategorie(parent.getName(), requestItem);
                     //success_remove_item
                     String successRemoveItem = AdminShop.getInstance().getMessage().getCustomConfig().getString("prefix");

@@ -28,7 +28,7 @@ public class GuiItemInstance extends ItemStack{
     /**
      * Refresh the item's metaData
      */
-    public void refreshMeta() {
+    private void refreshMeta() {
         ItemMeta meta = super.getItemMeta();
         meta.setDisplayName(this.guiItem.getDisplayName());
         meta.setLore(this.guiItem.getPlayerDescription(this.playerUUID));

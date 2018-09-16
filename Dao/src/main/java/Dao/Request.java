@@ -19,11 +19,11 @@ public abstract class Request {
 
     /**
      * @return a list of categorie found in database
-     * @see Dao_Categorie
+     * @see DaoCategorie
      */
-    public static final List<Dao_Categorie> getCategories() {
+    public static final List<DaoCategorie> getCategories() {
 
-        List<Dao_Categorie> categories = new ArrayList<>();
+        List<DaoCategorie> categories = new ArrayList<>();
 
         result = Dao.getInstance().query("SELECT * FROM as_categorie");
 
@@ -31,7 +31,7 @@ public abstract class Request {
         try {
             while (result.next()) {
 
-                categories.add(new Dao_Categorie(result.getString(1), result.getString(2), result.getString(3), result.getShort(4)));
+                categories.add(new DaoCategorie(result.getString(1), result.getString(2), result.getString(3), result.getShort(4)));
 
             }
             result.close();
@@ -45,9 +45,9 @@ public abstract class Request {
 
     /**
      * @param categorie add categorie in database
-     * @see Dao_Categorie
+     * @see DaoCategorie
      */
-    public static void addCategorie(Dao_Categorie categorie) {
+    public static void addCategorie(DaoCategorie categorie) {
         if (categorie != null) {
 
 
@@ -55,7 +55,7 @@ public abstract class Request {
 
             Parameters<String> catname = new Parameters<>(categorie.getName());
             Parameters<String> catdisplayName = new Parameters<>(categorie.getDisplayName());
-            Parameters<String> id_item = new Parameters<>(categorie.getId_item());
+            Parameters<String> id_item = new Parameters<>(categorie.getIdItem());
             Parameters<Short> durability = new Parameters<Short>(categorie.getDamage());
 
 
@@ -87,9 +87,9 @@ public abstract class Request {
     /**
      * @param categorie name of categorie where you want add the new item
      * @param item      item which you want add
-     * @see Dao_item
+     * @see DaoItem
      */
-    public static void addItemIntoCategorie(String categorie, Dao_item item) {
+    public static void addItemIntoCategorie(String categorie, DaoItem item) {
 
         ArrayList<Parameters> parameters = new ArrayList<>();
         Parameters<String> nameCategorie = new Parameters<>(categorie);
@@ -115,7 +115,7 @@ public abstract class Request {
      * @param categorie name of categorie which contain the item
      * @param item      item which you want remove
      */
-    public static void removeItemFromCategorie(String categorie, Dao_item item) {
+    public static void removeItemFromCategorie(String categorie, DaoItem item) {
 
         ArrayList<Parameters> parameters = new ArrayList<>();
 

@@ -92,7 +92,7 @@ public  class Gui {
      * @param item Item à ajouté
      * @see GuiItem
      */
-    public void addItem(GuiItem item, boolean refresh) {
+    private void addItem(GuiItem item, boolean refresh) {
 
         GuiItemPage page;
 
@@ -157,7 +157,7 @@ public  class Gui {
      * @return all items in Gui
      * @see GuiItem
      */
-    public List<GuiItem> getAllItems() {
+    private List<GuiItem> getAllItems() {
         List<GuiItem> items = new ArrayList<>();
 
         int iMax = this.nbrLine.getSize();

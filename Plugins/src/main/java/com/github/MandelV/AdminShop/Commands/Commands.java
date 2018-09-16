@@ -10,16 +10,16 @@ import org.bukkit.command.CommandSender;
  * @version 1.0
  * @see PlayerCmds
  */
-public abstract class Commands implements CommandExecutor {
+abstract class Commands implements CommandExecutor {
 
-    public AdminShop adminShop;
-    public String prefix;
+    AdminShop adminShop;
+    String prefix;
 
 
-    protected Commands(AdminShop adminShop){
+     Commands(AdminShop adminShop){
         this.adminShop = adminShop;
         this.prefix = ChatFormatting.formatText(this.adminShop.getMessage().getCustomConfig().getString("prefix"));
     }
 
-    protected abstract boolean command_help(CommandSender sender);
+    protected abstract void commandHelp(CommandSender sender);
 }

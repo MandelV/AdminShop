@@ -1,7 +1,7 @@
 package com.github.MandelV.AdminShop;
 
 import Dao.Dao;
-import Dao.Dao_Categorie;
+import Dao.DaoCategorie;
 import Dao.Request;
 import com.github.MandelV.AdminShop.Commands.CmdsAutoComplet;
 import com.github.MandelV.AdminShop.Commands.PlayerCmds;
@@ -15,13 +15,10 @@ import com.github.MandelV.AdminShop.GUI.GuiManager;
 import com.github.MandelV.AdminShop.config.ConfigFile;
 import com.github.MandelV.AdminShop.config.Message;
 import com.github.MandelV.ChatFormatting.tools.ChatFormatting;
-import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.io.BukkitObjectInputStream;
@@ -32,7 +29,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,7 +46,7 @@ public class AdminShop extends JavaPlugin{
     public Gui shop;
     private static AdminShop adminShop;
     private static List<UUID> playerInEditionMode;
-    public static Economy econ = null;
+    private static Economy econ = null;
 
     /**
      * When plugin is enable
@@ -63,7 +59,6 @@ public class AdminShop extends JavaPlugin{
         this.shop = new Gui(GuiInvRow.ROW3, "adminshop",  "&4AdminShop &f- &eCategories");
         this.categories = new ArrayList<>();
         playerInEditionMode =  new ArrayList<>();
-        AdminShop self = this;
 
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &5By Akitoshi and Hougo13"));
         this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &5Version : 1.0-SNAPSHOT"));
@@ -91,7 +86,7 @@ public class AdminShop extends JavaPlugin{
                 this.config.getCustomConfig().getString("Database.username"),
                 this.config.getCustomConfig().getString("Database.password"),
                 this.config.getCustomConfig().getBoolean("Database.useSSL")
-        ).getBdd_connection() == null){
+        ).getBddConnection() == null){
             this.getServer().getConsoleSender().sendMessage(ChatFormatting.formatText("&f[ &6AdminShop &f] &aInitialisation : &bBase de données &f: &4ERREUR !"));
             getServer().getPluginManager().disablePlugin(this);
             return;
@@ -122,6 +117,7 @@ public class AdminShop extends JavaPlugin{
     @Override
     public void onDisable() {
 
+        assert Dao.getInstance() != null;
         Dao.getInstance().closeConnection();
     }
 
@@ -155,9 +151,9 @@ public class AdminShop extends JavaPlugin{
         items.add(null);
         items.add(null);
         this.shop.setCustomNavbar(items);
-        List<Dao_Categorie> DAOcategories = Request.getCategories();
+        List<DaoCategorie> DAOcategories = Request.getCategories();
         DAOcategories.forEach(cat -> {
-            Material item = Material.getMaterial(cat.getId_item());
+            Material item = Material.getMaterial(cat.getIdItem());
             if(item != null){
                 Gui temp = EcoGuiFactory.createSubGui(GuiInvRow.ROW6, cat.getName(), cat.getDisplayName(),  self.shop, cat.getDescriptions(), item, cat.getDamage(), cat.getDisplayName());
 
@@ -251,7 +247,7 @@ public class AdminShop extends JavaPlugin{
 
     /**
      *
-     * @param itemStack
+     * @param itemStack item to serialize
      * @return Serialize item
      *
      */
@@ -269,7 +265,7 @@ public class AdminShop extends JavaPlugin{
             throw new IllegalStateException("itemSerialization() - Unable to serialize itemstack : ", e);
         }
     }
-    public static ItemStack itemDeserialization(String base64Item) throws IOException {
+    private static ItemStack itemDeserialization(String base64Item) throws IOException {
         try{
             ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(base64Item));
             BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
